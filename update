@@ -4,7 +4,7 @@ find . -name "*~" -type f -delete
 
 git fetch --all
 
-fichiers=$(git diff --name-status master..origin)
+fichiers=$(git diff --name-status master origin/master)
 
 if [ -z "$fichiers" ]
 then
