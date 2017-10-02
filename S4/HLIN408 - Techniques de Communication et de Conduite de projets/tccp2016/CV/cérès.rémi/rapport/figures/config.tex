@@ -1,0 +1,50 @@
+\documentclass[tikz]{standalone}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{tikz-uml}
+\usepackage[french]{babel}
+
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+
+\newcommand*{\umlstereo}[1]{$\ll$#1$\gg$}
+\NoAutoSpacing
+
+\begin{document}
+\begin{tikzpicture}
+    \umlclass{Local}{}{
+        \umlstereo{create} + createLocal(path : Path)\\
+        + open()\\
+        + addMonitoredDirectory(id : UID, path : Path)\\
+        + addMonitoredDirectory(path : Path) : UID\\
+        + removeMonitoredDirectory(id : UID)\\
+        + getMonitoredDirectories() : UID[0..*]\\
+        + getMonitoredDirectoryPath(id : UID) : Path\\
+        + getPath() : Path\\
+        + setPath(path : Path)\\
+        \umlstatic{+ getDefaultPath() : Path}\\
+    }
+
+    \umlclass[left=1cm of Local]{Syncdir}{}{
+        \umlstereo{create} + createSyncdir(path : Path)\\
+        + open()\\
+        + addChunk(chunk : Chunk)\\
+        + removeChunk(id : UID)\\
+        + addEntry(entry : Entry)\\
+        + removeEntry(id : UID)\\
+        + addService(service : Service)\\
+        + removeService(id : UID)\\
+    }
+
+    \umlclass[below left=1cm and -2cm of Local]{UID}{}{
+        \umlstereo{create} + createUID()\\
+        + getValue() : string
+    }
+
+    \umldep{Local}{UID}
+    \umldep{Syncdir}{UID}
+\end{tikzpicture}
+\end{document}

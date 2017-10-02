@@ -1,0 +1,64 @@
+% Schéma des différents rôles occupés par les acteurs de Scrum,
+% sans les labels pour prendre moins de place
+
+\newcommand{\opacityat}[2]{
+    \ifthenelse{\equal{\scrumfocus}{#1}}%
+        {\begin{scope}[opacity=1, transparency group]#2\end{scope}}%
+        {\begin{scope}[opacity=.3, transparency group]#2\end{scope}}
+}
+
+\begin{tikzpicture}
+    % L'équipe : ScrumMaster et programmeurs
+    \foreach \prognum in {1,2,3,4,5}{
+        \opacityat{prog}{
+            \node[image, inner sep=0, outer sep=0]
+                (prog-\prognum) at (\prognum*360/5+18 : 1.4cm and 1.2cm)
+                {\includegraphics[width=.8cm]{icon-coding}};
+        }
+    }
+
+    \opacityat{sm}{
+        \node[image] (sm) {\includegraphics[width=.8cm]{icon-trainer}};
+    }
+
+    \node[
+        draw=fg, thick, ellipse,
+        inner sep=0cm,
+        fit=(prog-1) (prog-2) (prog-3) (prog-4) (prog-5) (sm)
+    ] (team) {};
+
+    % Interface du PO
+    \node[
+        rectangle, fill=white,
+        inner xsep=.6cm, inner ysep=.6cm
+    ] at (sm-|team.east) {};
+
+    \opacityat{po}{
+        \node[image] (po) at (sm-|team.east)
+            {\includegraphics[width=.8cm]{icon-user}};
+    }
+
+    % Parties prenantes
+    \opacityat{pp}{
+        \node[image, right=.2cm of po] (pp2)
+            {\includegraphics[width=.8cm]{icon-woman}};
+
+        \node[image, above=0cm of pp2] (pp1)
+            {\includegraphics[width=.8cm]{icon-man}};
+
+        \node[image, below=0cm of pp2] (pp3)
+            {\includegraphics[width=.8cm]{icon-man}};
+    }
+
+    % Experts
+    \opacityat{exp}{
+        \node [image, left=.2cm of sm-|team.west] (exp2)
+            {\includegraphics[width=.8cm]{icon-scientist}};
+
+        \node [image, above=0cm of exp2] (exp1)
+            {\includegraphics[width=.8cm]{icon-scientist}};
+
+        \node [image, below=0cm of exp2] (exp3)
+            {\includegraphics[width=.8cm]{icon-scientist}};
+    }
+\end{tikzpicture}

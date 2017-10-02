@@ -1,0 +1,137 @@
+#lang scheme
+
+;////////////////////////////////////////////////////////////////
+;////////////////////////// TP2 /////////////////////////////////
+;////////////////////////////////////////////////////////////////
+
+;TP2:
+
+(define LVal '(1 2 3 4 5 6 7 8 9 10 25 50 75 100))
+(define Op '(+ * - /))
+
+(define parcours
+  (lambda (liste n)
+    (if (= n 0)
+        (car liste) (parcours (cdr liste) (- n 1)))))
+
+;Ex1
+
+(define make-cible
+  (lambda ()
+    (+ (random 900) 100)))
+
+(define make-tirage
+ (lambda ()
+  (cons (parcours LVal (random 14))
+        (cons (parcours LVal (random 14))
+              (cons (parcours LVal (random 14))
+                    (cons (parcours LVal (random 14))
+                          (cons (parcours LVal (random 14))
+                                (cons (parcours LVal (random 14))
+                                      '()))))))))
+
+;Ex2
+
+(define estDans?
+  (lambda (liste n)
+    (cond ((null? liste) #f )
+          ((list? (car liste)) (or (estDans? (car liste) n) (estDans? (cdr liste) n)))
+          ((= (car liste) n) #t)
+          (else (estDans? (cdr liste) n)))))
+
+
+(define estDans-non-rec?
+  (lambda (n L)
+    (cond((null? L) #f)
+         ((= n (car L)) #t)
+         (else(estDans? n (cdr L))))))
+
+;Ex3
+
+(define estValide?
+  (lambda (op x y)
+    (cond ((and (= y 0) (= ((eval op) 10 3) (/ 10 3))) #f)
+          ((and (>= ((eval op) x y) 0) (integer? ((eval op) x y)))  #t)
+          (else #f))))
+
+;Ex4
+
+(define opere
+  (lambda (LOp x y)
+    (cond ((null? LOp) '())
+          ((estValide? (car LOp) x y) (cons ((eval(car LOp)) x y ) (opere (cdr LOp) x y)))
+          ((and (not (estValide? (car LOp) x y)) (not (estValide? (car LOp) y x)))
+           (opere (cdr LOp) x y))
+          (else (opere LOp y x)))))
+
+;Ex5
+
+(define ElemE (lambda(n p) ; renvoie le n'eme elem de la list p
+                (if (= n 1) (car p)
+                    (ElemE (- n 1) (cdr p)))))
+
+(define retireE (lambda (p n1 n2 c); retire le n1eme et n2eme element d'une liste, c est un compteur qui commence a 1
+                  (cond ((null? p) '())
+                        ((= c n1) (retireE (cdr p) n1 n2 (+ c 1)))
+                        ((= c n2) (retireE (cdr p) n1 n2 (+ c 1)))
+                        (else (cons (car p) (retireE (cdr p) n1 n2 (+ c 1)))))))
+
+(define xlist
+  (lambda (p1 p2)
+    (if (null? p1) '() (cons(cons (car p1) p2) (xlist (cdr p1) p2)))))
+
+(define genere_plaqueBis (lambda (op p n1 n2)
+                         (cond ((= n1 (length p)) '()) 
+                               ((> n2 (length p)) (genere_plaqueBis op p (+ n1 1) (+ n1 2)))
+                               (else (append (xlist (opere Op (ElemE n1 p) (ElemE n2 p)) (retireE p n1 n2 1)) (genere_plaqueBis op p n1 (+ n2 1)))))))        
+         
+(define genere_plaque (lambda (op p)
+                        (genere_plaqueBis op p 1 2)))
+
+;Ex6 & Ex8
+
+(define jeu (make-tirage))
+
+(define genere-all-plaque
+  (lambda (op plaque)
+    (cond ((null? plaque) '())
+          ((null? (genere_plaque op plaque)) '())
+          (else (map append (genere_plaque op plaque) plaque)))))
+
+          #|
+(define cebx
+  (lambda (op plaque n)
+         (cond (estDans? (genere_plaque op plaque) n) (display "le compte est bon")
+             (begin (display "le compte n'est pas bon, une approximation est: ") (approche plaque n)))))
+|#
+
+(define ceb1 (lambda (O L x n)
+               (cond ((ormap (lambda (u)(estDans-non-rec? x u)) L) (display "Le compte est bon"))
+                     ((and (not (null? L)) (not (null? (cdr (ElemE n L)))))
+                      (begin (display L) (ceb1 O (genere_plaque O (ElemE n L)) x n) (ceb1 O (ElemE (+ n 1) L) x (+ n 1))))
+                     (else (display "Le compte n'est pas bon")))))
+
+(define ceb (lambda (O L x)
+              (ceb1 O (genere_plaque O L) x 1)))
+
+(define Elist
+  (lambda (L n)
+    (cond ((null? L) #f)
+          ((member n L) #t)
+          ((map (member n L)) #t)
+          (else #f))))
+  
+;Ex7
+
+(define plus-proche
+  (lambda (L n p)
+    (cond ((null? L) p)
+          ((null? (cdr L)) p)
+          (( <= (min (abs(- n p))) (min (abs(- n (car L))))) (plus-proche (cdr L) n p))
+          (else (plus-proche (cdr L) n (car L))))))
+
+(define approche
+  (lambda (L n)
+    (if (estDans? L n) n (plus-proche L n (car L)))))
+
+;Ex9

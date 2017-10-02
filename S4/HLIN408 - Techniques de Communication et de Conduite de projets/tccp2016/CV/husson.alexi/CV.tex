@@ -1,0 +1,94 @@
+\documentclass[a4paper]{moderncv}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+
+\moderncvstyle{classic}
+\moderncvcolor{orange}
+
+\topmargin=-2.5cm
+\textheight=26cm
+\evensidemargin=-1cm
+\oddsidemargin=-1cm
+\textwidth=18cm
+
+\title{Candidature Master informatique AIGLE}
+\author{Alexi Husson}
+\date{\today}
+
+%def format adresse perso
+
+\makeatletter
+\RenewDocumentCommand{\address}{mG{}G{}G{}}{
+  \def\@addressapartment{#1}\def\@addressstreetonly{#2}\def\@addresscity{#3}\def\@addresscountry{#4}
+  \def\@addressstreet{
+    \ifthenelse{\isundefined{\@addressapartment}}{}{\@addressapartment}
+    \ifthenelse{\isundefined{\@addressstreetonly}}{}{\makenewline\@addressstreetonly}
+    }
+  }
+\makeatother
+
+%fin def
+
+% infos personelles
+\name{Alexi}{Husson}
+\title{Candidature Master informatique AIGLE}
+\address{Résidence Les Comores}{125 Rue Circé}{34090 Montpellier}{France}
+\phone[mobile]{+33~~631544215}
+\email{alexi.husson@etu-umontpellier.fr}
+\photo[64pt][0.4pt]{photo.jpg}
+
+%fin infos
+
+\begin{document}
+
+  \thispagestyle{empty}
+
+  \makecvtitle
+
+
+  \section{Formation}
+
+    \cventry{2011--2014}{Lycée Auguste Loubatières}{Agde}{}{}{}
+    \cventry{2014--2017}{Faculté des Sciences}{Montpellier}{}{}{(Actuellement) Licence informatique}
+
+  \section{Diplômes}
+
+    \cventry{2017}{C2i}{}{}{}{Niveau 1}
+    \cventry{2014}{Baccalauréat Général}{Série Scientifique}{}{}{Options Sciences de l'Ingénieur, LV3 Japonais}
+    \cventry{2013}{Brevet d'Initiation Aéronautique}{}{}{}{Option Anglais aéronautique}
+
+  \section{Stages}
+
+    \cventry{Novembre 2010}{Stage d'observation en milieu professionnel}{SOSPC34}{Agde}{}{Monteur Réparateur d'ordinateurs}
+
+  \section{Expériences professionnelles}
+
+    \cventry{Août 2014}{Agent d'entretien}{Régie des Plages}{Agde}{}{}
+    \cventry{Juillet - Août 2015}{Placier}{SODEAL - Camping de la Clape}{Cap d'Agde}{}{}
+    \cventry{Juillet - Août 2016}{Placier}{SODEAL - Camping de la Clape}{Cap d'Agde}{}{}
+
+  \section{Compétences}
+
+    \subsection{Compétences linguistiques}
+
+      \cvitem{Français}{(Langue natale)}
+      \cvitem{Anglais}{(LV1) Niveau Européen B1}
+      \cvitem{Espagnol}{(LV2) Niveau Européen B1}
+      \cvitem{Japonais}{(LV3) Niveau Européen A2, JLPT N5}
+
+    \subsection{Compétences informatiques}
+
+      \begin{itemize}[label=\textbullet]
+        \item{Programmation impérative : C, C++, Java, Python}
+        \item{Programmation applicative : Scheme}
+        \item{Programmation web : HTML, CSS, Javascript}
+        \item{Graphisme : Photoshop, Illuistrator}
+        \item{Bureautique : Microsoft Office, Libreoffice, Latex}
+      \end{itemize}
+
+  \section{Hobbies}
+    Musique (piano, violon, basse électrique), aviation, jeux vidéos, nouvelles technologies
+
+\end{document}

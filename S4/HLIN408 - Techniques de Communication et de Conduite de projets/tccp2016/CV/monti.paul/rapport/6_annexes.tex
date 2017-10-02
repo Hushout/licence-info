@@ -1,0 +1,85 @@
+\part*{Annexes}
+\label{annexes}
+\markright{}
+\addcontentsline{toc}{part}{Annexes}
+
+\section{Sémantiques et représentants des classes d'équivalences}
+\label{sec:annexes/classes}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{C{2.2cm} C{0.4cm} C{0.4cm} C{0.4cm} C{0.4cm} C{0.4cm} C{0.4cm} C{0.4cm} C{0.4cm} @{}m{0pt}@{}}
+\toprule
+Séquence & \gt{PF} & \gt{PR} & \gt{TF} & \gt{TR} & \gt{GF} & \gt{GR} & \gt{G}&\\
+\midrule
+\rowcolor{GT1}  & 0 & 0 & 0 & 0 & 0 & 0 & 0&\\[0.3cm]
+\rowcolor{GT2} \PF & \true & 0 & 0 & 0 & 0 & 0 & 0&\\[0.3cm]
+\rowcolor{GT1} \PR & 0 & \true & 0 & 0 & 0 & 0 & 0&\\[0.3cm]
+\rowcolor{GT2} \TF & 0 & 0 & \true & 0 & 0 & 0 & 0&\\[0.3cm]
+\rowcolor{GT1} \TR & 0 & 0 & 0 & \true & 0 & 0 & 0&\\[0.3cm]
+\rowcolor{GT2} \GF & 0 & 0 & 0 & 0 & \true & 0 & 0&\\[0.3cm]
+\rowcolor{GT1} \GR & 0 & 0 & 0 & 0 & 0 & \true & 0&\\[0.3cm]
+
+\rowcolor{GT2} \PF \GF & \true & 0 & 0 & 0 & \true & 0 & \true&\\[0.3cm]
+\rowcolor{GT1} \PR \PF & \true & \true & 0 & 0 & 0 & 0 & 0&\\[0.3cm]
+\rowcolor{GT2} \PF \TR & \true & 0 & 0 & \true & 0 & 0 & 0&\\[0.3cm]
+\rowcolor{GT1} \TF \PR & 0 & \true & \true & 0 & 0 & 0 & 0&\\[0.3cm]
+\rowcolor{GT2} \TF \TR & 0 & 0 & \true & \true & 0 & 0 & 0&\\[0.3cm]
+\rowcolor{GT1} \PF \GR & \true & 0 & 0 & 0 & 0 & \true & 0&\\[0.3cm]
+\rowcolor{GT2} \GF \PR & 0 & \true & 0 & 0 & \true & 0 & 0&\\[0.3cm]
+\rowcolor{GT1} \PR \GR & 0 & \true & 0 & 0 & 0 & \true & 0&\\[0.3cm]
+\rowcolor{GT2} \TF \GR & 0 & 0 & \true & 0 & 0 & \true & 0&\\[0.3cm]
+\rowcolor{GT1} \GF \TR & 0 & 0 & 0 & \true & \true & 0 & 0&\\[0.3cm]
+\rowcolor{GT2} \GF \PF & \true & 0 & 0 & 0 & \true & 0 & 0&\\[0.3cm]
+\rowcolor{GT1} \GR \GF & 0 & 0 & 0 & 0 & \true & \true & 0&\\[0.3cm]
+
+\rowcolor{GT2} \PR \PF \GR & \true & \true & 0 & 0 & 0 & \true & 0&\\[0.3cm]
+\rowcolor{GT1} \TF \PR \GR & 0 & \true & \true & 0 & 0 & \true & 0&\\[0.3cm]
+\rowcolor{GT2} \GF \PR \PF & \true & \true & 0 & 0 & \true & 0 & 0&\\[0.3cm]
+\rowcolor{GT1} \GF \PR \GR & 0 & \true & 0 & 0 & \true & \true & 0&\\[0.3cm]
+\rowcolor{GT2} \GF \PF \TR & \true & 0 & 0 & \true & \true & 0 & 0&\\[0.3cm]
+\rowcolor{GT1} \GF \PF \GR & \true & 0 & 0 & 0 & \true & \true & 0&\\[0.3cm]
+
+\rowcolor{GT2} \GF \PR \PF \GR & \true & \true & 0 & 0 & \true & \true & 0&\\[0.3cm]
+\bottomrule
+
+\end{tabular}
+\caption{\label{tab:annexes/classes}Sémantiques et représentants les plus simples des 26 classes d'équivalences représentées}
+\end{table}
+
+\newpage
+
+\section{Liste des options du programme Genetix}
+\label{sec:annexes/options}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{r L{6cm} L{8cm}}
+\toprule
+\mc{1}{c}{Option} & \mc{1}{c}{Arguments\protect\footnotemark} & \mc{1}{c}{Définition}\\
+\midrule
+\rowcolor{GT1} \texttt{-w} & \texttt{<mot1> ... [motN]} & Pour chaque mot, affiche son symétrique, sa table de vérité, et la fonction logique qu'il implémente. \\
+\rowcolor{GT2} \texttt{-l} & \texttt{<logique1> ... [logiqueN]} & Pour chaque fonction logique, affiche sa forme simplifiée, sa table de vérité, et la liste des dix meilleurs mots l'implémentant. \\
+\rowcolor{GT1} \texttt{-c} & \texttt{<mot> <logique>} & Affiche les informations respectives du mot et de la fonction logique, et si le mot implémente ou non la fonction logique. \\
+\midrule
+\rowcolor{GT2} \texttt{-W} & \texttt{<fichier d'entrée> [fichier de sortie]} & Applique \texttt{-w} à tous les mots du fichier d'entrée. \newline Si spécifié, le flux de sortie sera le fichier de sortie. \\
+\rowcolor{GT1} \texttt{-L} & \texttt{<fichier d'entrée> [fichier de sortie]} & Applique \texttt{-l} à toutes les fonctions logiques du fichier d'entrée. \newline Si spécifié, le flux de sortie sera le fichier de sortie. \\
+\rowcolor{GT2} \texttt{-C} & \texttt{<fichier de mots d'entrée> <fichier de logiques d'entrée> [fichier de sortie]} & Affiche les mots du fichier indexés par les fonctions logiques du fichier. \newline Si spécifié, le flux de sortie sera le fichier de sortie. \\
+\midrule
+\rowcolor{GT1} \texttt{-g} & \texttt{<nombre d'inputs>} & Génère les mots utilisés par \texttt{-l}. \\
+\rowcolor{GT2} \texttt{-b} & \texttt{<nombre d'inputs>} & Enregistre les mots générés dans la base de donnée. \\
+\bottomrule
+\end{tabular}
+\caption{\label{tab:technique/genetix/utilisation}Liste des options principales de Genetix}
+\end{table}
+\footnotetext{<...> : argument obligatoire ; [...] : argument facultatif}
+
+\section{\href{https://bitbucket.org/Guigui_PL/genetix}{Dépôt Git du programme Genetix}}
+\label{sec:annexes/git}
+\par
+Adresse du dépôt : \url{https://bitbucket.org/Guigui_PL/genetix}
+
+\section{\href{http://78.193.78.45/resultats/}{Site web de parcours de la BDD}}
+\label{sec:annexes/web}
+\par
+Adresse du site web : \url{http://78.193.78.45/resultats/}

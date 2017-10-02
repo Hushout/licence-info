@@ -1,0 +1,63 @@
+% CREATED BY DAVID FRISK, 2016
+\chapter{Introduction}
+\section{Introduction}
+Dans le cadre du projet infomatique {\fontfamily{pcr}\selectfont TERL2}, on a réalisé un interpréteur de commandes s'inspirant du \href{https://fr.wikipedia.org/wiki/Linux}{\fontfamily{pcr}\selectfont SHELL} du système {\fontfamily{pcr}\selectfont GNU/LINUX} mais sans la partie script en mode interactif (selon la recommandation  du professeur Michel {\fontfamily{pcr}\selectfont LECLERE}).\\
+
+Un interpréteur de commandes est un logiciel système faisant partie des composants de base d'un système d'exploitation (\href{https://fr.wikipedia.org/wiki/Shell_Unix}{\fontfamily{pcr}\selectfont UNIX}). \\
+Il lit et interprète les commandes qu'un utilisateur tape au clavier dans l'interface graphique en ligne de commande (\href{https://fr.wikipedia.org/wiki/Terminal}{\fontfamily{pcr}\selectfont TERMINAL/GNU}). 
+Écrit en langage C, ce système est ainsi portatif sur la plupart des architectures systèmes.\\
+
+\section{Objet du projet}
+\subsection{Problématique}
+
+L'interpréteur de commandes SHELL duquel nous nous sommes inspirés est un outil qui a été pensé dans les années {\fontfamily{pcr}\selectfont 60/70} dans les laboratoires de recherche informatique d'{\fontfamily{pcr}\selectfont AT\&T} aux {\fontfamily{pcr}\selectfont USA} pour pallier les besoins des ingénieurs dévellopant le système d'exploitation UNIX dudit laboratoire.
+
+\subsection{Domaine de l'informatique}
+ 
+Le domaine de notre projet est la programmation système. Et l'interpreteur de commande est un système interactif qui sert d'interface entre la commande entrée par l'utilisateur sur l'entrée standard et le noyau (ici {\fontfamily{pcr}\selectfont LINUX}), il est la couche externe du système, un éxecutable qui interprète et transmet au noyau les commandes que l'utilisateur donne à l'entrée standard, et en suite retourne le résultat du traitement de la commande par le noyau.
+
+
+\subsection{Utilisateur}
+L'interpréteur de commande associe à chaque utilisateur des renseignements suivants :
+\begin{itemize}
+    \item Un nom de login : L'enregistrement de l'utilisateur 
+    \item Un mot de passe : Le password pour son authentification
+    \item un UID (\texttt{UserIDentifier}) : Son identification pour les droits d'accès à ces ressources ou à des domaines et donc pour la securité du système 
+    \item Un GID (\texttt{GroupIDentifier}) : Un UID ou plusieurs UID
+    \item Un répertoire HOME : Emplacement du répertoire personnel de l'utilisateur actuellement connecté.
+    \item Shell : Par defaut, c'est le bash sur le système UBUNTU
+\end{itemize}
+Un interpreteur de commande différencie les utilisateurs en utlisateur de base, en programmeur ou administrateur système.
+
+\subsubsection{Utilisateur de base}
+Utilise simplement les applications mises à sa disposition, il possède les droits d'accès traditionnels, et doit veiller à utiliser les ressources (disque, CPU,...) avec modération afin de ne pas surcharger le système.
+
+\subsubsection{Programmeur}
+Possède les mêmes droits que l'utilisateur de base, et a de plus, la possibilité de programmer ses propres applications. Il a accès aux outils de développement installés sur le système et à des interpréteurs pour pouvoir éxécuter ses programmes et applications. 
+
+\subsubsection{Administrateur système}
+En plus des droits du programmeur, il possède d'autres possibilités telles que: 
+\begin{itemize}
+    
+\item la gestion du système;
+\item les droits d'accès plus étendus (il peut tout gérer dans l'arborescence de son système);
+\item La possibilité de création des comptes pour tous les utilisateurs de son serveur;
+\item la veille du bon fonctionnement général du système en surveillant la régularisation de charge du système et des ressources de la machine;
+\item l'installation des outils nécessaires à la communauté.
+\end{itemize}
+
+\section{Le Projet} \label{Section_ref}
+Pour notre projet, on ne s'intéressera pas au fonctionnement du système d'exploitation UNIX (dont Linux, le noyau, est un des composants de base) ainsi que l'implémentation du terminal (le GNOME du GNU/LINUX).\\
+
+Nous avons donc hors mis la partie script/mode-interactif, réimplementé ces fonctionnalités ci-dessous : 
+\begin{itemize}
+    \item affichage et modification du prompt;
+    \item lecture et traitement de caractères entrés au clavier;
+    \item interprétation et exécution de quelques commandes internes;
+    \item gestion des signaux (SIGINT);
+    \item redirection des entrées et sorties;
+    \item communitation entre différentes commandes par les tubes;
+    \item complétion avec la tabulation et la double tabulation;
+    \item gestion des variables et des variables globales;
+    \item gestion de l'historique avec la bibliothèque readlines.
+\end{itemize}

@@ -1,0 +1,158 @@
+#
+# Structure de la table `etudiant`
+#
+
+DROP TABLE IF EXISTS etudiant;
+CREATE TABLE etudiant (
+  nom varchar(20) NOT NULL default '',
+  prenom varchar(20) NOT NULL default '',
+  statut char(2) NOT NULL default 'FI',
+  groupe tinyint(1) NOT NULL default '0',
+  email varchar(20) NOT NULL default '',
+  opt enum('B','S','C','L','W') default NULL,
+  numStageA tinyint(2) unsigned default '0',
+  PRIMARY KEY (nom,prenom),
+  UNIQUE KEY email(email)
+) ;
+
+#
+# Contenu de la table `etudiant`
+#
+
+INSERT INTO etudiant (nom, prenom, statut, groupe, email, opt, numStageA) VALUES ('BARTHEL', 'Marie Pierre', 'FI', '1', 'mpbarthe', 'L', '4'),
+('BEGNIS', 'H�l�ne', 'FI', '1', 'hbegnis', 'C', '16'),
+('BURRONI', 'Florent', 'FP', '2', 'fburroni', 'S', '5'),
+('CLAIR / TRABBIA', 'S�verine', 'FP', '2', 'sclair', 'W', '14'),
+('D AGATA', 'Richard', 'FP', '1', 'rdagata', 'B', '4'),
+('DELCROIX', 'Ludovic', 'FP', '1', 'ldelcroi', 'C', '4'),
+('DELEURY', 'Emeline', 'FI', '1', 'edeleury', 'B', '3'),
+('DEPAUL / BELLIER', 'Fr�d�rique', 'FP', '1', 'fdepaul', 'W', '14'),
+('ESPIAU', 'Christophe', 'FP', '1', 'cespiau', 'W', '14'),
+('FELL', 'Laurent', 'FI', '1', 'lfell', 'S', '1'),
+('GARCIA', 'Carlos', 'FI', '1', 'cagarcia', 'C', '9'),
+('GAFFET', 'Patrick', 'FP', '1', 'pgaffet', 'W', '10'),
+('GERBAUD', 'R�mi', 'FI', '1', 'rgerbaud', 'C', '3'),
+('GLAUZY', 'Julien', 'FI', '1', 'jglauzy', 'W', '7'),
+('GOUAT', 'Isabelle', 'FI', '1', 'igouat', 'L', '17'),
+('GOURDON', 'Isabelle', 'FP', '1', 'igourdon', 'B', '17'),
+('GROUARD/ASTRUC', 'Nathalie', 'FP', '1', 'ngrouard', 'W', '19'),
+('GUILLAUME', 'Julien', 'FP', '1', 'juguilla', 'L', '6'),
+('GUITARD', 'Brice', 'FI', '2', 'bguitard', 'W', '15'),
+('HAET', 'Franck', 'FI', '1', 'fhaet',  NULL, '0'),
+('HERIZI', 'Abderraouf', 'FP', '1', 'aherizi', 'B', '19'),
+('JERIER', 'Philippe', 'FI', '1', 'pjerier', 'C', '9'),
+('JOTTRAS', 'Pierre', 'FI', '1', 'pjottras', 'S', '17'),
+('KHATTOU', 'Zara', 'FI', '1', 'zkhattou',  NULL, '0'),
+('LANAVE', 'Eric', 'FP', '1', 'elanave', 'W', '10'),
+('LAVEISSIERE', 'Eric', 'FP', '2', 'elaveiss', 'S', '16'),
+('ETONO / MALANDA', 'Francine', 'FP', '1', 'fetono', 'S', '1'),
+('MAILLE', 'Laurent', 'FI', '2', 'lmaille', 'C', '15'),
+('MARLHENS', 'Fran�oise', 'FP', '2', 'fmarlhen', 'B', '4'),
+('MENGOME ATOME', 'Nathalie', 'FP', '1', 'nmengome', 'L', '21'),
+('MESSIN', 'Eric', 'FP', '2', 'emessin', 'S', '5'),
+('MILCENT', 'Jean Pascal', 'FI', '2', 'jpmilcen', 'S', '18'),
+('MOREAU', 'Gilles', 'FP', '2', 'gmoreau', 'W', '5'),
+('MOREAU', 'Violaine', 'FI', '2', 'vmoreau', 'B', '21'),
+('MOYROUD', 'Nicolas', 'FI', '2', 'nmoyroud', 'B', '17'),
+('NAVARRO', 'Alexandrine', 'FI', '2', 'anavarro', 'L', '16'),
+('NGUYEN', 'Laure', 'FI', '2', 'lnguyen', 'S', '1'),
+('NOUGAREDE', 'Romain', 'FP', '2', 'rnougare', 'B', '21'),
+('PAILLARD', 'Mathieu', 'FI', '2', 'mpaillar', 'C', '3'),
+('PLAGNOL', 'C�dric', 'FI', '2', 'ceplagno', 'S', '18'),
+('POTHIN', 'Bertrand', 'FI', '2', 'bpothin', 'C', '15'),
+('RAYMOND', 'Bertrand', 'FI', '2', 'beraymon', 'L', '6'),
+('RODRIGUEZ', 'Pascal', 'FP', '2', 'prodrigu', 'B', '5'),
+('SCATENA', 'Catherine', 'FP', '2', 'cscatena', 'W', '16'),
+('SOLER', 'Yannick', 'FI', '1', 'ysoler', 'S', '8'),
+('TAILLET', 'Lisa', 'FI', '1', 'ltaillet', 'B', '18'),
+('TOGNA', 'Corinne', 'FP', '2', 'ctogna', 'S', '8'),
+('TORRE', 'Laetitia', 'FI', '1', 'ltorre', 'W', '9'),
+('TRANCHANT', 'Christine', 'FI', '2', 'ctrancha', 'B', '3'),
+('VERMEULEN', 'Styn', 'FI', '2', 'svermeul', 'L', '7');
+
+#
+# Structure de la table `stageA`
+#
+
+DROP TABLE IF EXISTS stageA;
+CREATE TABLE stageA (
+  numStageA tinyint(2) unsigned NOT NULL default '0',
+  sujet varchar(255) NOT NULL default '',
+  entreprise varchar(50) NOT NULL default '',
+  lieu varchar(150) NOT NULL default '',
+  respEnt varchar(150) NOT NULL default '',
+  respPeda varchar(150) NOT NULL default '',
+  PRIMARY KEY (numStageA),
+  KEY numStageA(numStageA)
+) ;
+
+#
+# Contenu de la table `stageA`
+#
+
+INSERT INTO stageA (numStageA, sujet, entreprise, lieu, respEnt, respPeda) VALUES ('1', 'mise en oeuvre, dvt d\'un SIE (Syst d\'Info sur l\'Environnement) - observatoire de l\'environnement du TGV m�diterrann�e', 'BRL Ing�nierie', 'NIMES', 'Jean Michel SIONNEAU', 'T. Libourel'),
+('3', 'construction d\'une BD pour la gestion-classement-�tiquetage de l\'ensemble des OGM r�alis�s en labo', 'CIRAD BIOTROP AMIS', 'TA 40/03 av Agropolis 34398 Montpellier Cedex', 'Thierry LEGAVRE t�l : 04 67 61 44 08', 'M. Meynard'),
+('4', 'informatisation du labo PATHOTROP', 'CIRAD EMVT', 'Campus International Baillarguet 34398 Montpellier', 'F. THIAUCOURT t�l : 04 67 59 37 23', 'V. Prince'),
+('5', '(2) analyse des proc�dures pour t�l�maintenance, mise � jour de bornes interactives � distance en acc�s complet', 'DIGIDOC', '10 av du Vieux Cimeti�re 34500 BEZIERS', 'Benjamin GRASSET t�l : 04 67 62 10 10', 'C. Zurbach'),
+('6', 'utilisation de XML dans l\'application IMGT/LIGM-DB', 'IMGT', '141 rue de la  Cardonille 34095 Montpellier cedex', 'Denys CHAUME 04 99 61 99 09', 'V. Prince'),
+('7', 'compatibilit� entre les mod�les conceptuels de donn�es sp�cifiques aux approches par les processus bio-physiques et par les organisations des activit�s humaines', 'INRA', '2 place Viala 34060 Montpellier cedex 2', 'Sylvie LARDON t�l : 04 99 61 25 13', 'M. Sala'),
+('8', 'procedure d\'analyse et de choix d\'un outil de messagerie et de gestion electronique de documents. Environnement Windows NT. Documents nombreux et vari�s...', 'Mairie de Castelnau le Lez', '2 rue de la Crouzette BP 67 43172 Castelnau le Lez', 'V�ronique JEANJEAN t�l : 04 67 14 27 16', 'M. Meynard'),
+('9', 'etude des problemes de securite informatique lie a l\'ouverture de la mairie sur internet, analyse d\'un site web de la mairie (internet/intranet/extranet ?)', 'Mairie de Castelnau le Lez', '2 rue de la Crouzette BP 67 43172 Castelnau le Lez', 'V�ronique JEANJEAN t�l : 04 67 14 27 16', 'M. Meynard'),
+('10', '(2) d�finir et mettre en place le syst d\'info entre la direction commerciale et le direction du service client. D�finir l\'ontologie en vue d\'installer un syst de gestion documentaire utilisant des bases de connaissance', 'NEMAUSIC', '151 rue Gilles Roberval 30900 N�mes', 'Patrick REBOUX t�l : 04 66 28 78 78', 'J. Escojido'),
+('14', 'gestion des contr�les de d�passement : �tudier la r�alisation d\'une "boite noire" qui, appel�e par des composants m�tiers permet de g�rer et contr�ler les droits utilisateurs en mati�re de saisie d\'�critures comptables.', 'SINORG', 'Montpellier', 'JM Lappara t�l: 04 99 61 90 86', 'M. Meynard'),
+('15', '(3) Analyse et conception pour le d�veloppement du ste Web de UPGEN.', 'UPGEN CEEI Cap Alpha', '34940 Montpellier cedex 9', 'Mustapha BENSAAD t�l : 04 67 59 36 21', 'M. Meynard'),
+('16', 'Gestion d\'un observatoire des agricultures m�diterran�ennes accessibles en HTTP. L\'analyse porte sur la structure des donn�es et des m�ta donn�es selon les profils d\'usage;', 'IAM', '3191 route de Mende 34093 Montpellier cedex 5', 'Marie Claire ALLAYA et Pierre ARAGON', 'I. Mougenot'),
+('17', 'Une plate-forme de mod�lisation des plantes est en cours d\'�laboration; Le stage consiste en une analyse conceptuelle de la plate-forme (type UML) et s\'appuiera sur des travaux en cours', 'CIRAD-AMIS', 'av Agropolis 34398 Montpellier cedex 5', 'Christian BARON (t�l : 04 67 61 56 47) et Philippe Philippe REITZ (t�l : 06 62 32 20 50)', 'T. Libourel'),
+('18', '(2 � 3) Analyse d\'une base de donn�es de gestion de collections botaniques et d\'�tudes phyto�cologiques, d�velopp�e sous Access 97.', 'CIRAD-CA', 'TA 74/09 av Agropolis 34398 Montpellier cedex 5', 'Thomas LE BOURGEOIS et Sandrine AUZOUX  T�l : 04 67 59 38 71', 'M. Sala'),
+('19', 'Analyse Traitement Donn�es M�dicales (Pr�natales)', 'LIRMM  / milieux m�dicaux divers', 'Montpellier', 'M. ROCHE (M�decin)', 'T. Libourel'),
+('21', 'Analyse UML d\'acides nucl�iques ARN et ADN', 'Institut of Biotechnology and Pharmacology', 'Faculte de Pharmacie  15 Av. Charles Flahault, 34090 Montpellier, France.', 'Franck Molina Tel: +33/0  467 548 646 ; Fax: +33/0 467 548 610 franck.molina@ibph.pharma.univ-montp1.fr', 'I. Mougenot');
+
+#
+# Structure de la table `options`
+#
+
+DROP TABLE IF EXISTS options;
+CREATE TABLE options (
+  code char(1) NOT NULL default '',
+  nom varchar(30) NOT NULL default '',
+  resp varchar(30) NOT NULL default '',
+  email varchar(30) NOT NULL default '',
+  PRIMARY KEY (code)
+) ;
+
+#
+# Contenu de la table `options`
+#
+
+INSERT INTO options (code, nom, resp, email) VALUES ('C', 'Chimie', 'Michel Meynard', 'meynard@lirmm.fr'),
+('B', 'Bio-Informatique', 'Vincent Berry', 'vberry@lirmm.fr'),
+('W', 'Web et BD', 'Jean-Fran�ois Vilarem', 'vilarem@lirmm.fr'),
+('L', 'Langue naturelle', 'Mathieu Lafourcade', 'lafourca@lirmm.fr'),
+('S', 'Syst. d\'Info. G�o.', 'Th�r�se Libourel', 'libourel@lirmm.fr');
+
+
+-- Structure de la table `utilisateur`
+--
+
+CREATE TABLE `utilisateur` (
+  `login` varchar(20) NOT NULL,
+  `password` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`login`, `password`) VALUES
+('deux', 'f83815aedaa1b6bf4211e85910e6bc82'),
+('un', '0674272bac0715f803e382b5aa437e08');
+
+--
+-- Index pour les tables export�es
+--
+
+--
+-- Index pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+ADD PRIMARY KEY (`login`);

@@ -1,0 +1,73 @@
+[file]
+slides.pdf
+[end_user_slide]
+36
+[font_size]
+14643
+[notes]
+### 2
+### 4
+pour comprendre Scrum, repart base
+
+qu'est ce que la gestion de projet
+### 5
+Pour définir la gestion de projet il fait savoir ce qu'est un projet.
+
+- projet part d'une idée
+
+- but d'ateindre les objectifs fixée
+
+- le projet est l'ensemble des prossesus/moyen qui vont permettre d'ateindre l'objectif### 6
+maintenant on sait ce qu'est un projet, Définsons la gestion de projet.
+
+- but : fair le lien entre une équipe et un projet
+
+- outils et méthode qui va permettre:
+* Découpé le projet en tâches
+
+* Répartir l'équipe en rôles
+
+* Répartir les tâche aux différent rôle et dans le temps### 7
+une méthodologie est importante, si on n'a une methodologie inadapté, voir pas de methodologie du tout voici se qui peut se passet
+
+- insatisfiabilité du client
+### 12
+défaut de méthodes classique -> dévelopement de nouvelle méthodes dite "l'égères"### 13
+Premiere methode légère apparue dans les années 90.
+
+plus connu
+- Extreme Programming
+- Scrum
+
+toute ces méthodes de dévelopement avait un esprit commun mais été toute indépandance. rien ne définiser l'esprit de ces methodes, rien ne les représenté.### 14
+afin de formaliser et de mettre en comun leurs idées, 17 représentant et créateur des méthodes dite légère.
+
+- station de ski de l'Utahn États unis.
+- février 2001.
+- pendant 2 jours.### 15
+quel on été les réultat de cette réunion : ?
+
+- Définition d'un  terme représentant ces méthodes . le mot "agile" est choisi, il remplase le mot "léger" qui avait un conotation trop négative.
+
+- un manifeste est créé, définit 4 valeur :
+* un projet n'est pas un processus dans lequel les humain serait des resources 
+mais 
+le projet est basé sur les  humains qui ont chacun par leurs personne et leurs échange un responsabilité et une réflxtion sur le projet
+
+- mieux avoir un dévelopement adaptative en collaboration avec le client qui permet de dévelopé un logiciel opérationnels et correpondant au besoin du client
+plutot que 
+document exhaustifet fixe resumant toute les fonctionalité du logiciel avant son dévelopement , qui au final entierement respecté car on ne peut pas tous prévoir et aboutira a un logicielle qui ne correspondra plus au attende du client qui auront évoluer### 16
+- définir les valeur et le cadre des methode agile
+- rapartition de leurs idéologie et ainsi l'émergence de certaine méthode### 25
+2 différence fondamental par rapport au methodes classique 
+l'équipe a des objectif a attendre a la fin du sprint .
+-  pour étteindre cette objectif, elle s'organise de maniere autonome.
+- pas hiérarchie imosés
+- indépandante et faire appelle le moin souvent possible a des personne hors de l'équipe
+
+pour que cela marche il faut respecté des critères
+- taille### 32
+- priorise les tâches :
+ * stories 
+ * epic
+ * feature

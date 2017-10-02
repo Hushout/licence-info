@@ -1,0 +1,51 @@
+% Schéma des différents rôles occupés par les acteurs de Scrum
+
+\begin{tikzpicture}
+    % L'équipe : ScrumMaster et programmeurs
+    \foreach \prognum in {1,2,3,4,5}{
+        \node[image, inner sep=0, outer sep=0] (prog-\prognum) at (\prognum*360/5+18 : 2.4cm and 1.8cm)
+            {\includegraphics[width=1cm]{icon-coding}};
+    }
+
+    \draw ($(prog-3.south)!0.5!(prog-4.south)$)
+        node[below] (prog-text) {Programmeurs};
+
+    \node[image] (sm) {\includegraphics[width=1cm]{icon-trainer}\\ScrumMaster};
+
+    \node[
+        draw=fg, thick, ellipse,
+        inner xsep=0cm, inner ysep=-.6cm,
+        fit=(prog-1) (prog-2) (prog-3) (prog-4) (prog-5) (prog-text) (sm)
+    ] (team) {}
+        node[above] at (team.north) {\scshape\bfserieséquipe};
+
+    % Interface du PO
+    \node[
+        rectangle, fill=white,
+        yshift=-.25cm, inner xsep=1cm, inner ysep=1.5cm
+    ] at (team.east) {};
+
+    \node[image] (po) at (sm-|team.east)
+        {\includegraphics[width=1cm]{icon-user}}
+        node[anchor=north, align=center] at (po.south) {Product\\Owner};
+
+    % Parties prenantes
+    \node[image, right=of po] (pp2)
+        {\includegraphics[width=1cm]{icon-woman}};
+
+    \node[image, above=0cm of pp2] (pp1)
+        {\includegraphics[width=1cm]{icon-man}};
+
+    \node[image, below=0cm of pp2] (pp3)
+        {\includegraphics[width=1cm]{icon-man}\\Parties\\prenantes};
+
+    % Experts
+    \node [image, left=of sm-|team.west] (exp2)
+        {\includegraphics[width=1cm]{icon-scientist}};
+
+    \node [image, above=0cm of exp2] (exp1)
+        {\includegraphics[width=1cm]{icon-scientist}};
+
+    \node [image, below=0cm of exp2] (exp3)
+        {\includegraphics[width=1cm]{icon-scientist}\\Experts};
+\end{tikzpicture}

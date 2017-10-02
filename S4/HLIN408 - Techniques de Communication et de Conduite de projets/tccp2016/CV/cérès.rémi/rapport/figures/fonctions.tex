@@ -1,0 +1,141 @@
+\documentclass[tikz,border=30pt]{standalone}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage[french]{babel}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+
+\tikzset{
+    node distance=2.5cm,
+    base/.style={
+        cylinder,
+        draw,
+        shape border rotate=90,
+        aspect=.5,
+        align=center,
+        minimum width=2cm,
+        minimum height=2.5cm
+    },
+    cloudstore/.style={
+        cloud,
+        draw,
+        aspect=2
+    },
+    file/.style={
+        rectangle,
+        minimum width=0.8cm,
+        minimum height=1cm,
+        draw
+    },
+    function/.style={
+        rectangle,
+        align=center,
+        minimum width=3cm,
+        minimum height=3cm,
+        draw
+    }
+}
+
+\begin{document}
+\begin{tikzpicture}
+    \node[align=center](trigger){Demande d'envoi\\ d'un fichier};
+
+    \node[function, right=of trigger](synchro){Gestion de la\\synchronisation};
+
+    \node[file, right=1cm of synchro](initial-file){};
+    \node[below=0.1cm of initial-file, align=center] {Ouverture du\\fichier};
+
+    \node[function, right=1cm of initial-file](slicer){Découpe};
+
+    \node[file, scale=0.5, above right=.25cm and 1cm of slicer.east](chunk2){};
+    \node[file, scale=0.5, below right=.25cm and 1cm of slicer.east](chunk3){};
+    \node[file, scale=0.5, above=0.5cm of chunk2](chunk1){};
+    \node[file, scale=0.5, below=0.5cm of chunk3](chunk4){};
+
+    \node[function,above right=0cm and 6cm of slicer](services){Gestion des\\services};
+
+    \node[cloudstore, right=of services](cloud){Cloud};
+
+    \node[function, below right=0cm and 6cm of slicer](index){Gestion de la\\base d'index};
+
+    \node[base, right=of index](base-index){Base\\d'index};
+
+    \draw[-stealth](trigger)--(synchro);
+
+    \draw(synchro)--(initial-file);
+
+    \draw[-stealth](initial-file)--(slicer);
+
+    \draw[-stealth](slicer)--(chunk1);
+    \draw[-stealth](slicer)--(chunk2);
+    \draw[-stealth](slicer)--(chunk3);
+    \draw[-stealth](slicer)--(chunk4);
+
+    \draw[-stealth](chunk1)--(index);
+    \draw[-stealth](chunk2)--(index);
+    \draw[-stealth](chunk4)--node[below, sloped]{Hachage}(index);
+    \draw[-stealth](chunk3)--(index);
+
+    \draw[-stealth](chunk1)--node[above, sloped, align=center]{Envoi vers\\le cloud}(services);
+    \draw[-stealth](chunk2)--(services);
+    \draw[-stealth](chunk4)--(services);
+    \draw[-stealth](chunk3)--(services);
+
+    \draw[-stealth](index)--node[right, align=left]{Envoi de l'image\\de la base}(services);
+
+    \draw[-stealth](index)--node[auto]{Indexation}(base-index);
+
+    \draw[-stealth](services)--node[auto, align=center]{Téléversement}(cloud);
+
+\end{tikzpicture}
+
+
+\begin{tikzpicture}
+    \node[align=center](trigger){Demande de récupération\\ d'un fichier};
+
+    \node[function, right=of trigger](synchro){Gestion de la\\synchronisation};
+
+    \node[function,above right=1cm and 2cm of synchro](services){Gestion des\\services};
+
+    \node[function, below right=1cm and 2cm of synchro](index){Gestion de la\\base d'index};
+
+    \node[file, scale=0.5, above right=.25cm and 4cm of services.east](chunk2){};
+    \node[file, scale=0.5, below right=.25cm and 4cm of services.east](chunk3){};
+    \node[file, scale=0.5, above=0.5cm of chunk2](chunk1){};
+    \node[file, scale=0.5, below=0.5cm of chunk3](chunk4){};
+
+    \node[function, right=5.4cm of services](rebuild){Reconstruction};
+
+    \node[file, right=of rebuild](final-file){};
+
+    \node[base, right=of index](base-index){Base\\d'index};
+
+    \draw[-stealth](trigger)--(synchro);
+    \draw[-stealth](synchro)--node[above left, align=center]{Demande de\\téléchargement\\des morceaux}(services);
+
+    \draw[-stealth](services)--(chunk1);
+    \draw[-stealth](services)--(chunk2);
+    \draw[-stealth](services)--(chunk3);
+    \draw[-stealth](services)--node[below, sloped, align=center]{Téléchargement des\\morceaux}(chunk4);
+
+    \draw[-stealth](chunk1)--(rebuild);
+    \draw[-stealth](chunk2)--(rebuild);
+    \draw[-stealth](chunk3)--(rebuild);
+    \draw[-stealth](chunk4)--(rebuild);
+
+    \draw[-stealth](rebuild)--node[above, align=center]{Enregistrement}(final-file);
+
+    \draw[-stealth](synchro.310)--node[below left, align=center]{Demande de la\\liste des morceaux}(index.140);
+    \draw[-stealth](index.130)--node[above right, align=center]{Liste des\\morceaux}(synchro.320);
+
+
+    \draw[stealth-](index.10)--node[auto, align=center]{Liste des\\morceaux}(index.10-|base-index.west);
+    \draw[stealth-](base-index.west)--node[auto, align=center]{Requête sur\\\texttt{Chunk}}(base-index-|index.east);
+
+
+\end{tikzpicture}
+
+\end{document}

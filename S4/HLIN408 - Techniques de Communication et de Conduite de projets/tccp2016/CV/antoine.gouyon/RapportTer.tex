@@ -1,0 +1,295 @@
+\documentclass[12pt,a4paper,article]{article} % for a short document
+\usepackage{graphicx}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{verbatim}
+
+
+\title{Rapport Ter L2 :  Pacman}
+
+\author{T.Odorico \and A.Gouyon \and J.Guillen \and L.Jové \and O.Diouf}
+
+
+%%% BEGIN DOCUMENT
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\tableofcontents
+
+
+\pagebreak
+
+% Page 3 domaine
+\section{Introduction}
+
+
+Notre projet se résume en la création d'un Pacman. Mais celui-ci est différent des autres existants car il a la particularité de posséder un Editeur de terrain pour pouvoir personnaliser nos parties comme bon nous semble. Notre éditeur est opérationnel et dispose d'une capacité de possibilité très élévé. (La taille de terrain modulable, le nombre de Personnage, d'ennemis ou d'objets.) Le projet se sera déroulé en 3 grande phase, les recherches, la reflexion et la création.
+
+\section{Les domaines informatiques }
+
+\subsection{Pacman}
+
+
+Le jeu du Pacman, est un jeu vidéo crée en 1980 par le japonais Tôru Iwatani. Le principe de ce jeu est de controler les mouvements d'un personnages, rond et jaune,dans un petit labyrinthe pour qu'il puisse manger des petites boules jaunes( Pac-gommes ). Mais il faudra éviter des petits ennemis qui sont des fântomes.
+
+\subsection{Le logiciel }
+
+
+Au tout début de notre Projet, l'on c'est posé la question : "Mais quels outils peut-on utiliser pour faire ce jeu ? Lequel pourrais être le meilleur ? Doit-on en utiliser un ? L'avantage ou l'inconvénient ?". On a alors lanc\'e une recherche sur les environnement de programmation de  jeux vidéo existants . Il fallait trouver un logiciel que l'on puisse apprendre à utiliser rapidement durant notre temps libre, gratuit et qui puisse être optimal pour créer un Pacman. Nous avons alors commenc\'e à regrouper tous les logiciels que les programmeurs utilisent pour créer leur jeux. Dans cette liste nous avons d'abord écarté tous les logiciels qui s'orientaient sur des styles de jeux différents, trop vieux ou ayant de mauvais échos. On a pu donc regrouper les plus proches de ce que nous cherchions dans le tableau suivant par rapport à leurs avantages et leurs défauts. \\
+
+
+\noindent
+\begin{tabular}{|c|c|c|}
+  \hline
+  Logiciel & Avantage(s) & défaut(s) \\
+  \hline
+  Blender & Open source /plusieurs fonctionnalités & peu évident à utiliser\\
+  \hline
+  3D Game Studio & interface simple & licence payante  \\
+  \hline
+  GameMaker  & Open source / facile d'utilisation & plusieurs fonctionalités inutiles \\
+  \hline
+  NeoAxis & Open source / plusieurs fonctionnalités & peu évident à utiliser \\
+  \hline
+  CryEngine & Open source / plusieurs fonctionnalités & nécessite ordinateur puissant \\
+  \hline
+ 
+\end{tabular}\\
+\\
+\\Puis il y a celui qui est sorti du lot et que nous avons fini par choisir pour travailler : Unity !
+
+\begin{center}
+\includegraphics[scale=0.30]{UnityLogo.png}
+\end{center}
+
+
+\noindent
+\begin{tabular}{|c|c|c|}
+  \hline
+  Critères & Caractéristiques de Unity \\
+  \hline
+  support & tous : mac,windows,console,téléphone\\
+  \hline
+  diffusion & grande communauté et popularité \\
+  \hline
+  prix & gratuit pour des utilisations non commerciales\\
+  \hline
+  prise en main& peu évidente \\\hline
+  Documentation &  disponible sous forme écrite et vidéo\\
+  \hline
+  langages de programmation &javascript ou csharp\\
+  \hline
+ 
+
+\end{tabular}\\
+\\
+\\Après avoir choisi Unity, nous avons d\^u choisir un langage de programmation qu'il pouvait comprendre. Notre choix c'est porté sur le "C Sharp". C'est un langage tout aussi performant que son homologue Javascript utilisable sur Unity, mais il est le plus proche des langages appris durant notre licence et donc plus facile à utiliser pour créer nos scripts avec Unity.
+
+
+%Page 4 problématique
+\section{Problématique et Cahier des charges :}
+
+Après la phase de choix de l'environnement, nous avons pu commencer à travailler sur notre projet et sur ses spécificités. Nous nous sommes alors posé plusieurs questions : "Sur quel type de support le faire ? Son style de jeu ? Ses nouveautés ? Accés à internet ou non ? Multi-joueurs ou joueur solitaire ?". Après avoir longuement réfléchi nous avons fait le cahier des charges suivant.\\
+\\
+
+\noindent
+{\small \begin{tabular}{|c|c|}
+  \hline
+  Critères  &  Pacman TER L2 :  \\
+  \hline
+  Conditions de victoire &Récupérer toutes les boules\\
+  Difficulté & Changement de vitesse ,de "map"\footnote{carte, terrain, \'egalement appel\'e niveau.}, options\\
+  Score & points par boule + multiplicateur avec un timer\\
+  Personnalisation joueur &Editeur de carte\\
+  \hline
+\end{tabular}\\}
+\\
+\noindent
+
+
+En bonus, et seulement si les objectifs précédents ont été réussis dans les temps
+\begin{itemize}
+  \item Un shop (Apparences/Bonus de jeu)
+  \item Diff\'erents aspects graphiques
+  \item Multi-joueur local
+\end{itemize}
+\\
+On a d'abord choisi de garder les conditions basiques de victoire du Pacman car celles-ci sont l'essence du jeu et risqueraient d'altérer notre envie d'y jouer si l'on les change sans faire attention. Ensuite, on voulait permettre à tout type de joueur de jouer, selon ses envies ,à notre Pacman. C'est -à-dire, pouvoir modifier la vitesse de jeu ou celle du Pacman ou bien même des fantômes. Puis on a d\� choisir la façon de calculer le score des parties, on a opt\'e pour un système basique de multiplicateur de points en fonction d'un temps par rapport au début de la partie et un ajout de point pour chaque boule mangé par le joueur. Par la suite, nous avons décid\'e de rajouter l'élément le plus important de notre Pacman : un "Éditeur de terrain". On a décidé de rajouter cela pour créer de la nouveauté car nous n'avons pas trouvé de Pacman qui proposait cette option, ça permet donc de créer un effet de nouveauté. L'on peut faire un terrain (appelé aussi "Map" dans la conception de jeux vidéo.) basique avec un pacman, 4 fantômes, des objets à manger et des super-Objets pour débloquer des pouvoirs. Mais il pourra aussi laisser libre cours à ses folies comme rajouter une dizaines de fantômes, créer des terrains difficiles voir impossibles ou au contraire très faciles en fonction de ses envies. Puis on a mis de côté des ajouts que l'on veut mettre en oeuvre si la conception des précèdents  a \'et\'e faite dans les temps.
+
+
+
+
+
+
+
+
+
+% Page 5 Description 
+\section{Description du travail :}
+
+On a donc commencer à répartir les rôles du projet de cette façon.\\
+\noindent
+\begin{tabular}{|c|c|c}
+  \hline
+  & Rôles : \\
+  \hline
+  Antoine Gouyon & Chef projet\\
+  \hline
+  Thibault Odorico & Responsable de l'éditeur de map\\
+  \hline
+  Johan Guillen & Responsable de l'algorithme et Intelligence Artificielle\\
+  \hline
+  Ludovic Jové & Responsable de l'interface et des menus\\
+  \hline
+  Ousmane Diouf & Responsable de l'aspect graphique\\
+  \hline
+\end{tabular}\\
+\\
+\\Une fois les rôles attribués nous avons commencé par  nous occuper de la création de notre Éditeur de map car il sera le pilier de notre jeu. 
+
+
+Voici un exemple d'éditeur de map : 
+\begin{center}
+\includegraphics[scale=0.50]{Editeur1.png}
+\end{center}
+
+
+On a d'abord créé des scripts permettant de charger et de créer des terrains facilement grâce à  des matrices de nombres et des images correspondant à des numéros pour les faire apparaître. Par exemple si un mur est rattaché au numéro 1 , alors en lisant la matrice à une coordonnée (x,y) on voit un 1, l'on place l'image du mur. Il fallait donc créer ce qu'on appelle un "TileMap", qui est une image composée de toutes les images utilisées dans le jeu pour les numéroter dans Unity et les utiliser facilement.
+Voici un exemple de TileMap : \\
+\begin{center}
+\includegraphics[scale=0.60]{TiledMap.png}
+\end{center}
+
+Mais on a eu des difficultés à créer une classe permettant de faire une matrice dynamique gérée par Unity et que l'affichage s'adapte à la taille de l'écran. L'on voulait permettre à un utilisateur de créer des terrains de la taille qu'il veut pour satisfaire toutes ses envies.
+Ensuite, il a fallu créer une interface pour pouvoir interagir avec la matrice et la modifier. On a créé un système de menu qui permettait d'associer n'importe quel nombres correspond à un objet sur la matrice avec la souris et avec le clavier. La seul difficulté de cette partie était qu'avec Unity il fallait beaucoup de temps pour assigner la fonction voulue aux boutons car il fallait les faire tous un par un.\\
+
+
+Par la suite, il fallait créer tout ce qui servirait de menu pour notre jeu pour pouvoir passer d'une scène principal, à un scène de jeu ou à celle de l'éditeur de map.\\
+
+
+Puis, nous avons commencé à nous orienter sur la partie plus technique en rapport avec le jeu : L'intelligence artificielle des fantômes.
+\begin{center}
+\includegraphics[scale=0.60]{fantomes.jpg}
+\end{center}
+
+On a du réfléchir à comment faire pour faire suivre le Pacman par les fantomes tout en évitant les retours en arrière et que les fantômes s'arrête dans des coins. Par la suite il fallait réussir à inverser ce rôle lorsque que le Pacman sera dans un état capable de les manger. Il a ensuite fallu créer les mouvements des fantômes et du Pacman, case par case, dans la matrice qui gère le terrain.\\
+
+Enfin on a d\^u travailler énormement sur la gestion des collisions des objets dans le jeu. On a eu beaucoup de mal à réussir à définir des zones de "hitbox" (C'est une zone ou l'on rajoute un effet de mur sur un objet pour créer des collisions.) à partir de la matrice et des nombres de celle-ci, car il y a eu des soucis de taille des hitbox au pixel près. Cela faisait s'accrocher le pacman aux murs et impossible de repartir une fois l'avoir touché. Mais on a réussi à régler ce problème après avoir beaucoup fait de recherches et d'essais. Et on a pu créer des collisions entre les murs, les boules, Pacman et les fantômes et donc créer un jeu jouable. Le pacman peut manger les boules, quand il rencontre un mur il rentre en collision et se fait repousser et les fantômes traversent les boules et peuvent manger le Pacman.\\
+
+Travail effectué durant le projet des participants :   \\
+
+
+\begin{tabular}{|c|c}
+  \hline
+  Antoine Gouyon : \\
+  \hline
+  -Assemblage des différentes des parties du jeu\\
+  -Redaction rapport (assemblage des rapports de chacun)\\
+  -Création du systeme colision entre Pacman, Boules,Fantôme\\
+  -Création système de score et destruction des objets\\
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|c}
+  \hline
+  Thibault Odorico : \\
+  \hline
+  -Création des classes matrices\\
+  -Création des fonctions sur l'éditeur de map :ajout mur, objet ou personnage(s)\\
+  -Mise en place système de sauvegarde des map dans des fichiers textes\\
+  -Création d'un menu interactif pour l'éditeur\\
+  -Documentation des codes\\
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|c}
+  \hline
+  Johan Guillen  \\
+  \hline
+  -Création du systeme de jeu\\
+  -Réalisation des conditions de victoires du joueur\\
+  -Création des classes des personnages et des IA\\
+  -Mise en place des zone de colision sur les objets\\
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|c}
+  \hline
+  Ludovic Jove  \\
+  \hline
+  -Mise en place du menu principal\\
+  -rattachement des fonctions de l'éditeur au menu de celui ci \\
+  -création des scènes de jeu (écran des différentes parties du jeu)\\
+  \hline
+\end{tabular}
+
+\begin{tabular}{|c|c}
+  \hline
+  Ousmane Diouf  \\
+  \hline
+  -Création des tiledmaps\\
+  -Réalisation système d'animation des personnages\\
+  \hline
+\end{tabular}
+
+
+% Page 6 Conclusion
+\section{Conclusion du Ter :}
+Pour conclure, actuellement nous avons réussi � r\'ealiser� environ 80 pourcent du projet. On a réussi à créer notre Editeur de map malgr\'e de nombreuses difficultés, à créer les conditions de victoire et faire un jeu jouable. Mais il manque toujours un syst\`eme pour modifier à volonté la vitesse du jeu et un système de temps dans les parties. Et l'on veut aussi voir pour rajouter les parties bonus après le Ter car l'on veut continuer de travailler sur ce jeu et l'améliorer autant que l'on aura d'idées et de possibilités.\\
+
+
+Ce projet nous aura permis d'apprendre beaucoup de choses. Tout d'abord, l'on a appris à effectuer des recherches ciblés sur nos besoins du projet. On a appris aussi à mieux évaluer la répartition du temps et mieux de se répartir les tâches et qu'il ne faut pas sous estimer la part de travail que peuvent demander certaines choses qui peuvent paraître simples. Ensuite on a pu approfondir nos connaissances informatiques, en apprenant un nouveau langage, le C sharp. Ainsi qu'apprendre à utiliser un outil qui nous sera bénéfique pour de futurs projets, Unity !\\
+
+Voici notre "Editeur de map" sous unity  : (Forme non finale, et sujet à modification)
+
+\includegraphics[scale=0.55]{EditeurPacman.jpg}
+
+
+
+
+% Page 7 Remerciement
+\section{Remerciements :}
+
+Nous tenions à remercier les différentes personnes qui nous ont aidé à travers ce projet.\\
+Un énorme remerciement pour notre Encadrante "Mme Violaine Prince", qui nous a aidé à nous orienter et fait ressortir divers problématiques sur le projet à travailler.\\
+Ensuite, un remerciement à une connaissance qui utilise Unity depuis assez longtemps et qui a pu nous aiguiller sur certains problèmes pour les résoudre.
+Et enfin, un remerciement à la communauté Unity très présente et qui nous aura bien aidé aussi dans nos recherches.\\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%Page 8 bibliographie
+\section{Bibliographie :}
+\noindent
+http://answers.unity3d.com/questions/\\
+http://gamedev.stackexchange.com/questions/\\
+http://gameinternals.com/post/2072558330/understanding-pac-man-ghost-behavior\\
+https://msdn.microsoft.com/fr-fr/default.aspx\\
+https://docs.unity3d.com/Manual/index.html\\
+http://stackoverflow.com/questions/\\
+https://unity3d.com/fr/learn/tutorials\\
+https://www.youtube.com/channel/UCG08EqOAXJk_YXPDsAvReSg\\
+https://openclassrooms.com/\\
+
+
+\end{document}
+
+
+
+

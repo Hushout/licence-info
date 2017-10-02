@@ -1,0 +1,53 @@
+\documentclass[11pt]{letter}
+ \usepackage[utf8]{inputenc} % un package
+ \usepackage[T1]{fontenc} % un second package
+ \usepackage[francais]{babel} % un troisième package
+ \usepackage{textcomp}
+ \usepackage{ifpdf}
+\ifpdf
+ \usepackage[pdftex]{graphicx}
+ \else
+ \usepackage[dvips]{graphicx}\fi
+\pagestyle{empty}
+\usepackage[scale=0.775]{geometry}
+ \setlength{\parindent}{0pt}
+ \addtolength{\parskip}{6pt}
+\renewcommand{\ttdefault}{pcr}
+ \begin{document}
+ \sffamily
+ \hfill
+ %
+ \begin{flushleft}
+ {\bfseries Marine Pellicer}\\[.35ex]
+ \small\itshape
+ 135, lotissement Gouin \\
+ Chemin du Temps Perdu\\
+ 84 440 Robion\\[.35ex]
+ 06.20.26.81.03\\
+ marine.pellicer@gmail.com
+ \end{flushleft}
+ %
+ \begin{flushright}
+ {\bfseries Université Montpellier II}\\[.35ex]
+ \small\itshape
+ Place Eugène Bataillon\\
+ 34 090 Montpellier
+ \end{flushright}
+ %
+ \hfill
+ %
+ \begin{flushright}
+ A Montpellier, le 9 février 2017 \today \\
+ Candidature en master ...
+ \end{flushright}
+ %
+ Madame, Monsieur,\\
+ Effectuant actuellement mon année de Licence 3 en informatique à l'Université de Montpellier II, je me permet de vous adresser mon dossier de candidature pour la première année de Master informatique.\\
+ Au cours de mes études universitaires, j'ai eu l'occasion de bénéficier d'un cursus fondé sur la programmation et l'algorithmique.\\
+ Mon objectif est d'intégrer une équipe de programmation dans le domaine du jeu vidéo, j'espère donc pouvoir participé aux cours de master lors de l'année scolaire 2018-2019.\\
+Je vous prie d'agréer, Madame, Monsieur l'expression de ma considération respectueuse.\\
+ \begin{center}
+ {\bfseries Marine Pellicer}\\
+ \end{center}
+ \vfill
+ \end{document}

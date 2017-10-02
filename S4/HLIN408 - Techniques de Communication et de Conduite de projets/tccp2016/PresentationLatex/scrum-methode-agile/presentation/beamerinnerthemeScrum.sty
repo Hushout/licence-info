@@ -1,0 +1,70 @@
+\mode<presentation>
+
+\setbeamertemplate{sections/subsections in toc}[square]
+\setbeamertemplate{items}[square]
+
+% Séparateur horizontal
+\setbeamertemplate{separator}{%
+    \usebeamercolor{separator}
+    \begin{tikzpicture}
+    \fill[color=fg] (0, 0) rectangle (\textwidth, .5pt);
+    \end{tikzpicture}
+}
+
+% Page de titre
+\setbeamertemplate{title page}{%
+    \vbox{}
+    \vfill
+    \begingroup
+        \centering
+
+        % Titre et sous-titre
+        \usebeamercolor{structure}
+        \usebeamerfont{title}\MakeLowercase{\inserttitle}\par\vskip.2em\par
+        \usebeamerfont{subtitle}\MakeLowercase{\insertsubtitle}\par
+        \usebeamertemplate{separator}\par
+        \vskip1em\par
+    \endgroup
+    \begingroup
+        \centering
+
+        % Auteur, institut et date
+        \usebeamercolor{normaltext}
+        \usebeamerfont{author}\insertauthor\\[.5em]
+        \usebeamerfont{date}\insertdate\\
+
+        % Logos en bas de page
+        \vskip3em\par
+
+        \inserttitlegraphic\\[.25em]
+        \usebeamerfont{institute}\insertinstitute\\
+    \endgroup
+    \vfill
+}
+
+% Page de titre de section
+\newcommand{\insertsectlower}{\expandafter\linklower@aux\insertsectionhead}
+\newcommand{\linklower@aux}[3]{#1{#2}{\MakeLowercase{#3}}}
+
+\setbeamertemplate{section title page}{%
+    \vbox{}
+    \vfill
+    \begingroup
+        \centering
+
+        % Titre
+        \usebeamercolor{structure}
+        \usebeamerfont{title}\insertsectlower\par
+        \usebeamertemplate{separator}\par
+    \endgroup
+    \vfill
+}
+
+% Affichage de la page de titre de section à chaque section
+\AtBeginSection[]{
+    \begin{frame}
+        \usebeamertemplate{section title page}
+    \end{frame}
+}
+
+\mode<all>

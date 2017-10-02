@@ -1,0 +1,76 @@
+% CREATED BY DAVID FRISK, 2017
+
+% IMPORT SETTINGS
+\documentclass[12pt,a4paper,openright]{report}
+\input{include/settings/Settings}
+
+\begin{document} 
+
+% COVER PAGE, TITLE PAGE AND IMPRINT PAGE
+\pagenumbering{arabic}			% Roman numbering (starting with i (one)) until first main chapter
+\input{include/frontmatter/Titlepage}
+
+% ABSTRACT
+%\newpage
+\input{include/frontmatter/Abstract}
+
+% ACKNOWLEDGEMENTS
+%\newpage
+%\input{include/frontmatter/Acknowledgements}
+
+% TABLE OF CONTENTS
+%\newpage
+\tableofcontents
+
+% OTHER FRONTMATTER
+% List of figures (add to table of contents)
+%\cleardoublepage
+%\addcontentsline{toc}{chapter}{\listfigurename} 
+%\listoffigures
+% List of tables (add to table of contents)
+%\cleardoublepage
+%\addcontentsline{toc}{chapter}{\listtablename}  
+%\listoftables
+
+
+% START OF MAIN DOCUMENT
+%\cleardoublepage
+%\setcounter{page}{1}
+\pagenumbering{arabic}			% Arabic numbering starting from 1 (one)
+%\setlength{\parskip}{0pt plus 1pt}
+
+%\setlength{\parindent}{4em}
+%\setlength{\parskip}{1em}
+%\renewcommand{\baselinestretch}{2.0}
+
+% INTRODUCTION
+\input{include/Introduction}
+
+% THEORY
+\input{include/Theory}
+
+% METHODS
+%\input{include/Methods}
+
+% RESULTS
+%\input{include/Results}
+
+% CONCLUSION
+\input{include/Conclusion}
+%\input{include/Methods}
+
+% REFERENCES / BIBLIOGRAPHY
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Bibliographie}
+\input{include/backmatter/References}
+%\input{Results}
+
+% APPENDICES
+\cleardoublepage
+\appendix
+\setcounter{page}{1}
+\pagenumbering{Roman}			% Capitalized roman numbering starting from I (one)
+
+\input{include/backmatter/Appendix_1}
+
+\end{document}

@@ -1,0 +1,35 @@
+\mode<presentation>
+
+% En-tête des transparents
+\setbeamertemplate{frametitle}{
+    \vskip1em\par
+    \usebeamerfont{frametitle}\MakeLowercase{\insertframetitle}\par
+    \usebeamerfont{framesubtitle}\MakeLowercase{\insertframesubtitle}\par
+}
+
+% Pas de symboles de navigation qui ne servent à rien
+\setbeamertemplate{navigation symbols}{}
+
+% Pas de ligne d’en-tête qui distraient du titre du transparent
+\setbeamertemplate{headline}{}
+
+% Ligne d’information en bas-de-transparent
+\setbeamertemplate{footline}{%
+    \leavevmode%
+    \hbox{%
+        \usebeamerfont{footline}%
+        \begin{beamercolorbox}[wd=.5\paperwidth,ht=3ex,dp=1.25ex,center]{footline}%
+            \inserttitle~~---~
+            \textit{\insertsubtitle}
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.5\paperwidth,ht=3ex,dp=1.25ex,right]{footline}%
+            \insertshortauthor
+            \hspace*{2em}
+            \insertframenumber{} / \inserttotalframenumber
+            \hspace*{2ex}
+        \end{beamercolorbox}%
+    }
+    \vskip0pt%
+}
+
+\mode<all>

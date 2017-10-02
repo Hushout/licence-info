@@ -1,0 +1,21 @@
+\documentclass{article} 
+ \usepackage{tikz} 
+ \begin{document} 
+ \resizebox{300pt}{!}{
+ \begin{tikzpicture}
+\node[draw, color=black, rounded corners=5pt, text width=3cm, text centered] (SZ1) at (5, 1) { (\textcolor{red}{11})\\this=\textcolor{red}{0x80004d50}\\Pere=\textcolor{red}{0} (FGP=\textcolor{red}{Droit})};
+\node[draw, color=black, rounded corners=5pt, text width=3cm, text centered] (SZ2) at (-3, -2) { (\textcolor{red}{7})\\this=\textcolor{red}{0x8004e7e0}\\Pere=\textcolor{red}{0x80004d50} (FGP=\textcolor{red}{Gauche})};
+\draw[->, >=latex, color=blue] (SZ1) -- (SZ2);
+\node[draw, color=black, rounded corners=5pt, text width=3cm, text centered] (SZ4) at (-7, -5) { (\textcolor{red}{3})\\this=\textcolor{red}{0x8004e810}\\Pere=\textcolor{red}{0x8004e7e0} (FGP=\textcolor{red}{Gauche})};
+\draw[->, >=latex, color=blue] (SZ2) -- (SZ4);
+\node[draw, color=black, rounded corners=5pt, text width=3cm, text centered] (SZ5) at (1, -5) { (\textcolor{red}{9})\\this=\textcolor{red}{0x8004e828}\\Pere=\textcolor{red}{0x8004e7e0} (FGP=\textcolor{red}{Droit})};
+\draw[->, >=latex, color=blue] (SZ2) -- (SZ5);
+\node[draw, color=black, rounded corners=5pt, text width=3cm, text centered] (SZ10) at (-1, -8) { (\textcolor{red}{8})\\this=\textcolor{red}{0x8004e858}\\Pere=\textcolor{red}{0x8004e828} (FGP=\textcolor{red}{Gauche})};
+\draw[->, >=latex, color=blue] (SZ5) -- (SZ10);
+\node[draw, color=black, rounded corners=5pt, text width=3cm, text centered] (SZ11) at (3, -8) { (\textcolor{red}{10})\\this=\textcolor{red}{0x8004e870}\\Pere=\textcolor{red}{0x8004e828} (FGP=\textcolor{red}{Droit})};
+\draw[->, >=latex, color=blue] (SZ5) -- (SZ11);
+\node[draw, color=black, rounded corners=5pt, text width=3cm, text centered] (SZ3) at (14, -2) { (\textcolor{red}{15})\\this=\textcolor{red}{0x8004e7f8}\\Pere=\textcolor{red}{0x80004d50} (FGP=\textcolor{red}{Droit})};
+\draw[->, >=latex, color=blue] (SZ1) -- (SZ3);
+\end{tikzpicture}
+ } \end{document} 
+

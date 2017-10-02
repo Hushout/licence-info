@@ -1,0 +1,81 @@
+%% start of file `template.tex'.
+%% Copyright 2006-2013 Xavier Danaux (xdanaux@gmail.com).
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+
+
+\documentclass[11pt,a4paper,sans]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
+
+% moderncv themes
+\moderncvstyle{banking}                            % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{red}                                % color options 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+%\renewcommand{\familydefault}{\sfdefault}         % to set the default font; use '\sfdefault' for the default sans serif font, '\rmdefault' for the default roman one, or any tex font name
+%\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
+
+% character encoding
+\usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
+%\usepackage{CJKutf8}                              % if you need to use CJK to typeset your resume in Chinese, Japanese or Korean
+
+% adjust the page margins
+\usepackage[scale=0.75]{geometry}
+%\setlength{\hintscolumnwidth}{3cm}                % if you want to change the width of the column with the dates
+%\setlength{\makecvtitlenamewidth}{10cm}           % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
+
+% personal data
+\name{Mamadou aliou}{Barry}
+\title{Etudiant}                               % optional, remove / comment the line if not wanted
+\address{38 rue Roucher}{34000}{Montpellier}% optional, remove / comment the line if not wanted; the "postcode city" and and "country" arguments can be omitted or provided empty
+\phone[mobile]{+33~(758)~152~515}                   % optional, remove / comment the line if not wanted
+%\phone[fixed]{+2~(345)~678~901}                    % optional, remove / comment the line if not wanted
+%\phone[fax]{+3~(456)~789~012}                      % optional, remove / comment the line if not wanted
+\email{mamadou-aliou.barry@etu.umontpellier.fr}                               % optional, remove / comment the line if not wanted
+\homepage{www.aliou.com}                         % optional, remove / comment the line if not wanted
+\extrainfo{additional information}                 % optional, remove / comment the line if not wanted
+\photo[64pt][0.4pt]{picture}                       % optional, remove / comment the line if not wanted; '64pt' is the height the picture must be resized to, 0.4pt is the thickness of the frame around it (put it to 0pt for no frame) and 'picture' is the name of the picture file
+\quote{Some quote}                                 % optional, remove / comment the line if not wanted
+
+% to show numerical labels in the bibliography (default is to show no labels); only useful if you make citations in your resume
+%\makeatletter
+%\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}
+%\makeatother
+%\renewcommand*{\bibliographyitemlabel}{[\arabic{enumiv}]}% CONSIDER REPLACING THE ABOVE BY THIS
+
+% bibliography with mutiple entries
+%\usepackage{multibib}
+%\newcites{book,misc}{{Books},{Others}}
+%----------------------------------------------------------------------------------
+%            content
+%----------------------------------------------------------------------------------
+\begin{document}
+%-----       letter       ---------------------------------------------------------
+% recipient data
+\recipient{Master Informatique UM}{Universite, \\Place Eugène Batallon 34090\\Montpellier}
+\date{02 Fevrier 2017}
+\opening{Cher Mme M.}
+\closing{Vous remerciant part avance de la bienveillance que vous porterez à ma candidature, veuillez agréer, Mme M., l'exppresssion de mes salutations distinguées.}
+\enclosure[Attached]{curriculum vit\ae{}}          % use an optional argument to use a string other than "Enclosure", or redefine \enclname
+\makelettertitle
+
+J'ai l'honneur de vous soumettre, par la présente, mon dossier de candidature au master AIGLE dispensé par votre département informatique (Université de Montpellier)
+
+Cette démarche s'inscrit dans la suite logique de mon projet professionnel, afin de pouvoir approfondir mes connaissances dans le domaine de l'informatique et me diriger vers une carrière d'Architecte des systèmes d'information.
+
+Actuellement en Licence 3, pour laquelle je devrais obtenir mon diplôme en juin 2018, j'ai pu apprendre sur les thématiques de Système d'information, Aussi l'occasion m'a été donnée, au travers de stages en entreprise d'appréhender les questions d'Architecture système de me forger une première expérience dans le domaine de Système d'information.
+
+De par le vif intérêt porté à ces thématiques et leur corrélation avec mes objectifs, c'est tout naturellement que nje souhaite intégrer votre master afin de poursuivre sur cette voie et de parfaire ma culture sur ce sujet.
+
+Conscient de l'engagement que nécessite cette formation, je suis prêt et déterminé à m'investir pleinement dans cette formation, et me tiens à votre disposition pour tout entretien de sélection que vous jugeriez utile à l'examen de mon dossier d'admision. Vous trouverez en pièce jointe mon curriculum vitae qui vous fournira des informations détailées sur mon parcours.
+
+Vous remerciant part avance de la bienveillance que vous porterez à ma candidature, veuillez agréer, Mme M., l'exppresssion de mes salutations distinguées.
+
+
+
+
+\makeletterclosing
+
+\end{document}
+
+
+%% end of file `template.tex'.

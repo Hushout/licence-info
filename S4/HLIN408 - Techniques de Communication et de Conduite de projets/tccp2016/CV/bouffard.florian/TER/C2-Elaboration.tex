@@ -1,0 +1,82 @@
+\chapter{Élaboration du Projet}
+\label{sec:unchapitre}
+
+Dans ce chapitre nous allons détailler comment c'est réellement déroulé l'élaboration de notre projet au cours du temps.
+
+\section{L'implémentation du jeu}
+
+\subsection{Les technologies utilisées}
+
+Nous avons choisi de travailler avec Javascript comme langage de programmation afin de mieux appréhender l'aspect multijoueur en temps réel de notre jeu. Javascript est un langage de programmation de scripts principalement utilisé pour les sites interactifs et les serveurs avec l'utilisation de Node.js. En outre ce n'est pas un langage compilé mais un langage interprété. D'ailleurs puisqu'aucun d'entre nous n'avait programmé en Javascript, nous avons dû acquérir les bases de celui-ci de manière autodidacte. Nous avons également dû travailler avec les langages que sont HTML et CSS pour modeler l'affichage et l'aspect graphique de notre jeu.
+
+Nous avons changé l'esthétique du jeu, en modifiant l'affichage et l'interface graphique, et augmentant le nombre de joueurs simultanées en créant différents plateaux de jeu en forme de polygone et en y ajoutant différentes interactions multijoueur. La partie la plus difficile à ce niveau du projet était de créer un jeu en temps réel pour cela nous nous sommes tourné vers SocketIO. Il s'agit d'une librairie de Javascript qui permet de créer des applications web en temps réel. En d'autres termes, elle permet la communication en temps réel entre le client et le serveur. Avec une partie client exécutée par le navigateur et une partie serveur gérée par Node.js. Cette librairie présente trois avantages majeurs, tout d'abord sa simplicité puis sa prise en charge et sa probabilité sur la majorité des navigateurs incluant même les vieux navigateurs.
+
+
+Pour l'hébergement du jeu sur un serveur nous nous sommes tournés vers Heroku qui est considéré comme l'un des plus anciens services de cloud-computing. Le cloud-computing est l'exploitation de la puissance de calcul ou de stockage de serveurs informatiques distants par l'intermédiaire d'un réseau. Nous avons donc choisi Heroku car il permet le déploiement très rapide d'applications web dans le cloud mais aussi pour sa gratuité tant que l'application n'est pas monétisé.
+
+
+\subsection{Organisation interne du jeu}
+
+Nous avons développé toutes les classes nécessaires au bon déroulement du jeu. Ces classes sont donc la classe \emph{player} qui gère le joueur, la classe \emph{ball} qui comme son nom l'indique régit la balle et ses actions, la classe \emph{map} qui crée tous les murs et buts de façon spécifique selon le plateau, les classes \emph{wall} et \emph{goal} qui gère le calcul de la bonne rotation des murs et des buts dans le jeu, la classe \emph{helpers} contenant toutes les fonctions nécessaire au projet, la classe \emph{express} qui crée le lien entre le client et le serveur,  la classe \emph{game} qui implemente la partie en manipulant les classes précédemment citées, la classe\emph{gameserver} qui gère la création de toutes les parties du jeu et enfin la classe \emph{SocketIO} qui gère l'envoie des données entre le client et le serveur.\\
+
+\section{Un point du projet plus en détail : L'intelligence artificielle}
+
+Afin qu'un joueur seul puisse jouer dans l'attente de trouver un adversaire humain, nous avons commencé à implémenter une intelligence artificielle (IA) pour le jeu. Cette phase fut très difficile car il fallait être suffisamment pointilleux pour que l'IA soit fonctionnelle avec tous les modes de jeu que nous comptions mettre en place. Il fallait aussi qu'elle puisse réagir différemment selon la situation. C'est-à-dire que l'IA doit être capable de viser un espace vide des buts adverses plutôt que de renvoyer bêtement la balle. D'ailleurs un aspect très intéressant de l'intelligence artificielle c'est son évolution au cours de notre projet. Et comment chaque changement sur son algorithme la façonnait lui permettant d'être meilleure et imprévisible. Nous avons même créé un mode sans vue pour pouvoir comparer son évolution au cours de notre projet en les faisant s'affronter les unes contre les autres sur des parties plus ou moins longues.
+
+
+Au cours de la réalisation et de l'implémentation de l'IA, nous avons rencontré divers problèmes, le premier lié au remplacement d'une IA par un joueur puis un second lorsque l'IA devait reprendre sa place.
+
+
+L'aire de jeu est représentée par un polygone qui varie en fonction du nombre de joueurs et du mode de jeu. De ce fait, un joueur qui se connecte dans une nouvelle partie se voit en bas de l'écran, ses contrôles gauche et droite sont dans le même sens que sa raquette. Les autres participants sont remplacés par des IA. Cependant, si un autre joueur se connecte à cette même partie, celui-ci prendra la place d'une IA, c'est-à-dire sur le côté ou même en haut du plateau. Néanmoins, ce nouveau joueur aurait la même vue du jeu que le premier, désaxée par rapport à sa raquette, rendant l'utilisation du clavier trop difficile. Pour pallier à ce problème, nous avons ajouté à notre code un algorithme qui pour chaque joueur, effectue une rotation de l'affichage afin que chaque joueur se voit en bas du plateau.
+
+
+Un autre problème que nous avons rencontré est lié aux joueurs qui quittent une partie en cours. En effet ces joueurs n'étaient pas toujours remplacés par un nouveau joueur en attente de jouer et le changement de plateau n'était guère envisageable car trop brutale et peu immersive pour les autres joueurs. Nous avons fait en sorte que ce joueur soit alors toujours remplacé par une intelligence artificielle qui prendrait alors le relais sans changer son score.
+
+\subsection{Les différentes versions de l'IA}
+
+Nous avons tout d'abord implémenté une première version de notre IA. Le but de cette IA n'était pas d'intercepter la balle mais de se déplacer de façon aléatoire. Les objectifs de cette démarche étaient multiple. D'une part, elle nous a permis d'appréhender les contraintes en terme de programmation d'avoir une IA (quelles sont les classes nécessaires, quand est-ce qu'on doit faire le calcul du mouvement, etc...). D'autre part, cette IA permettait de nous donner une première version, à laquelle nous feront affronter les prochaines versions plus complexes. Cette IA est donc dite "naïve" car son mouvement ne dépend pas de la balle.
+
+
+C'est ensuite dans l'optique de créer une IA meilleure que nous avons développé l'algorithme d'une nouvelle IA: l'IA défensive. Le but était de permettre à l'IA de calculer le lieu de la prochaine interception entre ses propres buts et les différentes balles selon le cas de figure. Cette IA fut un réel succès dû à son algorithme de prédiction qui était capable de déterminer le lieu de la prochaine interception entre la balle et un but plusieurs secondes a l'avance. Cette IA est donc une IA à caractère purement défensive.
+
+
+Nous nous sommes finalement lancés dans l'implémentation de l'IA la plus intelligente possible capable donc de viser l'espace vide entre un joueur et le côté de ces buts. Cette tâche fut particulièrement difficile en raison d'un grand nombre de calculs trigonométriques nécessaires à sa bonne réalisation. Cette IA ne se contente donc plus de se placer sur le lieu de l'interception mais elle place le joueur de façon à dévier la balle d'un certain angle pour pouvoir atteindre sa cible. Le caractère cette IA est quant à lui orienter vers l'offensive.\\
+
+% Ajouter un schéma d'un match à 6 joueurs et montrer les différentes trajectoires de balle possible pr l joueur du bas
+
+\clearpage
+
+\subsection{Les résultats comparatifs}
+
+Comme nous l'avons précisé dans la partie précédente, nous avons créé un mode sans vue dans le but d'avoir un meilleur aperçu de l'évolution de notre IA durant le projet. Afin que l'IA défensive ne sois pas trop parfaite et arrête tous les tirs provenant de n'importe quelle IA, nous avons mis en place un pourcentage d'erreur afin qu'elles puissent se prendre des buts.\\
+
+Si dessous un tableau montrant le score entre deux IA pendant le temps indiqué. Les résultats ont été enregistrés à 5, 10 et 20 minutes de jeu.
+
+\begin{table}[ht]
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      Affrontements IA / Temps de Jeu (Min) & 5 & 10 & 20\\
+      \hline
+      IA 1 vs IA 2& 0 / 12 & 1 / 25 & 2 / 48 \\
+      \hline
+      IA 1 vs IA 3& 3 / 21 & 9 / 49 & 21 / 116 \\
+      \hline
+      IA 2 vs IA 3& 9 / 4 & 17 / 7 & 22 / 15 \\
+      \hline
+    \end{tabular}
+    \caption{Tableau sur le Mode Sans Vue.}
+    \label{tab:un-tableau}
+  \end{center}
+    IA1 = IA naîve alias \emph{Florian}\\
+    IA2 = IA défensive alias \emph{Gertseen}\\
+    IA3 = IA offensive alias \emph{Hamza}
+\end{table}
+
+
+
+%A retoucher avec un exemple ou à enlever
+
+%\section{La physique du rebond}
+
+%Nous avons ensuite dû coder un nouvel algorithme du rebond adapté au mode de jeu en forme de polygone. Ce ne fut pas une tâche aisée car nous avons fait face a de nombreux problèmes de mathématiques. En effet notre travail repose en grande partie sur un canvas implémenté en HTML donc tous les calculs comme le calcul du rebond de la balle nécessite plusieurs formules de trigonométrie. Pour pallier ce problème de mathématique, nous nous sommes rendus dans une salle de la bibliothèque universitaire pour faire un bref rappel sur certaines de ces formules avec l'aide de notre encadrant.\\

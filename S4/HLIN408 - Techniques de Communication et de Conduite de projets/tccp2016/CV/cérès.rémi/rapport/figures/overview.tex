@@ -1,0 +1,122 @@
+\documentclass[tikz]{standalone}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{tikz}
+\usepackage{tikz-uml}
+
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+\usetikzlibrary{fit}
+\usetikzlibrary{calc}
+
+\newcommand*{\umlstereo}[1]{$\ll$#1$\gg$}
+\NoAutoSpacing
+
+\begin{document}
+\tikzset{
+    >=stealth,
+    module/.style={
+        rectangle, draw,
+        minimum height=.6cm,
+    }
+}
+
+\pgfdeclarelayer{frame}
+\pgfdeclarelayer{modules}
+\pgfsetlayers{frame,modules}
+
+\begin{tikzpicture}[font=\small]
+    \begin{pgfonlayer}{modules}
+        \node[module, minimum width=5cm, fill=yellow!30]
+            (Sync) {\textbf{Sync}};
+
+        \node[
+            module, minimum width=2.25cm, fill=green!30,
+            below=.3cm of Sync.south east, anchor=north east
+        ]
+            (Config) {\textbf{Config}};
+
+        \node[
+            module, minimum width=2.25cm, fill=blue!30,
+            below=.3cm of Sync.south west, anchor=north west
+        ]
+            (Services) {\textbf{Services}};
+
+        \node[module, minimum width=2.25cm, fill=red!30, below=.3cm of Services]
+            (HTTP) {\textbf{HTTP}};
+    \end{pgfonlayer}
+
+    \begin{pgfonlayer}{frame}
+        \node[
+            rectangle, draw, dashed,
+            inner xsep=.5cm, inner ysep=.3cm,
+            fit=(Sync)(Config)(Services)(HTTP)
+        ] (core-frame) {};
+    \end{pgfonlayer}
+
+    \begin{pgfonlayer}{modules}
+        \node[
+            module, rotate=90, yshift=.75cm, minimum width=2.45cm,
+            fill=gray!30, left=.2cm of core-frame, anchor=north
+        ] (Log) {\textbf{Log}};
+    \end{pgfonlayer}
+
+    \begin{pgfonlayer}{frame}
+        \node[
+            rectangle, draw,%
+            inner xsep=.5cm, inner ysep=.75cm,%
+            fit=(Sync)(Config)(Services)(HTTP)(Log)(core-frame)
+        ] (application-frame) {};
+
+        \node[below=0cm of application-frame.north] {\textbf{Application}};
+    \end{pgfonlayer}
+
+    \begin{pgfonlayer}{modules}
+        \node[fill=white] (cURL) at (application-frame.south-|HTTP)
+            {\textbf{cURL}};
+        \node[fill=white] (SQLite) at (application-frame.south-|Config)
+            {\textbf{SQLite}};
+
+        \node[
+            above=1.1cm of application-frame,
+            label={[align=center, name=user-label]below:Utilisateur}
+        ] (user) {\includegraphics[scale=.15]{user}};
+
+        \node[
+            cylinder, draw, minimum width=.64cm, minimum height=.8cm,
+            shape border rotate=90, below=.5cm of SQLite,
+            label={[align=center]below:Base de\\données}
+        ] (db) {};
+
+        \node[
+            cloud, draw, minimum width=1cm, minimum height=.6cm,
+            label={[align=center]below:Serveurs de\\stockage}
+        ] (cloud) at (db-|cURL) {};
+
+        \node[
+            rectangle, draw, minimum width=.6cm, minimum height=.8cm,
+            label={[align=center]below:Système de\\fichiers},
+            xshift=2.5cm
+        ] (fs) at (db) {};
+
+        \draw[<->, shorten >=2pt, shorten <=2pt]
+            (user-label) -- (application-frame);
+
+        \draw[<->] (Services) -- (Services|-Sync.south);
+        \draw[<->] (Config) -- (Config|-Sync.south);
+        \draw[<->] (Services) -- (HTTP);
+        \draw[<->] (cURL) -- (HTTP);
+        \draw[->] (core-frame) -- (Log);
+        \draw[<->, shorten >=2pt] (cURL) -- (cloud);
+
+        \draw[<->] (Config) -- (SQLite);
+        \draw[<->, shorten >=2pt] (SQLite) -- (db);
+
+        \draw[<->, shorten >=2pt] (Config) edge [bend left] (fs);
+        \path[<->, shorten >=2pt] (Sync.east) edge [bend left] (fs);
+    \end{pgfonlayer}
+\end{tikzpicture}
+\end{document}

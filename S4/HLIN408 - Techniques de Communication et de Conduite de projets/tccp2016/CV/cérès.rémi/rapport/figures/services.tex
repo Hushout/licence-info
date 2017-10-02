@@ -1,0 +1,57 @@
+\documentclass[tikz]{standalone}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{tikz-uml}
+\usepackage[french]{babel}
+
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+
+\newcommand*{\umlstereo}[1]{$\ll$#1$\gg$}
+\NoAutoSpacing
+
+\begin{document}
+\begin{tikzpicture}
+    \umlinterface{Service}{}{
+        \umlvirt{+ login() : boolean}\\
+        \umlvirt{+ putFile(source : InStream, target : string) : Future}\\
+        \umlvirt{+ fetchFile(source : string, target : OutStream) : Future}\\
+        \umlvirt{+ removeFile(path : string) : Future}\\
+        \umlvirt{+ listDir(path : string) : Future<Entry[0..*]>}\\
+        \umlvirt{+ getQuota() : Future<Quota>}\\
+    }
+
+    \umlclass[below=1cm of Service]{Entry}{}{
+        + getType() : EntryType\\
+        + getPath() : string\\
+        + getChecksum() : string\\
+        + getSize() : integer\\
+    }
+
+    \umlenum[right=1cm of Entry]{EntryType}{
+        FILE\\
+        FOLDER\\
+    }{}
+
+    \umluniassoc[attr2=1|type,pos2=.9,align2=right]{Entry}{EntryType}
+
+    \umlclass[left=1cm of Entry]{Quota}{}{
+        + getUsed() : integer\\
+        + getAllocation() : integer\\
+    }
+
+    \umldep{Service}{Quota}
+    \umldep{Service}{Entry}
+
+    \umlsimpleclass[above=1cm of Service]{OneDriveService}
+    \umlsimpleclass[left=1cm of OneDriveService]{DropboxService}
+    \umlsimpleclass[right=1cm of OneDriveService]{GoogleDriveService}
+
+    \umlreal{OneDriveService}{Service}
+    \umlreal{DropboxService}{Service}
+    \umlreal{GoogleDriveService}{Service}
+\end{tikzpicture}
+\end{document}

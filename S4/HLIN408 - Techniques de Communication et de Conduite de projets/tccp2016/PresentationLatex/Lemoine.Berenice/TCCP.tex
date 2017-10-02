@@ -1,0 +1,377 @@
+\documentclass{beamer}
+
+\usetheme{Madrid}
+\usepackage{verbatim}
+\usepackage[french]{babel}
+\usepackage{verbatim}
+\usepackage[utf8]{inputenc}  
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+
+\title{XML}
+
+\subtitle{ eXtensible Markup Language }
+
+\author{Bérénice Lemoine et Olivier Montet}
+
+\institute[] 
+{
+Faculté des Sciences\\
+Université de Montpellier\\
+Département Informatique
+}
+
+
+\date{TCCP 2017}
+
+\subject{XML}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Sommaire}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Un petit peu d'histoire...}
+  \begin{itemize}
+    \item {
+    Au début d'internet la transmission d'information était fastidieuse.
+    }\pause
+    \item{
+    D'où l'invention du SGML (Standard Generalized Markup Language).
+    }\pause
+    \item{
+    Celui-ci étant trop complexe et ayant des échanges de données difficiles avec le web, le XML 1.0 (eXtensible Markup Language) vu le jour en 1998.
+    }\pause
+    \item{
+    La même année le XML est devenu une recommandation du W3C ("World Wide Web Consortium")
+    }\pause
+    \item{
+    Malgré la nouvelle version XML 1.1 sortie en 2004, XML 1.0 reste celle la plus utilisée.
+    }
+  \end{itemize}
+\end{frame}
+    
+\begin{frame}{Sommaire}
+  \tableofcontents
+\end{frame}
+
+\section{Qu'est-ce que le XML?}
+
+\subsection{Un langage de description}
+
+\begin{frame}{Qu'est-ce que le XML ?}{Un langage de description}
+  \begin{itemize}
+  \item {
+    Le XML est un langage qu’on peut appeler langage de description, il permet de décrire et de structurer un ensemble de données selon un jeu de règles et des contraintes définies. On peut par exemple l'utiliser pour décrire l'ensemble des livres d'une bibliothèque, ou encore la liste des chansons d'un CD, etc.
+  }
+  \end{itemize}
+\end{frame}
+\subsection{Un langage de balisage générique}
+\begin{frame}{Qu'est-ce que le XML ?}{Langage de Balisage Générique}
+  \begin{itemize}
+    \item {
+        Un \textit{langage de balisage} est un langage qui s'écrit grâce à des balises. Ces balises permettent de structurer de manière hiérarchisée et organisée les données d'un document.\\
+        Chaque balise peut-elle-même avoir différentes propriétés grâce aux attributs.
+        } \pause % The slide will pause after showing the first item
+      \item {
+        Le terme \textit{générique} signifie que nous allons pouvoir créer nos propres balises. Nous ne sommes pas obligés d'utiliser un ensemble de balises existantes comme c'est par exemple le cas en HTML.
+        } \pause
+         \item {exemple : \textless telephone type="fixe"\textgreater}
+  \end{itemize}
+\end{frame}
+
+
+
+\section{Particularités du XML}
+
+\subsection{Créer un fichier XML bien formé}
+
+\begin{frame}{Créer un fichier XML bien formé}{L'entête}
+\begin{block}{
+ \begin{center}
+  \textbf{OBLIGATOIRE!}
+  \end{center}
+  }
+  \begin{center}
+Tout document XML doit commencer par la ligne :\\
+    {\color{red}
+    \textless?xml version="1.0" encoding="UTF-8"?\textgreater}
+  \end{center}
+ \end{block}
+\end{frame}
+
+\begin{frame}{Créer un fichier XML bien formé}{Les balises I}
+\begin{block}{\textbf{Obligations}}
+On peut créer toutes les balises que l'on souhaite, à \textbf{condition} qu'elles respectent certaines règles :\\
+    \begin{itemize}
+        \item{
+        Toute balise ouverte doit être correctement fermée : \\
+            \textless balise\textgreater \textit{ Voici une balise} \textless/balise\textgreater
+        }\pause
+        \item{
+        Il n'y a qu'une balise racine : \\
+            \textless racine\textgreater
+        }\pause
+        \item{
+        Les attributs de la balise sont entre guillemets:\\
+            \textless balise attribut="A1" \textgreater
+        }
+    \end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Créer un fichier XML bien formé}{Les balises II}
+\begin{block}{\textbf{Interdictions}}
+Les balises interdites : \\
+    \begin{itemize}
+        \item{
+            \textless \textbf{8}balise\textgreater \\
+            \textless bal\textbf{--}is\textbf{é}\textgreater \\
+            \textless balise une\textgreater
+        }\pause
+        \item{
+        Les chevauchements sont interdits : \\
+        \textless baliseUne\textless baliseDeux\textgreater\textgreater\\
+        \textless baliseUne \textgreater  \textless baliseDeux \textgreater  \textless /baliseUne \textgreater 
+        }
+    \end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Créer un fichier XML bien formé}{Balises et attributs}
+\begin{block}{\textbf{Attributs d'une balise}}
+    \begin{itemize}
+        \item{
+Le langage XML est générique, on a vu que l'on peut choisir les balises que l'on veut. C'est également le cas pour leurs attributs qui vont nous permettre de donner des détails supplémentaires sur l'information que contient la balise en question.}\pause
+        \item{
+        \textless prix devise="euro"moyenpaiement="chèque"\textgreater 25.3 \textless/prix\textgreater
+        }
+    \end{itemize}
+\end{block}
+\end{frame}
+
+
+\begin{frame}{Créer un fichier XML bien formé}{Exemple de fichier bien formé}
+    \begin{block}{\textit{Exemple de fichier bien formé} }
+        \begin{verbatim}
+            \color{darkgray}{
+            <?xml version="1.0" encoding="UTF-8"?>\\
+            <personne sexe="Feminin">\\
+                \ \ <nom>CONNOR</nom>\\
+                \ \ <prenom>Sarah</prenom>\\
+                \ \ <telephones>\\
+                \ \ \ \ <telephone type="fixe">none</telephone>\\
+                \ \ \ \ <telephone type="portable">06 72 15 95 62</telephone>\\
+                \ \ </telephones>\\
+            </personne>
+            }
+        \end{verbatim}
+    \end{block}
+\end{frame}
+
+\subsection{Créer un fichier XML valide}
+
+\begin{frame}{Créer un fichier XML valide}{Définition}
+\begin{block}{
+  \textit{Définition du mot \textit{Valide}}
+  }
+  \begin{center}
+  C'est un document XML bien formé, qui en plus, respecte les règles d'un fichier de définition DTD (Définition de Type de Document) ou schémas XML. Pour un fichier DTD il faut mettre en entête la ligne suivante :\\ 
+  \color{gray}{
+  \textless !DOCTYPE AML SYSTEM "nomfichier.dtd" \textgreater
+  }
+  \end{center}
+ \end{block}
+ \begin{block}
+    { \textit{Définition d'un document XML}}
+    C'est un ensemble de règles qu'on impose au document qui permettent de décrire la façon dont le document XML doit être construit.
+ \end{block}
+\end{frame}
+
+\begin{frame}{Créer un fichier XML valide}{Exemple}
+    \begin{block}
+        {\textit{Voici un exemple de définition de document XML de l'exemple plus haut :}}
+        \begin{verbatim} \color{darkgray}{
+            <!ELEMENT personne (nom, prenom,telephones)>\\
+            <!ATTLIST personne sexe (masculin | feminin) #REQUIRED>\\
+            <!ELEMENT nom (#PCDATA)>\\
+            <!ELEMENT prenom (#PCDATA)>\\
+            <!ELEMENT telephones (telephone+)>\\
+            <!ELEMENT telephone (#PCDATA)>\\
+            <!ATTLIST telephone type CDATA #REQUIRED>}
+        \end{verbatim}
+    \end{block}
+\end{frame}
+
+\section{Utilisation du XML}
+    \subsection{Généralités}
+    \begin{frame}{Utilisation du XML}{Généralités}
+        \begin{itemize}
+            \item{
+               Seul le XML n'est pas très utile au final...
+            }
+            \item{Il trouve tout son intérêt et succès grâce à la galerie de langages qui gravitent autour de lui ! Les DTD par exemple font partie de cette galerie.
+            Ces langages permettent de manipuler les documents XML, les transformer, mettre en forme, créer des liens ou comme nous l'avons vu précédemment, décrire leur contenu.}\pause
+            \item 
+              Beaucoup de logiciels peuvent utiliser le XML. Les langages tels que Java, C++, etc. utilisent des fichiers XML pour décrire les programmes et leurs paramètres de sécurité. De même les logiciels comme OpenOffice, FreeMind, etc. utilisent le format XML pour différentes tâches mais notament pour stocker leur configuration. 
+        \end{itemize}
+    \end{frame}
+    
+    \subsection{Exemples d'applications}
+    \begin{frame}{Utilisation du XML}{Exemple d'applications}
+        \begin{itemize}
+            \item{
+            Le SVG \textit{(Scalable Vector Graphics)}, est un langage qui permet d'écrire des graphiques vectoriels 2D en XML.
+            }\pause
+            \item{Le Xlink est une spécification du W3C \textit{(World Wide Web)}. Il permet de créer des hyperliens dans des documents XML mais contrairement aux liens en HTML, ces liens sont multidirectionnels, c'est-à-dire qu'il peuvent pointer vers plusieurs documents. Le SVG utilise XLink.}
+        \end{itemize}
+    \end{frame}
+    
+    \subsection{Application avec Java}
+    \begin{frame}{Utilisation du XML}{Exemple Java I}
+       \begin{block}{
+        \textit{Exemple de fichier bien formé}}
+        \begin{verbatim}\color{darkgray}{
+            <?xml version="1.0" encoding="UTF-8"?>\\
+            <personne sexe="Feminin">\\
+                \ \ <nom>CONNOR</nom>\\
+                \ \ <prenom>Sarah</prenom>\\
+                \ \ <telephones>\\
+                \ \ \ \ <telephone type="fixe">none</telephone>\\
+                \ \ \ \ <telephone type="portable">06 72 15 95 62</telephone>\\
+                \ \ </telephones>\\
+            </personne>}
+        \end{verbatim}
+       \end{block}
+    \end{frame}
+    
+    \begin{frame}{Utilisation du XML}{Exemple Java II}
+       \begin{block}{
+        \textit{Les premières étapes pour créer un programme Java permettant la lecture d'un fichier XML sont :}}
+        \begin{itemize}
+            \item Récupérer une instance de la classe "DocumentBuilderFactory", c'est-à-dire un DOM (Document Objet Memory) pemettant de fournir une représentation mémoire du document XML sous la forme d'un arbre d'objets et d'en permettre la manipulation (parcours, recherche et mise à jour).\pause
+            \item
+            Création d'un parseur, c'est-à-dire, un analyseur syntaxique XML qui permet de récupérer dans une structure XML, des balises, leurs contenus, leurs attributs et de les rendre accessibles. 
+        \end{itemize}
+       \end{block}
+    \end{frame}
+    
+     \begin{frame}{Utilisation du XML}{Exemple Java III}
+       \begin{block}{
+        \textit{Pour la suite du code il y a deux options :}}
+        \begin{itemize}
+            \item Faire un code général dans le cas où l'on ne connait pas la structure du document XML.\pause
+            \item
+            Ou bien faire un code correpondant à un fichier XML propre (On ne pourra donc pas utiliser ce code pour lire un autre fichier XML que celui voulu. \pause
+            \item{
+            L'exemple que l'on va vous montrer correspond exactement au fichier XML vu plus haut.}
+        \end{itemize}
+       \end{block}
+    \end{frame}
+    
+\section{Le XML n'a pas que des avantages...}
+\subsection{Inconvénients}
+    \begin{frame}{Le XML n'a pas que des avantages...}{Inconvénients I}
+      \begin{block}{\textit{Le XML est un langage \textbf{très} verbeux :}}
+             \textless NOMBREEXEMPLAIRES\textgreater 5 \textless/NOMBREEXEMPLAIRES\textgreater
+              \begin{itemize}
+                \item{
+                  L'information n'occupe qu'un octet mais les balises qui l'entourent en occupent 39 (octets).
+                  }\pause
+                  \item{
+                  \color{red}{\textbf{Enorme gaspillage de la mémoire.}}
+                  }
+                \end{itemize}
+        \end{block}
+    \end{frame}
+    
+        \begin{frame}{Le XML n'a pas que des avantages...}{Inconvénients II}
+      \begin{block}{\textit{Le XML est un langage \textbf{lent} :}}
+Ce type de document étant un format texte, il oblige l'ordinateur à tout convertir en binaire (pour s'en faire une "représentation" en mémoire), faire ses traitements, puis tout reconvertir en texte dans l'autre sens.
+        \end{block}
+    \end{frame}
+    
+        \begin{frame}{Le XML n'a pas que des avantages...}{Inconvénients III}
+      \begin{block}{\textit{Autres inconvénients :}}
+              \begin{itemize}
+                \item{
+Il est très mal adapté à la représentation d'autres types de données, comme les données relationnelles.
+                  }\pause
+                  \item{
+Il est également incapable de stocker des informations binaires, comme des images, vidéos ou musiques.
+                  }\pause
+                  \item{
+De plus, dans la pratique, les fichiers XML que nous rencontrons sont fortement imbriqués, ce qui rend la lecture difficile pour l'homme.
+                  }\pause
+                  \item{
+Et enfin, les technologies qui entourent le XML sont nombreuses et complexes, il est donc difficile de bien les maîtriser.
+
+                  }
+                \end{itemize}
+        \end{block}
+    \end{frame}
+    
+\section{Conclusion}    
+    \begin{frame}{Conclusion}
+        \begin{itemize}
+            \item{
+Le XML est langage de balisage générique qui permet la structuration de données et l'échanges de celles-ci avec le web assez facilement. De plus, il est lisible aussi bien par un ordinateur que par un humain.
+            }\pause
+            \item{
+De nombreuses technologies l'utilisent pour structurer leur données.
+            }\pause
+            \item{
+Même si c'est un langage facilitant les échanges de données simplement, il possède des incovénients non négligeables surtout au niveau de la place mémoire nécessaire.
+            }
+        \end{itemize}
+    \end{frame}
+    
+    \begin{frame}
+    \begin{center}
+\huge{
+      Merci de votre attention.
+  }\\
+  \Large{
+  Si vous avez des questions n'hésitez pas à les poser. 
+  }
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle<presentation>{Bibliographie}
+    
+  \begin{thebibliography}{10}
+    
+\setbeamertemplate{bibliography item}[online]
+
+  \bibitem{A}
+    \newblock Open ClassRooms
+    \newblock https://openclassrooms.com/courses/structurez-vos-donnees-avec-xml\\
+https://openclassrooms.com/courses/le-point-sur-xml\\
+  \bibitem{A}
+    \newblock sebsauvage.net
+    \newblock http://sebsauvage.net/comprendre/xml/\\
+  \bibitem{A}
+    \newblock Wikipedia
+    \newblock https://fr.wikipedia.org/wiki/Extensible\_Markup\_Language
+  \beamertemplatearticlebibitems\\
+  \bibitem{C}
+    \newblock The XML Family of Specifications: The Big Picture
+    \newblock http://www.daisy.org/samples/daisypedia/bigpix-filer/bigpix22.gif
+
+ 
+  \end{thebibliography}
+\end{frame}
+
+\end{document}
+
+

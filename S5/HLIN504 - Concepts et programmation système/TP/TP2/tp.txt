@@ -1,0 +1,5 @@
+vide: 8552 o
+include rajoute que dal
+avec tableau statique (pile) [1000]: 8584 o
+avec tableau dynamique (tas) [1000]: 8632 o
+

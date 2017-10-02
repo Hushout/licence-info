@@ -1,0 +1,84 @@
+\section{Qu’est-ce que la gestion de projet ?}
+
+\begin{frame}[t]{Qu’est-ce qu’un projet ?}
+    \textbf{Projet :} processus permettant d’atteindre un objectif fixé.
+
+    \vspace{1.4cm}
+
+    \begin{center}
+    \begin{tikzpicture}
+        \node[image] (idea) {\includegraphics[width=1cm]{icon-idea}\\Idée};
+        \node[image] (project) at (8cm, 0) {\includegraphics[width=1cm]{icon-target}\\Objectif};
+
+        \draw[->, shortarrow] (idea) -- node[below] {\textit{Projet}} (project);
+    \end{tikzpicture}
+    \end{center}
+
+    \note{note test}
+\end{frame}
+
+\begin{frame}[t]{Comment gérer un projet ?}
+    \textbf{Gestion de projet :} outils et méthodes permettant d’organiser un projet.
+
+    \vfill
+
+    \begin{tikzpicture}
+        \node[image] (project) {\includegraphics[width=1cm]{icon-project}\\Projet};
+        \node[image] (team) at (\textwidth - 2cm, 0) {\includegraphics[width=1cm]{icon-team}\\Équipe};
+
+        {[visible on=<2->]
+            \node[image, right=2cm of project] (task2) {\includegraphics[width=1cm]{icon-task}};
+            \node[image, above=.5cm of task2] (task1) {\includegraphics[width=1cm]{icon-task}};
+            \node[image, below=.5cm of task2] (task3) {\includegraphics[width=1cm]{icon-task}\\Tâches};
+
+            \draw[->, shortarrow] (project) edge[out=20, in=200] (task1);
+            \draw[->, shortarrow] (project) -- (task2);
+            \draw[->, shortarrow] (project) edge[out=-20, in=160] (task3);
+        }
+
+        {[visible on=<3->]
+            \node[image, left=2cm of team] (role2) {\includegraphics[width=1cm]{icon-man}};
+            \node[image, above=.5cm of role2] (role1) {\includegraphics[width=1cm]{icon-woman}};
+            \node[image, below=.5cm of role2] (role3) {\includegraphics[width=1cm]{icon-woman}\\Rôles};
+
+            \draw[->, shortarrow] (team) edge[out=160, in=-20] (role1);
+            \draw[->, shortarrow] (team) -- (role2);
+            \draw[->, shortarrow] (team) edge[out=200, in=20] (role3);
+        }
+
+        {[visible on=<4->]
+            \draw[<->, shortarrow] (task1) -- (role1);
+            \draw[<->, shortarrow] (task1) -- (role3);
+            \draw[<->, shortarrow] (task2) -- (role1);
+            \draw[<->, shortarrow] (task3) -- (role2);
+        }
+    \end{tikzpicture}
+\end{frame}
+
+\newcommand{\imgcaption}[2]{%
+    \begin{minipage}[t]{0.135\linewidth}%
+        \centering
+        \includegraphics[width=\linewidth]{#1}\\%
+        {\scriptsize #2}%
+    \end{minipage}%
+}
+
+\begin{frame}{Pourquoi utiliser une méthode ?}
+\makebox[\linewidth][c]{%
+    \begin{minipage}{\dimexpr\textwidth+4em\relax}
+        \imgcaption{images/arbre-1}{Comment le client a exprimé ses besoins}%
+        \hfill%
+        \imgcaption{images/arbre-2}{Comment le chef de projet les a compris}%
+        \hfill%
+        \imgcaption{images/arbre-3}{Ce que les ingénieurs ont conçu}%
+        \hfill%
+        \imgcaption{images/arbre-4}{Ce que les programmeurs ont codé}%
+        \hfill%
+        \imgcaption{images/arbre-5}{Comment le projet a été vendu}%
+        \hfill%
+        \imgcaption{images/arbre-6}{Ce qu’à reçu le client}%
+        \hfill%
+        \imgcaption{images/arbre-7}{Ce que voulait vraiment le client}%
+    \end{minipage}%
+}
+\end{frame}

@@ -1,0 +1,67 @@
+\documentclass[tikz]{standalone}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage[french]{babel}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+\usetikzlibrary{fit}
+
+\pgfdeclarelayer{back}
+\pgfdeclarelayer{tree}
+\pgfsetlayers{back,tree}
+
+\begin{document}
+\begin{tikzpicture}[
+    level 1/.style={sibling distance=3cm},
+    level 2/.style={sibling distance=1.5cm},
+    level distance=1cm
+]
+\begin{pgfonlayer}{tree}
+    \node  {\textasciitilde}
+        child {
+            node (tree-config) {\strut .config}
+            child {
+                node (tree-arcus) {\strut arcus}
+                child {
+                    node (tree-arcus-config) {\strut \emph{config.json}}
+                }
+            }
+        }
+        child {
+            node (tree-documents) {\strut Documents}
+            child {
+                node (tree-documents-rest) {\strut ...}
+            }
+            child {
+                node (tree-documents-db) {\strut \emph{.arcus.db}}
+            }
+        }
+        child {
+            node (tree-images) {\strut Images}
+            child {
+                node (tree-images-rest) {\strut ...}
+            }
+            child {
+                node (tree-images-db) {\strut \emph{.arcus.db}}
+            }
+        };
+\end{pgfonlayer}
+
+\begin{pgfonlayer}{back}
+    \node [
+        fit=(tree-documents)(tree-documents-rest)(tree-documents-db),
+        draw, thick, fill=green!30,
+        label={[below=1.9cm] \textbf{Zone A}}
+    ] {};
+
+    \node [
+        fit=(tree-images)(tree-images-rest)(tree-images-db),
+        draw, thick, fill=red!30,
+        label={[below=1.9cm] \textbf{Zone B}}
+    ] {};
+\end{pgfonlayer}
+\end{tikzpicture}
+\end{document}

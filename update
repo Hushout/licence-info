@@ -1,0 +1,45 @@
+#!/bin/bash
+
+find . -name "*~" -type f -delete
+
+git fetch --all
+
+fichiers=$(git diff --name-status master..origin)
+
+if [ -z "$fichiers" ]
+then
+	status=$(git status)
+	updateneeded=$(echo "$status" | grep "git add")
+	
+	if [ -n "$updateneeded" ]
+	then
+		echo "$status"
+
+		read -r -p "Mettre à jour master à partir de cette branche ? [y/n] " response
+
+		if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+		then
+			git add -A
+			git commit -m "Mise à jour"
+			git push origin master
+		else
+			echo "Mise à jour annulée"
+		fi
+	else
+		echo "Cette branche est identique à master, la mise à jour est inutile"
+	fi
+
+else
+	echo "La branche local à du retard sur master, Une synchronisation est necessaire avant de pouvoir mettre à jour origin/master"
+	
+	echo "$fichiers"
+	
+	read -r -p "Voulez-vous vous synchroniser avec master et obtenir les fichiers ci-dessus ? [y/n] " response
+
+	if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+	then
+		git reset --hard origin/master
+	else
+		echo "synchronisation annulée"
+	fi
+fi

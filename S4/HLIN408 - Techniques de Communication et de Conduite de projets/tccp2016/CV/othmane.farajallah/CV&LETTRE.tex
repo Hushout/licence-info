@@ -1,0 +1,83 @@
+\documentclass[11pt,a4paper,sans]{moderncv}      
+
+\moderncvstyle{banking}                         
+\moderncvcolor{blue}                               
+\nopagenumbers{}                                  
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2cm]{geometry}
+
+
+
+% personal data
+\name{Othmane} {Farajallah}
+\address{60 Avenue Guilhem de Poitiers}{Montpellier}{France}% 
+\phone[mobile]{+33~6~67~14~73~94}                   
+\email{othfarajallah@hotmail.fr}                              
+\photo[90pt][1.4pt]{picture2}                     
+\quote{Etudiant en informatique.}                     
+\makeatletter
+\@ifpackageloaded{moderncvstylebanking}{%
+\let\oldmakecvtitle\makecvtitle
+\renewcommand*{\makecvtitle}{%
+  {\centering\framebox{\includegraphics[width=\@photowidth]{\@photo}}\par\vspace{10pt}}%
+  \oldmakecvtitle%
+}%
+}{%
+}
+\makeatother
+
+%----------------------------------------------------------------------------------
+%            content
+%----------------------------------------------------------------------------------
+\begin{document}
+
+\makecvtitle
+\section{Formation}
+\cventry{En cours}{Cursus master en ingénierie informatique}{Université de Montpellier}{}{}{}
+\cventry{2014--2015}{Baccalauréat}{Lycée Tazi}{}{\textit{Mention bien}}{}
+\section{Expériences professionnelles}
+\cventry{Juin 2016--Juillet 2016}{Stage en tant que commercial}{Genmed}{Casablanca}{}{ Initiation au métier de commercial et découverte du monde de travail.\newline{}%
+Taches réalisées:%
+\begin{itemize}%
+\item Gestion de stock
+\item Élaboration d'un catalogue
+\item Réponse aux appels d'offres
+\end{itemize}}
+
+\section{Compétences linguistiques}
+\cvitem{Français}{Bilingue}{}
+\cvitem{Arabe}{Langue maternelle}{}
+\cvitem{Anglais}{Intermédiaire supérieur}{}
+\cvitem{Espagnol}{Niveau b1}{}
+
+\section{Compétences informatiques}
+\cvdoubleitem{Programmation}{C,C++ ,Java,Python,SQL}{Internet}{HTML, CSS, Javascript}
+\cvitem{Bureautique}{Microsoft office}
+\section{Centres d'intérêt}
+\cvitem{Natation}{Cinq  ans de pratique}
+\cvitem{Football}{Pratique occasionnelle}
+\cvitem{Echecs}{Loisir}
+
+
+
+\clearpage
+%-----       letter       ---------------------------------------------------------
+% recipient data
+\recipient{Université de Montpellier}{Faculté des sciences}
+\date{09 Février, 2017}
+\opening{Madame, Monsieur,}
+\closing{Cordialement,}
+\makelettertitle
+
+Ayant obtenu une licence informatique dans le cadre d'un cursus en ingénierie au sein de l'Université de Montpellier, je souhaite intégrer le cycle de Master AIGLE  au titre de l’année scolaire 2019/2020. 
+
+ Afin de compléter mon actuelle formation en informatique, j’ai opté pour le Master AIGLE. Cette formation de qualité me permettra de mieux cerner les spécificités du monde des architectures systèmes. En choisissant cette formation, je réalise un grand pas vers l’accomplissement de mon projet professionnel qui  se porte sur la recherche dans le domaine des systèmes d'informations.\\
+ 
+Intéressé depuis toujours par les technologies inhérentes à la conception et au développement d’architectures logicielles (architectures orientées service, architectures web, urbanisation, ...), ma candidature pour cette formation, m’aie semblée tomber sous le sens. Ayant les bases théoriques et conceptuelles requises qui garantissent l’adéquation de la formation, je sollicite votre bienveillance à l'égard de mon dossier de condidature.
+
+Dans l’attente d’une réponse favorable de votre part, je vous prie de croire, Madame, Monsieur, à l’assurance de mes salutations distinguées.                                                            
+
+\makeletterclosing
+
+
+\end{document}

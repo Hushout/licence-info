@@ -1,0 +1,304 @@
+\part{Passer d'une fonction logique à un mot}
+\label{logic_to_mot}
+
+\section{Procédé et algorithmes}
+\label{sec:logic_to_mot/procede}
+
+\subsection{Générer un maximum de mots représentatifs}
+\label{subsec:logic_to_mot/procede/introduction}
+\par
+Une fois capable de passer d'un mot à sa fonction logique, nous devons pouvoir faire l'opération inverse. Pour cela nous devons réussir à répondre aux questions suivantes : \textbf{Toutes les fonctions logiques sont-elles implémentables ? Peut-on donner une liste de mot implémentant une fonction donnée ?}
+\par
+Notre idée est de partir de ce que l'on sait sur les classes d'équivalences (section \ref{subsec:mot_to_logic/semantique/classes}) afin de construire un ensemble de mot représentatif à partir duquel on peut déduire l'ensemble de tous les mots.
+\par
+La génération de cet ensemble de mot se divise en plusieurs algorithmes exécutés linéairement. La trame est de \textbf{construire le langage de Dyck} (algorithmes \ref{alg:logic_to_mot/algorithmes/1} et \ref{alg:logic_to_mot/algorithmes/2}), d'abord sans différenciation des paires de parenthèses, puis avec ; de là, de \textbf{construire l'ensemble des mots composés uniquement de sites} ; et enfin de \textbf{remplir les inter-sites de ces mots} (algorithme \ref{alg:logic_to_mot/algorithmes/4}) avec tous les représentants les plus simples. Puis, on regarde si les mots obtenus implémentent bien des \textbf{fonctions logiques non simplifiables} (algorithme \ref{alg:logic_to_mot/algorithmes/5}) en moins d'inputs.
+\par
+Ce faisant, en prenant les représentants les plus simples (annexe \ref{sec:annexes/classes}), on forme les mots les plus simples, à partir desquels, si besoin est, on peut trouver d'autres mots équivalents en prenant des séquences équivalentes.
+
+\subsection{Trouver les fonctions logiques simplifiables}
+\label{subsec:logic_to_mot/procede/}
+\par
+Pour un nombre $n$ de variables, il y a $2^{2^n}$ fonctions logiques différentes : 4 pour 1 variable, 16 pour 2, 256 pour 3, ... Cependant, certaines de ces fonctions sont simplifiables en moins de variables, par exemple $(a \wedge b) \vee (a \wedge \neg b) = a$. Au final, on peut calculer le nombre de fonctions logiques non simplifiables avec :
+$$f(0)=2~|~f(n)=2^{2^n} - \sum_{k=0}^{n-1}\left(\!\!\!\begin{array}{c}n\\k\end{array}\!\!\!\right) \cdot f(k)\Rightarrow\left\{\begin{array}{l}
+f(1)=2\\f(2)=10\\f(3)=218\\
+\end{array}\right.$$
+\par
+Afin de vérifier que les mots construits n'implémentent pas des fonctions logiques simplifiables en moins de variables, on construit, par induction, l'ensemble $F$ de ces fonctions :
+$$\left\{
+\begin{array}{clcr}
+(B) & \top, \bot \in F & & \\
+(B) & n > 1 ~|~ a_1, \ldots, a_n : variables& \Rightarrow & a_1, \ldots, a_n \in F\\
+(I) & n > 1 ~|~ p \in F & \Rightarrow & \neg p \in F\\
+(I) & n > 2 ~|~ p, q \in F ~|~ nombreVariables(p \wedge q) < n & \Rightarrow & p \wedge q \in F\\
+(I) & n > 2 ~|~ p, q \in F ~|~ nombreVariables(p \vee q) < n& \Rightarrow & p \vee q \in F\\
+\end{array}
+\right.$$
+
+\begin{algorithm}[H]
+\floatname{algorithm}{Algorithme}
+\caption{Recherche de l'ensemble des fonctions logiques du nombre d'inputs donné simplifiables}
+\label{alg:logic_to_mot/algorithmes/5}
+\begin{algorithmic}
+\Procedure{trouverFonctionsSimplifiables}{$n \in \mathbb{N}^*$ : nombre d'inputs}{ : ensemble des fonctions de n inputs simplifiables}
+\State $lettres \gets [a, b, c, ...]$ : tableau de caractères
+\State $fonctions \gets \emptyset$ : ensemble
+\If {$n$ > 1}
+\For{$i\leftarrow 0$, $i < n$} \Comment{Fonctions à un littéral}
+\State $fonctions \gets fonctions \cup \{lettres[i], \neg lettres[i]\}$
+\EndFor
+\If {$n > 2$} \Comment{Fonctions à plusieurs littéraux}
+\ForAll{$(l,m) \in fonctions^2$}
+\If{$nbVariables(l \vee m) < n$}
+\State $fonctions \gets fonctions \cup \{ l \vee m \}$ \Comment{Création de toutes les disjonctions possibles}
+\EndIf
+\EndFor
+\ForAll{$(l,m) \in fonctions^2$}
+\If{$nbVariables(l \wedge m) < n$}
+\State $fonctions \gets fonctions \cup \{ l \wedge m \}$ \Comment{Création de toutes les conjonctions possibles}
+\EndIf
+\EndFor
+\EndIf
+\EndIf
+\State \textbf{Renvoyer $fonctions \cup \{ \top \} \cup \{ \bot \}$}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Créer le langage de Dyck}
+\label{subsec:logic_to_mot/procede/dyck}
+\par
+Dans un premier temps, on construit le langage de Dyck $D$ par induction, en remplaçant les parenthèses par des 0 et 1 par commodité d'utilisation :
+$$\left\{
+\begin{array}{clcr}
+(B) & \epsilon \in D & & \\
+(I) & x \in D & \Rightarrow & (x) \in D\\
+(I) & x, y \in D & \Rightarrow & xy \in D\\
+\end{array}
+\right.$$
+\par
+Et on s'arrête dès que l'on atteint des mots de taille voulue. Par propriété de ce langage, l'ensemble des mots de Dyck de $n$ paires de parenthèses est de cardinal $C_n$\protect\footnotemark$ = \dfrac{1}{n+1} \cdot \dbinom{2n}{n}$.
+\footnotetext{$C_n$ : nombre de Catalan ; $C_1 = 1$ ; $C_2 = 2$ ; $C_3 = 5$ ; $C_4 = 14$}
+\par
+Dans un second temps, on parcourt les mots obtenus en nommant chaque paire de parenthèses (ou paire de 0 et 1), pour ainsi avoir des paires d'inputs.\\
+\exx{Pour $n = 2$ : 0101 et 0011 sont les deux mots de Dyck :
+$$\left\{\begin{array}{clcl}
+(0.) & \epsilon & \in & D\\
+\end{array}\right.
+\Rightarrow
+\left\{\begin{array}{clcl}
+(0.) & \epsilon & \in & D\\
+(1.) & 01 & \in & D\\
+\end{array}\right.
+\Rightarrow
+\left\{\begin{array}{clcl}
+(0.) & \epsilon & \in & D\\
+(1.) & 01 & \in & D\\
+(2.) & 0101 & \in & D\\
+(2.) & 0011 & \in & D\\
+\end{array}\right.$$
+Ils deviennent ensuite AABB et ABBA.}
+
+\begin{algorithm}[H]
+\floatname{algorithm}{Algorithme}
+\caption{Création de l'ensemble des mots de Dyck de taille donnée}
+\label{alg:logic_to_mot/algorithmes/1}
+\begin{algorithmic}
+\Procedure{créerLangageDeDyck}{$n \in \mathbb{N}$ : nombre d'inputs}{ : ensemble des mots de Dyck de n paires}
+\State $motsDeDyck$ : tableau de chaînes de caractères
+\State $motsDeDyck[0] \gets "01"$ \Comment{Étape (1.) de la construction par induction}
+\State $nbMotsDeDyck$ : entier
+\For{$i \gets 0$, $i < n$}
+\State $nbMotsDeDyck \gets taille(motsDeDyck)$
+\For{$j \gets 0$, $j \leq nbMotsDeDyck$}
+\State $motsDeDyck.ajouter("0" + motsDeDyck[j] + "1")$ \Comment{Nouveau mot par encapsulation}
+\For{$k \gets 0$, $k \leq taille(motsDeDyck)$} \Comment{Nouveaux mots par concaténations}
+\State $motsDeDyck.ajouter(motsDeDyck[j] + motsDeDyck[k])$
+\State $motsDeDyck.ajouter(motsDeDyck[k] + motsDeDyck[j])$
+\EndFor
+\EndFor
+\EndFor
+\For{$i \gets 0$, $i \leq taille(motsDeDyck)$}
+\If{$taille(motsDeDyck[i]) \neq 2n$}
+\State $supprimer(motsDeDyck, i)$ \Comment{Suppression des mots trop courts ou longs}
+\State $i--$
+\EndIf
+\EndFor
+\State \textbf{Renvoyer} $motsDeDyck$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\floatname{algorithm}{Algorithme}
+\caption{Création de l'ensemble des mots de taille donnée composés uniquement d'inputs}
+\label{alg:logic_to_mot/algorithmes/2}
+\begin{algorithmic}
+\Procedure{créerMotsDInputs}{$n \in \mathbb{N}$ : nombre d'inputs}{ : ensemble des mots de n paires d'inputs}
+\State $motsDeDyck, motsDInputs$ : tableaux de chaînes de caractères
+\State $motsDeDyck \gets$ \Call{créerLangageDeDyck}{$n$}
+\State $nbZeros, nbPairesOuvertes, k$ : entiers
+\For{$i \gets 0$, $i \leq taille(motsDeDyck)$} \Comment{Pour chaque mot de Dyck}
+\State $nbZeros \gets 0$
+\For{$j \gets 0$, $j \leq taille(motsDeDyck[i])$} \Comment{On parcourt le mot de Dyck}
+\State $motsDInputs[i] \gets ""$
+\If{$motsDeDyck[i][j] = "0"$} \Comment{Si on trouve une parenthèse ouvrante}
+\State $nbZeros++$ \Comment{On ajoute une nouvelle input}
+\State $motsDInputs[i] \gets motsDInputs[i] + nbZeros$
+\Else \Comment{Si on trouve une parenthèse fermante}
+\State $nbPairesOuvertes \gets 0$ \Comment{On recherche sa parenthèse ouvrante}
+\State $k \gets j - 1$ \Comment{Parmi les caractères précédents}
+\While{$(motsDeDyck[i][k] = "1")$ ou $(nbPairesOuvertes \neq 0)$}
+\If{$motsDeDyck[i][k] = "0"$}
+\State $nbPairesOuvertes++$
+\Else
+\State $nbPairesOuvertes--$
+\EndIf
+\State $k--$
+\EndWhile
+\State $motsDInputs[i] \gets motsDInputs[i] + motsDeDyck[i][k]$ \Comment{On ajoute l'input correspondante}
+\EndIf
+\EndFor
+\EndFor
+\State \textbf{Renvoyer} $motsDInputs$
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+\subsection{Créer les mots de sites}
+\label{subsec:logic_to_mot/procede/sites}
+\par
+Les paires de lettres dans les mots obtenus correspondent à des paires de sites. Or, une paire de site possède deux états : excision ou inversion. Pour chacun des mots de Dyck, on créé donc les mots de sites correspondant à toutes les combinaisons d'états des paires de sites. Le nombre de mots composés uniquement de sites est donc de $2^n \cdot C_n$.\\
+\exx{Pour $n=2$ : $D=\{AABB, ABBA\}$, les mots de sites sont donc :
+$$AABB\Rightarrow\left\{\begin{array}{l}
+\SF{0}~ \SF{0}~ \SF{1}~ \SF{1}\\
+\SF{0}~ \SF{0}~ \SF{1}~ \SR{1}\\
+\SF{0}~ \SR{0}~ \SF{1}~ \SF{1}\\
+\SF{0}~ \SR{0}~ \SF{1}~ \SR{1}\\
+\end{array}\right.;
+ABBA\Rightarrow\left\{\begin{array}{l}
+\SF{0}~ \SF{1}~ \SF{1}~ \SF{0}\\
+\SF{0}~ \SF{1}~ \SR{1}~ \SF{0}\\
+\SF{0}~ \SF{1}~ \SF{1}~ \SR{0}\\
+\SF{0}~ \SF{1}~ \SR{1}~ \SR{0}\\
+\end{array}\right.$$}
+
+\subsection{Remplir les inter-sites}
+\label{subsec:logic_to_mot/procede/fill}
+\par
+Chaque mot de sites comporte deux extrémités et $n-1$ inter-sites dans lesquels on peut insérer des séquences. Pour obtenir l'ensemble des mots de sémantiques différentes, chacun des $n+1$ espaces doit donc accueillir les 26 sémantiques différentes, sous la forme du représentant le plus simple de ces classes d'équivalences. Cette méthode porte à $2^n \cdot C_n \cdot 26^{n+1}$ le nombre de mots formés.\\
+\exx{Le mot de site \SF{0} \SF{0} \SF{1} \SF{1} est la racine de plus de 11 millions de mots :\\(26 séquences) \SF{0} (26 séquences) \SF{0} (26 séquences) \SF{1} (26 séquences) \SF{1} (26 séquences)}
+\par
+Pour réduire ce nombre, et en partant du principe que les mots les plus simples sont les plus intéressants biologiquement parlant, on regarde si chaque séquence insérée change la sémantique de la portion du mot où elle est insérée, c'est-à-dire l'espace en question et le précédent, avec et sans l'input activée. Si cette insertion n'a pas d'influence sur la sémantique, alors on ne la fait pas car elle est équivalente à l'insertion de la séquence vide, plus simple. On élimine ainsi de la génération des mots dont des équivalents ont déjà été générés (en effet la séquence vide fait partie des 26 séquences testées).\\
+\exx{Soit un espace dans une inversion, après un espace déjà rempli : \ANY \PF \SF{0} \textbf{?}\ANY\\
+On forme le mot \PF \SF{0} \textbf{?} \SR{0} et on remplit \textbf{?} avec chacune des 26 séquences.\\
+Pour chaque mot formé, on compare sa sémantique avec le mot rempli par la séquence vide \PF \SF{0} \SR{0} , dans les cas où l'input est activée ou non.}
+
+\begin{wrapfigure}{r}{0.36\textwidth}
+\vspace{-0.64cm}
+\centering
+\begin{tabular}{lccccccc}
+\toprule
+\rowcolor{white}&\gt{PF}&\gt{PR}&\gt{TF}&\gt{TR}&\gt{GF}&\gt{GR}&\gt{G}\\
+\midrule
+\rowcolor{GT1} \PF \SF{0} \TF \SR{0} & 0 & 0 & \true & 0 & 0 & 0 & 0\\
+\rowcolor{GT2} \PF \SF{0} \SR{0} & \true & 0 & 0 & 0 & 0 & 0 & 0\\
+\rowcolor{GT1} \PF \UF{0} \TR \UR{0} & \true & 0 & 0 & \true & 0 & 0 & 0\\
+\rowcolor{GT2} \PF \UF{0} \UR{0} & \true & 0 & 0 & 0 & 0 & 0 & 0\\
+\bottomrule
+\end{tabular}
+\end{wrapfigure}
+
+\exx{En prenant \textbf{?} =\TF, on a :
+$$semantique(\PF\SF{0}\TF\SR{0}) \neq semantique(\PF\SF{0}\SR{0})$$
+$$semantique(\PF\UF{0}\TR\UR{0}) \neq semantique(\PF\UF{0}\UR{0})$$
+Donc\TF ~est une séquence que l'on peut placer dans l'espace.\\}
+
+\begin{wrapfigure}{R}{0cm}
+\end{wrapfigure}
+
+\par
+Sur cet algorithme (\ref{alg:logic_to_mot/algorithmes/4}), à l'étape où pour chaque mot de sites on commence à générer des mots (\textbf{Pour tout} $repr\in representants$ \textbf{Faire}), sachant que le nombre de branches est connu (les 26 représentants), on applique une \textbf{parallélisation des tâches} sur plusieurs fils (un fil pour un mot de site) afin d'aller d'autant plus vite qu'il y cœurs dans le processeur.
+
+\begin{algorithm}[H]
+\floatname{algorithm}{Algorithme}
+\caption{Remplissage des mots de taille donnée composés uniquement de sites par des séquences}
+\label{alg:logic_to_mot/algorithmes/4}
+\begin{algorithmic}
+\Procedure{générerMots}{$n \in \mathbb{N^*}$}{ : ensemble des mots générés}
+
+\State $motsGeneres \gets \emptyset$ : ensemble
+\State $motsDeSites \gets $\Call{créerMotsDeSites}{$n$} : tableau de mots
+\State $representants \gets$ les 26 représentants de l'annexe \ref{sec:annexes/classes} : tableau de séquences
+\State $fonctionsSimplifiables \gets$ \Call{trouverFonctionsSimplifiables}{$n$} : ensemble
+\State
+
+\Function{remplirIntersite}{$mot$ : mot, $seq$ : séquence, $intersite \in \mathbb{N}$}
+\State $nouveauMot \gets inserer(mot, seq, 2 \cdot intersite + 1)$ : mot \Comment{On insère $seq$ dans $mot$ à $intersite$}
+\While{$2 \cdot intersite + 1 \neq 2 \cdot n + 1$} \Comment{Tant qu'on n'est pas à l'extrémité du mot}
+\ForAll{$repr \in representants$} \Comment{On remplit récursivement le mot}
+\If{$estUtile(repr, nouveauMot)$} \Comment{Avec des séquences non-inutiles (section \ref{subsec:logic_to_mot/procede/fill})}
+\State \Call{remplirIntersite}{$nouveauMot$, $repr$, $intersite+1$}
+\EndIf
+\EndFor
+\EndWhile
+\If{$nouveauMot.estIntegre()$ et $nouveauMot.fonctionLogique() \not\in fonctionsSimplifiables$}
+\State $motsGeneres \gets motsGeneres \cup \{nouveauMot\}$
+\EndIf
+\EndFunction
+\State
+
+\ForAll{$motDeSite \in motDeSites$} \Comment{Pour chaque mot de sites}
+\ForAll{$repr \in representants$} \Comment{On créé une branche de construction par représentant}
+\State \Call{remplirIntersite}{$motDeSites$, $repr$, 0}
+\EndFor
+\EndFor
+\State \textbf{Renvoyer} $motsGeneres$
+
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\section{Résultats}
+\label{sec:logic_to_mot/resultats}
+
+\subsection{Résultats bruts des générations}
+\label{subsec:logic_to_mot/resultats/bruts}
+
+\begin{wrapfigure}[14]{R}{0.5\textwidth}
+\vspace{-0.5cm}
+\centering
+\begin{tabular}{c|ccc}
+\toprule
+\textbf{Inputs} & \textbf{1} & \textbf{2} & \textbf{3} \\
+\midrule
+\rowcolor{GT1} \textbf{\mr{Fonctions logiques}{irréductibles}} & 2 & 10 & 218 \\
+\rowcolor{GT2} \textbf{\mr{Fonctions logiques}{représentées}} & 2 & 10 & 218 \\
+\rowcolor{GT1} \textbf{Mots générés} & 523 & 750k & 1,36Md \\
+\rowcolor{GT2} \textbf{Mots retenus} & 30,0\% & 11,4\% & 4,0\% \\
+\rowcolor{GT1} \textbf{\mr{Temps de calcul}{effectif}} & $<1s$ & $22s$ & $68h$ \\
+\rowcolor{GT2} \textbf{\mr{Temps de calcul}{processeur}} & $<1s$ & $2m34$ & $346h$ \\
+\rowcolor{GT1} \textbf{\mr{Espace disque}{consommé}} & 3 Ko & 3,1 Mo & 2,9 Go \\
+\bottomrule
+\end{tabular}
+\caption{\label{fig:logic_to_mot/resultats/bruts}Résultats des générations}
+\end{wrapfigure}
+
+\par
+La génération a été effectuée avec la configuration suivante :
+\begin{itemize}
+\item \textbf{CPU} : AMD FX 8350, 4,7 Ghz, 8 coeurs
+\item \textbf{RAM} : 32 Go, 2133 Mhz, DDR3
+\item \textbf{HDD} : 1 To, 7200 RPM, SATA II
+\end{itemize}
+
+\subsection{Interprétations}
+\label{subsec:logic_to_mot/resultats/interpretations}
+\par
+Le premier résultat à remarquer est aussi le plus important : \textbf{pour chaque fonction logique à 1/2/3-input(s), il existe des mots pour les implémenter}. Et après avoir présenté le résultat de la génération à \bsc{Mme. Guiziou}, on a également eu confirmation qu'il existe pour chaque fonction logique des mots biologiquement possibles. Cette question était encore en suspens avant ce projet, et pour certaines fonctions logiques dont aucun représentant n'était connu, \textbf{les mots proposés vont être biologiquement testés} pour confirmer leur adéquation.
+\par
+La seconde interprétation que l'on peut faire des résultats est d'ordre critique, sur \textbf{le nombre impressionnant de mots générés et le temps nécessaire à les créer}. Or dans la pratique, les mots seront classés (voir section \ref{sec:technique/bdd}), et seuls les meilleurs seront retenus, l'immense majorité n'étant pas intéressante. Les complexités temporelle et spatiale pourraient donc être améliorées en ne \textbf{générant que les meilleurs des mots}.
+\par
+L'analyse de la répartition des mots vient ajouter à ce point : certaines fonctions logiques présentent des millions de représentants, quand d'autres n'en présentent que des dizaines. Pour 3 inputs, seulement \textbf{17 fonctions sur 218 représentent 87\% de tous les mots générés}.
+\par
+De plus, la part des mots retenus est très faible. L'algorithme gagnerait donc en complexité temporelle s'il évitait de générer ses mots non-retenus, ce qu'il est obligé de faire dans cette version de l'algorithme pour savoir ou non s'il faut les retenir.

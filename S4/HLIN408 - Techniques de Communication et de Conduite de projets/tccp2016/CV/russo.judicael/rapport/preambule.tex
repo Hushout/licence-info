@@ -1,0 +1,162 @@
+\graphicspath{{images/}}
+\title{Rapport de Projet TER\\Calcul booléen sur séquence génétique}
+\author{
+Guillaume \bsc{Pérution-Kihli}\and
+Judicaël \bsc{Russo}\and
+Paul \bsc{Monti}}
+\date{5 mai 2017\\\includegraphics[scale=0.6]{logo_um}}
+
+% ----- fancyhdr config -----
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textsl{\leftmark}}
+\rfoot{Page \thepage}
+\lfoot{Rapport de projet TER - Calcul booléen sur séquence génétique}
+
+% ----- hyperref config -----
+\hypersetup{
+    colorlinks,
+    linktoc=section,
+    linkcolor=red,
+    urlcolor=orange,
+    filecolor=red
+}
+
+% ----- algorithmicx config -----
+\algrenewcommand\algorithmicwhile{\textbf{Tant que}}
+\algrenewcommand\algorithmicdo{\textbf{Faire}}
+\algrenewcommand\algorithmicend{\textbf{Fin}}
+\algrenewcommand\algorithmicprocedure{\textbf{Algorithme}}
+\algrenewcommand\algorithmicfor{\textbf{Pour}}
+\algrenewcommand\algorithmicif{\textbf{Si}}
+\algrenewcommand\algorithmicthen{\textbf{Alors}}
+\algrenewcommand\algorithmicelse{\textbf{Sinon}}
+\algrenewcommand\algorithmicfunction{\textbf{Fonction}}
+\algrenewcommand\algorithmicloop{\textbf{Boucle}}
+\algrenewcommand\algorithmicrepeat{\textbf{Répéter}}
+\algrenewcommand\algorithmicuntil{\textbf{Jusqu'à ce que}}
+\algrenewcommand\algorithmicforall{\textbf{Pour tout}}
+
+% ----- Macros -----
+
+% Divers
+\newcommand{\true}{\textcolor{red}{1}}
+\newcommand{\false}{\textcolor{red}{0}}
+\newcommand{\gt}[1]{\begin{sideways}\textbf{#1ing}\end{sideways}}
+\addto\captionsfrench{\def\figurename{{\bsc{Figure}}}}
+\addto\captionsfrench{\def\tablename{{\bsc{Tableau}}}}
+
+% Tableaux
+\definecolor{GT1}{gray}{0.99}
+\definecolor{GT2}{gray}{0.95}
+\newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
+\newcommand{\mr}[2]{\begin{tabular}[x]{@{}c@{}}#1\\#2\end{tabular}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}m{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+
+% Exemples
+\newcommand{\exx}[1]{\begin{quote}\begin{mdframed}[topline=false,rightline=false,bottomline=false,backgroundcolor=gray!2]\textit{Exemple : #1}\end{mdframed}\end{quote}}
+
+% Symboles
+\newcommand{\ANY}{
+\begin{tikzpicture}[scale=0.3,inner sep=0pt, outer sep=0pt]
+\draw (0,0) node{*} ;
+\end{tikzpicture}}
+
+\newcommand{\NOTANY}{
+\begin{tikzpicture}[scale=0.3,red,inner sep=0pt, outer sep=0pt]
+\draw (0,0) node{*} ;
+\end{tikzpicture}}
+
+\newcommand{\PF}{
+\begin{tikzpicture}[scale=0.3,blue,inner sep=0pt, outer sep=0pt]
+\draw [->,ultra thick] (0,0) -- (0,1) -- (0.75,1) ;
+\end{tikzpicture}}
+
+\newcommand{\PR}{
+\begin{tikzpicture}[scale=0.3,blue,inner sep=0pt, outer sep=0pt]
+\draw [<-,ultra thick] (0,0) -- (0.75,0) -- (0.75,1) ;
+\end{tikzpicture}}
+
+\newcommand{\TF}{
+\begin{tikzpicture}[scale=0.3,red,inner sep=0pt, outer sep=0pt]
+\draw [ultra thick] (0.5,0) -- (0.5,1) ;
+\draw [ultra thick] (0,1) -- (1,1) ;
+\end{tikzpicture}}
+
+\newcommand{\TR}{
+\begin{tikzpicture}[scale=0.3,red,inner sep=0pt, outer sep=0pt]
+\draw [ultra thick] (0.5,0) -- (0.5,1) ;
+\draw [ultra thick] (0,0) -- (1,0) ;
+\end{tikzpicture}}
+
+\newcommand{\GF}{
+\begin{tikzpicture}[scale=0.3,green,inner sep=0pt, outer sep=0pt]
+\draw (0,0) node{\Large{G}} ;
+\end{tikzpicture}}
+
+\newcommand{\GR}{
+\begin{tikzpicture}[scale=0.3,green,inner sep=0pt, outer sep=0pt]
+\draw (0,0) node{\Large{\rotatebox{180}{G}}} ;
+\end{tikzpicture}}
+
+\newcommand{\SF}[1]{
+\begin{tikzpicture}[scale=0.3,inner sep=0pt, outer sep=0pt]
+\ifthenelse{#1=0}{
+\fill [yellow] (0,0) -- (1,0.5) -- (0,1) -- cycle ;
+}{
+\ifthenelse{#1=1}{
+\fill [olive] (0,0) -- (1,0.5) -- (0,1) -- cycle ;
+}{
+\ifthenelse{#1=2}{
+\fill [teal] (0,0) -- (1,0.5) -- (0,1) -- cycle ;
+}{
+\fill [gray] (0,0) -- (1,0.5) -- (0,1) -- cycle ;
+}}}
+\end{tikzpicture}}
+
+\newcommand{\SR}[1]{
+\begin{tikzpicture}[scale=0.3,inner sep=0pt, outer sep=0pt]
+\ifthenelse{#1=0}{
+\fill [yellow] (0,0.5) -- (1,0) -- (1,1) -- cycle ;
+}{
+\ifthenelse{#1=1}{
+\fill [olive] (0,0.5) -- (1,0) -- (1,1) -- cycle ;
+}{
+\ifthenelse{#1=2}{
+\fill [teal] (0,0.5) -- (1,0) -- (1,1) -- cycle ;
+}{
+\fill [gray] (0,0.5) -- (1,0) -- (1,1) -- cycle ;
+}}}
+\end{tikzpicture}}
+
+\newcommand{\UF}[1]{
+\begin{tikzpicture}[scale=0.3,inner sep=0pt, outer sep=0pt]
+\ifthenelse{#1=0}{
+\draw [ultra thick, yellow] (0,0) -- (1,0.5) -- (0,1) -- cycle ;
+}{
+\ifthenelse{#1=1}{
+\draw [ultra thick, olive] (0,0) -- (1,0.5) -- (0,1) -- cycle ;
+}{
+\ifthenelse{#1=2}{
+\draw [ultra thick, teal] (0,0) -- (1,0.5) -- (0,1) -- cycle ;
+}{
+\draw [ultra thick, gray] (0,0) -- (1,0.5) -- (0,1) -- cycle ;
+}}}
+\end{tikzpicture}}
+
+\newcommand{\UR}[1]{
+\begin{tikzpicture}[scale=0.3,inner sep=0pt, outer sep=0pt]
+\ifthenelse{#1=0}{
+\draw [ultra thick, yellow] (0,0.5) -- (1,0) -- (1,1) -- cycle ;
+}{
+\ifthenelse{#1=1}{
+\draw [ultra thick, olive] (0,0.5) -- (1,0) -- (1,1) -- cycle ;
+}{
+\ifthenelse{#1=2}{
+\draw [ultra thick, teal] (0,0.5) -- (1,0) -- (1,1) -- cycle ;
+}{
+\draw [ultra thick, gray] (0,0.5) -- (1,0) -- (1,1) -- cycle ;
+}}}
+\end{tikzpicture}}

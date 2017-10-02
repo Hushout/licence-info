@@ -1,0 +1,31 @@
+%!PS-Adobe-3.0
+[ /toto 5 {dup mul} ]
+
+/cm 72 2.54 div def % associe le résultat de 72 2.54 div au nom cm
+ % (exemple de définition de variable) ;
+/i i 1 add def % ajoute 1 à la valeur de i
+
+/cube {dup dup mul mul} def % associe la procédure {dup dup mul mul} au nom  cube
+
+/entier x -> int
+% booléen proc1 proc2 ifelse->-
+ % test x < y :
+ %x y lt
+ % test x ≤ y :
+ %x y le 
+
+% x y eq 
+
+
+newpath
+100 200 moveto
+200 250 lineto
+100 300 lineto
+closepath
+gsave
+0.5 setgray
+fill
+grestore
+4 setlinewidth
+0.75 setgray
+stroke

@@ -1,0 +1,107 @@
+\section{Une méthode classique : le cycle en V}
+
+\begin{frame}{Point d’histoire}
+    \begin{itemize}
+        \item Mis au point par les départements de défense étasunien et allemand.
+        \item Initialement destiné aux systèmes de satellites.
+        \item Adapté à l’ingénierie logicielle dans les années 1980.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Comment fonctionne le cycle en V ?}
+    \tikzset{
+        phasebox/.style={
+            rectangle,
+            thick,
+            align=center,
+            draw=fg,
+            minimum height=.75cm
+        }
+    }
+
+    \begin{tikzpicture}
+        {[
+            node distance=.5cm,
+            every node/.style={phasebox},
+            edge from parent/.style={},
+            level distance=1.6cm,
+            level 1/.style={sibling distance=2.5cm},
+            level 2/.style={sibling distance=1.5cm}
+        ]
+            % Arbre en V
+            \node [visible on=<4->] (codage) {Programmation} [grow'=up]
+            child {
+                node [visible on=<3->] (conc-det) {Conception\\modulaire}
+                child {
+                    node [visible on=<2->](conc-arc) {Conception\\architecturale}
+                    child {
+                        node (anal-bes) {Analyse des\\besoins}
+                        child[missing]
+                    }
+                    child[missing]
+                }
+                child[missing]
+            }
+            child {
+                node [visible on=<5->] (test-unit) {Test\\unitaire}
+                child[missing]
+                child {
+                    node [visible on=<6->] (test-int) {Test\\d’intégration}
+                    child[missing]
+                    child {
+                        node [visible on=<7->] (test-acc) {Test\\d’acceptation}
+                    }
+                }
+            };
+        }
+
+        % Flèches ordonnées
+        \draw[->, arrow, visible on=<2->] (anal-bes) -- (conc-arc);
+        \draw[->, arrow, visible on=<3->] (conc-arc) -- (conc-det);
+        \draw[->, arrow, visible on=<4->] (conc-det) -- (codage);
+        \draw[->, arrow, visible on=<5->] (codage) -- (test-unit);
+        \draw[->, arrow, visible on=<6->] (test-unit) -- (test-int);
+        \draw[->, arrow, visible on=<7->] (test-int) -- (test-acc);
+
+        % Flèches de retour
+        \draw[->, arrow, visible on=<5->] (test-unit) -- (conc-det);
+        \draw[->, arrow, visible on=<6->] (test-int) -- (conc-arc);
+        \draw[->, arrow, visible on=<7->] (test-acc) -- (anal-bes);
+
+        % Rôles
+        \node[image, right=of test-acc] (role-user)
+            {\includegraphics[width=1cm]{icon-user}\\Utilisateur};
+
+        \node[image, visible on=<4->] (role-coding) at
+            (codage -| role-user)
+            {\includegraphics[width=1cm]{icon-coding}\\Programmeurs};
+
+        \node[image, visible on=<3->] (role-engineer) at
+            ($(role-coding)!0.5!(role-user)$)
+            {\includegraphics[width=1cm]{icon-engineer}\\Ingénieurs};
+
+        \draw[
+            decoration={brace, raise=1.75cm},
+            thick, decorate, visible on=<8->
+        ] (role-user.north) --
+            node[image, right=2.25cm]
+            {\includegraphics[width=1cm]{icon-boss}\\Chef de\\projet}
+          (role-coding.south);
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Avantages et inconvénients}
+    \begin{itemize}
+        \itemcheck Simple à comprendre et à appréhender.
+        \itemcheck Standard historique de l’industrie.
+        \itemcheck Fixe un accord avec le client sur les spécifications.
+        \itemcheck Intègre les tests au processus de création.
+    \end{itemize}
+    \pause
+    \begin{itemize}
+        \itemcross Crée une hiérarchie importante.
+        \itemcross Déconnexion entre le client et la création du produit.
+        \itemcross Désynchronisation entre conception et implantation.
+        \itemcross Pas suffisamment flexible (changement de besoin du client).
+    \end{itemize}
+\end{frame}

@@ -1,0 +1,50 @@
+    \documentclass[11pt]{letter}
+     \usepackage[utf8]{inputenc} % un package
+     \usepackage[T1]{fontenc} % un second package
+     \usepackage[francais]{babel} % un troisième package
+     \usepackage{textcomp}
+     \usepackage{ifpdf}
+    \ifpdf
+     \usepackage[pdftex]{graphicx}
+     \else
+     \usepackage[dvips]{graphicx}\fi
+    \pagestyle{empty}
+    \usepackage[scale=0.775]{geometry}
+     \setlength{\parindent}{0pt}
+     \addtolength{\parskip}{6pt}
+    \renewcommand{\ttdefault}{pcr}
+     \begin{document}
+     \sffamily
+     \hfill
+     %
+     \begin{flushleft}
+     {\bfseries Prenom Nom}\\[.35ex]
+     \small\itshape
+     Mon adresse\\
+     CP, Ville\\[.35ex]
+     Mon numéro de téléphone\\
+     monsuper@mail.com
+     \end{flushleft}
+     %
+     \begin{flushright}
+     {\bfseries Nom de la Société}\\[.35ex]
+     \small\itshape
+     Adresse de la société\\
+     CP, VILLE
+     \end{flushright}
+     %
+     \hfill
+     %
+     \begin{flushright}
+     A Ville, le \today \\
+     Référence du poste : Nom du poste
+     \end{flushright}
+     %
+     Madame, Monsieur,\\
+    Contenu de la lettre\\
+    Formule de politesse\\
+     \begin{center}
+     {\bfseries Prenom Nom}\\
+     \end{center}
+     \vfill
+     \end{document}

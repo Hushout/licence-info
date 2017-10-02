@@ -1,0 +1,26 @@
+[
+ [
+  "Amanites",
+  "Bolets"
+ ],
+ [
+  {
+    "espèce": "amanite des Césars",
+    "toxicité": "aucune"
+  },  
+  {
+    "espèce": "amanite phalloïde",
+    "toxicité": "mortel"
+  }  
+ ],
+ [
+  {
+    "espèce": "bolet de Bordeaux",
+    "toxicité": "aucune"
+  },  
+  {
+    "espèce": "bolet Satan",
+    "toxicité": "modérée"
+  }  
+ ]
+]

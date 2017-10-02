@@ -1,0 +1,6 @@
+Ici sont mis à votre disposition mes cours en etudes superieurs.
+
+Pour verifiez que les cours sont à jours où mettre vous-même les cours à jours sur le serveurs, executez le script bash update
+avec la commande ./update
+
+Si vos cours sont en avance sur le serveur, le serveur sera mis à jour à partir de vos cours sinon ce sont vos cours qui seront mis à jour à parti du serveur.

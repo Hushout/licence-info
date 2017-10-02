@@ -1,0 +1,121 @@
+\documentclass[frenchb, aspectratio=169]{beamer}
+
+% Encodage, symboles et police
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{eurosym}
+\usepackage{relsize}
+\usepackage{pifont}
+
+\definecolor{itemcheck}{HTML}{357110}
+\definecolor{itemcross}{HTML}{711110}
+
+\newcommand*{\itemcheck}{\item[\textcolor{itemcheck}{\ding{51}}]}
+\newcommand*{\itemcross}{\item[\textcolor{itemcross}{\ding{55}}]}
+
+% Réglage des marges
+\usepackage{geometry}
+
+% Francisations
+\usepackage{babel}
+
+% Tables
+\usepackage{booktabs}
+\newcommand*{\tabtitle}[1]{\textbf{\textsc{\MakeLowercase{#1}}}}
+
+% Graphismes
+\usepackage{tikz}
+\usetikzlibrary{scopes}
+\usetikzlibrary{calc, fit}
+\usetikzlibrary{positioning}
+\usetikzlibrary{fadings}
+\usetikzlibrary{shapes, shapes.misc}
+\usetikzlibrary{decorations.pathreplacing}
+
+\tikzset{
+    font=\normalsize,
+    % Permet de découvrir un graphisme TiKZ morceau par morceau
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+        \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}
+    },
+    % Style de flèche
+    arrow/.style={thick, >=latex},
+    % Style de flèche courte
+    shortarrow/.style={
+        arrow,
+        shorten >=10pt,
+        shorten <=10pt
+    },
+    % Style d’image
+    image/.style={align=center},
+}
+
+% Liens
+\usepackage{hyperref}
+
+% Figures
+\usepackage{graphicx}
+\usepackage[justification=justified]{caption}
+\usepackage{subcaption}
+\graphicspath{{./images/}}
+
+% Titre, date et auteurs
+\newcommand{\et}{\hspace{.3em}{\smaller et}\hspace{.5em}}
+
+\title{Scrum}
+\subtitle{Une méthode Agile}
+\author{Rémi Cérès \et Mattéo Delabre}
+\institute{HLIN408 -- Techniques de communication\\Université de Montpellier}
+\titlegraphic{
+    \includegraphics[scale=.25]{images/logo-um}\quad
+    \includegraphics[scale=.125]{images/logo-fds}
+}
+\date{24 avril 2017}
+
+% Thème
+\usetheme{Scrum}
+
+\begin{document}
+
+% Page de titre
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+% Page de définition de Scrum
+\begin{frame}{}
+    \vfill
+    \centering
+    \begin{tikzpicture}
+        \node[
+            thick, draw=fg,
+            inner sep=1cm,
+            align=center,
+        ]
+        (frame)
+        {\alert<2->{Méthode Agile} de\\\alert<2->{gestion de projet} informatique.};
+
+        \node[
+            fill=bg,
+            minimum width=5cm
+        ] at (frame.north) {\usebeamerfont{title}scrum};
+    \end{tikzpicture}
+    \vfill
+\end{frame}
+
+% Table des matières
+\begin{frame}{Vue d’ensemble}
+    \tableofcontents
+\end{frame}
+
+% Contenu
+\include{parties/01-gestion-projet}
+\include{parties/02-cycle-en-v}
+\include{parties/03-methode-agile}
+\include{parties/04-scrum}
+\include{parties/05-conclusion}
+
+\end{document}

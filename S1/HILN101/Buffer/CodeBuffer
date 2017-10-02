@@ -1,0 +1,48 @@
+MS-DOS:
+
+#include <dos.h> 
+  
+void dos_clear_screen(void) 
+{ 
+    /* Il suffit de réinitialiser le mode vidéo (appeler la fonction 00h de l'interruption 10h) */ 
+    union REGS inregs, outregs; 
+  
+    inregs.h.ah = 0x00;   /* Fonction 00h : Change de mode vidéo */ 
+    inregs.h.al = 0x03;   /* Mode = 03h : 80x25 caractères, 16 couleurs */ 
+  
+    int86(0x10, &inregs, &outregs); /* INT 10h */ 
+}
+
+WINDOWS:
+
+#include <windows.h> 
+  
+void windows_clear_screen(void) 
+{ 
+    HANDLE hConsole; 
+    CONSOLE_CONS_BUFFER_INFO Info; 
+    DWORD NbOctetsEcrits; /* Requis par FillConsoleOutputCharacter */ 
+    COORD Debut = {0, 0}; 
+  
+    /* STD_OUTPUT_HANDLE fait référence a la sortie standard du programme qui est par défaut la console */ 
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE); 
+  
+    /* Lit les infos sur le buffer de l'écran */ 
+    GetConsoleScreenBufferInfo(hConsole, &Info); 
+  
+    /* Remplit l'écran avec le caractère espace */ 
+    FillConsoleOutputCharacter(hConsole, ' ', Info.dwSize.X*Info.dwSize.Y, Debut, &NbOctetsEcrits); 
+  
+    /* Remet le curseur au début de l'écran */ 
+    SetConsoleCursorPosition(hConsole, Debut); 
+}
+
+LINUX:
+
+#include <ncurses.h> 
+  
+void unix_clear_screen(void) 
+{ 
+    clear(); 
+    move(0, 0); 
+}

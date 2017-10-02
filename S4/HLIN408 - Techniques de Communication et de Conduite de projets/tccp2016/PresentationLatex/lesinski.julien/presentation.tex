@@ -1,0 +1,472 @@
+\documentclass[11pt]{beamer}
+
+\usepackage[utf8x]{inputenc}
+\usepackage{pstricks}
+\usepackage{pgf}
+\usepackage[frenchb]{babel}
+\usetheme{Ampang}
+%\usecolortheme{ampangcolor}
+\usecolortheme{warna}
+\usepackage{pgfpages}
+\usepackage{hyperref}
+
+
+%%% XeLaTeX engine for Ubuntu Font support
+\usepackage{xltxtra}
+\renewcommand{\footnoterule}{}
+\setsansfont[
+BoldFont=Ubuntu-Bold.ttf,
+ItalicFont=Ubuntu-Italic.ttf,
+BoldItalicFont=Ubuntu-BoldItalic.ttf
+]
+{Ubuntu-Regular.ttf}
+\setmonofont{UbuntuMono-Regular.ttf}
+
+\psset{linewidth=0mm,linestyle=solid,linecolor=white}
+
+\title{Le Monde du Libre}
+\author{Lemaitre Thomas -- Lesinski Julien}
+\date{2016 -- 2017}
+\institute{Université de Montpellier}
+
+\definecolor{lightgray}{rgb}{0.7, 0.7, 0.7}
+\addtobeamertemplate{footline}{
+\begin{figure}
+    \raggedleft
+    \begin{pspicture}(0,0)(1,1)
+    \rput(-11.4,0){\hyperlink{toc}{\beamerbutton{$\circlearrowleft$}}}
+    \rput(0,0){\insertframenumber ~sur \inserttotalframenumber}
+    \pgfmathparse{int(round(90+\insertframenumber/\inserttotalframenumber*360)}
+    \pscircle[fillstyle=solid, fillcolor=lightgray](0.7,0){0.2}
+    \pswedge[fillstyle=solid, fillcolor=white](0.7,0){0.2}{90}{\pgfmathresult}
+    
+    \end{pspicture}
+    
+\end{figure}
+}
+
+\setbeamertemplate{note page}{
+\vspace{1.5cm}
+\insertslideintonotes{0.25}
+\insertnote
+}
+%\setbeameroption{show only notes}
+%\setbeameroption{show notes on second screen}
+%\setbeameroption{show notes}
+\begin{document}
+
+
+\AtBeginSection[]{
+  \begin{frame}{Sommaire}
+  \small \tableofcontents[currentsection, hideothersubsections]
+  \end{frame} 
+}
+
+%\setbeameroption{hide notes}
+
+\maketitle
+\begin{frame}{Sommaire}
+\label{toc}
+\tableofcontents[hidesubsections]
+\end{frame}
+
+\section{Le Libre Expliqué par les Principes du Logiciel Libre}
+
+\subsection{Historique}
+
+
+
+\begin{frame}{Origine}
+    \begin{center}
+    \textbf{Richard M. STALLMAN} ou \textit{\og L'homme qui est à l'origine du Libre\fg}
+    \end{center}
+    \pause
+    \begin{itemize}[<+- | alert@+>]
+    \item Richard M. STALLMAN est employé du Massachusetts Institute of Technology.
+    \item Il équipe son bureau d'une nouvelle imprimante XEROX. Mais le pilote n'indique pas quand l'imprimante fait du bourrage papier.
+    \item Il souhaite donc le modifier pour que le pilote en soit capable et demande le code source.
+    \item Mais il se heurte à un refus du fournisseur XEROX et de l'employeur MIT d’accès aux sources des programmes et à leur modification.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Du Bourrage Papier... \`A Aujourd'hui}
+    \begin{itemize}[<+- | alert@+>]
+    \item[1984] Richard M. STALLMAN quitte le MIT pour fonder son projet GNU's Not Unix
+    \item[1985] Il fonde la Free Software Foundation
+    \item[1990] Puis finalise le système d'exploitation GNU
+    \item[1991] Version 2 de la licence GPL
+    \item[1991] Linus TORVALDS finalise le noyau d'exploitation LINUX
+    \item[1992] Fusion des projets LINUX et GNU
+    \item[1996] Version 2 de la licence BSD
+    \item[2007] Version 3 de la licence GPL
+
+    \end{itemize}
+\end{frame}
+
+\subsection{Qu'est-ce ?}
+
+\begin{frame}{Les Caractéristiques d'un Logiciel Libre}
+    \pause[2]
+    \begin{itemize}[<+- | alert@+>]
+        \item Le respect des libertés.
+        \note[item]{Les logiciels libres sont des logiciels qui respectent les libertés de l’utilisateur. Cela signifie en fait que les utilisateurs de ces logiciels sont contraints à respecter un nombre très faible de contraintes.}
+        \item Un contrôle total sur le programme.
+        \note[item]{Les utilisateurs contrôlent le programme pleinement ; ils peuvent modifier ce qu’il fait pour eux. Au contraire des logiciels non libres et propriétaires.}
+    \end{itemize}
+    \pause[1]
+    \begin{figure}[b]
+        \centering
+        \includegraphics[height=4cm]{GNU.png}
+        \caption{Projet GNU, à l'origine du mouvement du logiciel libre}
+        \label{fig:gnu}
+    \end{figure}
+\end{frame}
+
+\subsection{Les Libertés Fondamentales}
+
+\begin{frame}{Les Libertés Fondamentales d'un Logiciel Libre}
+    Elles sont au nombre de 4 et permettent vis-à-vis du programme les actions suivantes :
+    \pause
+    \begin{itemize}[<+- | alert@+>]
+    \item Exécution
+    \item Copie
+    \item (Re)Distribution
+    \item \'Etude (de son fonctionnement, de son code source)
+    \item Modification
+    \item Amélioration
+    \end{itemize}
+    \note{Si on prend ces règles telles quelles alors cela correspond en fait à la licence \textbf{Free Software}.}
+\end{frame}
+
+\begin{frame}{La Liberté d'Exécution du Programme}
+    Cela signifie que vous pouvez utiliser le programme sans restriction. Vous pouvez l'utiliser : 
+    \pause
+    \begin{itemize}[<+- | alert@+>]
+    \item Sous n'importe quel système informatique
+    \note[item]{Dans la limite où celui-ci est implémenté sur le système cible}
+    \item Pour n'importe quelle utilisation
+    \note[item]{Même commercial !}
+    \item Vous n'avez en aucun cas l'obligation de prévenir qui que ce soit pour l'utiliser.
+    \item Quelque soit votre identité légale
+    \note[item]{\'Etudiant, entreprise, enfant...}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Les Libertés d'\'Etudier et de Modifier le Code Source}
+    Cela signifie qu'avec un logiciel libre...
+    \pause
+    \begin{itemize}[<+- | alert@+>]
+    \item On a accès au code source
+    \note[item]{A partir duquel le logiciel est compilé, de plus celui-ci doit être lisible, il y a déjà eu des tentatives d'"arnaques à la licence libre"}
+    \item On doit pouvoir y ajouter autant de modifications, de modules que l'on souhaite sans que des contraintes trop spécifiques y interviennent
+    \note[item]{Par exemple, si la licence du logiciel impose que vous devez posséder les copyright de ce que vous ajouter alors elle est trop contraignante pour être qualifiée de libre.}
+    \item N'importe quel changement peut y être apporté, qu'il soit considéré ou non comme une amélioration par qui que ce soit
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{La Liberté de Redistribuer le Programme}
+    Vous pouvez redistribuer une version du programme (modifiée ou non)...
+    \pause
+    \begin{itemize}[<+- | alert@+>]
+    \item \`A quiconque
+    \item Partout dans le monde
+    \item Gratuitement ou non
+    \item En tant que logiciel libre ou non\footnote<5->{\`A part dans le cas du copyleft, que vous verrons plus tard}
+    \end{itemize}
+\end{frame}
+
+\section{Les Différentes Licences Libres Existantes}
+\subsection{Les Licences de type BSD}
+
+\begin{frame}{Les licences de type BSD}
+    \pause
+    \begin{itemize}[<+- | alert@+>]
+    \item Une licence de type BSD (\og Berkeley Software Distribution Service\fg) est la licence qui impose le moins de contraintes possibles à ses utilisateurs. Elle s'appuie sur les lois que nous avons énoncées précédemment. 
+    \note[item]{C'est la licence qui impose le moins de contraintes possibles. On peut donc se permettre de faire quasiment tout ce que l'on veut avec un logiciel sous licence BSD}
+    \item En revanche, il peut être demandé, si l'on redistribue le logiciel de citer le nom de l'auteur (avec le copyright original).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Licence BSD et Domaine Public}
+    $$\mathit{BSD} \neq \mathit{Domaine\ Public}$$
+    \begin{itemize}[<+- | alert@+>]
+    \item Même si les contraintes imposées sont \textbf{minimes}, la licence BSD imposent quelques contraintes alors que les \oe uvres dans le domaine public n'en imposent généralement pas !
+    \item Elle permet de \textbf{protéger l'emploi des noms des auteurs}.
+    \note[item]{Par exemple, si quelqu'un veut utiliser le nom d'un auteur pour l'afficher sur un produit dérivé du code de l'auteur, il devra à demander à celui-ci une autorisation écrite.}
+    \item La licence permet de \textbf{déresponsabiliser les auteurs} des problèmes et anomalies éventuelles de leur code.
+    \end{itemize}
+\end{frame}
+
+\subsection{Les Licences de type \og Copyleft\fg ~ou GPL}
+    
+\begin{frame}{Les Licences de type \og Copyleft\fg ~ou GPL}
+    \pause[2]
+    \begin{itemize}[<+- | alert@+>]
+    \item On peut la voir comme la licence FS\footnotemark[1] à laquelle s'ajoute les conditions suivantes...
+    \item La licence force la \textbf{conservation de son caractère libre lors de la redistribution} d'une \oe uvre dérivée.
+    \item Le copyright est l’inverse du copyleft\footnotemark[2] ; alors que le copyright, utilisé par les développeurs de logiciels privateurs, restreint les libertés des utilisateurs, \textbf{le copyleft lui cherche à les garantir}.
+    \end{itemize}
+    \footnotetext[1]{Free Software}<2->
+    \footnotetext[2]{traduit littéralement \og gauche d’auteur \fg ~en opposition à copyright}<4->
+    \note{Concrètement, un logiciel sous copyleft est mis sous copyright dans lequel on donne aux utilisateurs les libertés des logiciels libres tout en expliquant le principe du copyleft.
+    Les adeptes du copyleft ne cache pas que leur but est, clairement, l'expansiondu libre.}
+    \pause[1]
+    \begin{figure}
+        \centering
+        \includegraphics[height=1.5cm]{copyleft.png}
+        \label{fig:copyleft}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Le logiciel mais pas que...}
+    Jusqu'ici nous avons vu ce qui caractérisait les \textbf{logiciels} libres mais il faut savoir que cela ne s'applique pas qu'aux logiciels mais à bien d'autres choses !
+\end{frame}
+
+\begin{frame}{Les Extensions Naturelles}
+    \begin{itemize}[<+- | alert@+>]
+    \item Nombreuses sont les applications des concepts de logiciel libre induits dans les créations de produits et de services. 
+    \item Et principalement tous les produits et services numériques.
+    \item La notion d'\oe uvre libre ne concerne pas la liberté d’expression mais plutôt la liberté de diffusion.
+    \item Ainsi une \oe uvre libre, ou contenu libre, désigne une œuvre de l’esprit proposée à la libre diffusion. Ces œuvres peuvent être...
+        \begin{itemize}[<+- | alert@+>]
+        \item Des documents 
+        \item Des images 
+        \item Des textes
+        \item Des sons
+        \item Des films
+        \item Des musiques 
+        \item Des logiciels
+        \item ...
+        \end{itemize}
+        %Leurs auteurs ont choisi de définir les conditions d'utilisation de façon plus souple que celles définies par défaut dans la législation par le droit d’auteur. Les droits laissés par les auteurs sont alors définis dans une licence associée au document en fonctions des droits cédés. Les autorisations peuvent concerner la consultation, la recopie, la réutilisation, la modification des œuvres et peuvent être associées à des obligations (citer l'auteur original, obligation de maintenir la licence originale…) ou des restrictions (pas d’usage commercial, interdiction de certains médias …).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Les Extensions Naturelles (Suite)}
+    \begin{center}
+        Comment ça marche ?
+    \end{center}
+    \begin{enumerate}[<+- | alert@+>]
+        \item Les auteurs définissent des conditions d'utilisation plus souples que celles définies par défaut par le droit d'auteur.
+        \item Une licence correspondant aux droits cédés est associée au document en question.
+        \item Cela peut consister en des autorisations sur...
+            \begin{itemize}[<+- | alert@+>]
+                \item La consultation
+                \item La recopie
+                \item La réutilisation
+                \item La modification de l'\oe uvre
+            \end{itemize}
+        \item En des obligations, par exemple...
+            \begin{itemize}[<+- | alert@+>]
+                \item Citer l'auteur original
+                \item Obliger la redistribution sous la même licence
+            \end{itemize}
+        \item En des restrictions, par exemple...
+            \begin{itemize}[<+- | alert@+>]
+                \item Pas d'usage commercial.
+                \item Interdiction de certains médias
+            \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Quelques Exemples...}
+    \begin{columns}[t]
+        \begin{column}{5cm}
+            \begin{figure}
+                \centering
+                \includegraphics[height=1cm]{white_copyleft}
+                \label{fig:copyleft2}
+            \end{figure}
+            \begin{itemize}[<+- | alert@+>]
+                \item Les fables de La Fontaine
+                \item IceCat (un dérivé de Firefox)
+                \item Le système d’exploitation GNU/Linux (Ubuntu, Debian...)
+            \end{itemize}
+        \end{column}
+        \begin{column}{5cm}
+            \begin{figure}
+                \centering
+                \includegraphics[height=1cm]{white_opensource}
+                \label{fig:opensource}
+            \end{figure}
+            \begin{itemize}[<+- | alert@+>]
+                \item Le code source de IceCat
+                \item Des recettes de cuisines connues (crêpes... etc.)
+                \item La formule chimique d'une molécule connue ($H_2O$)
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\section{Ne Pas Confondre}
+
+\begin{frame}{Ne pas Confondre}
+    $$\mathit{Libre} \neq \mathit{Gratuit}$$
+    Un gratuiciel (ou freeware) même s'il est gratuit est rarement libre ! 
+    \note{Déja, selon les règles imposées par le logiciel libre rien n'interdit de vendre un logiciel libre autrement que gratuitement.} 
+    En effet, un gratuiciel est souvent accompagné d'une licence plus contraignante qu'une licence GNU ou BSD. On peut remarquer sur la plupart d'entre eux qu'ils ne distribuent pas leurs sources par exemple.
+\end{frame}
+
+\section{La Gestion d'un Projet}
+\subsection{Cycle de Vie}
+
+\begin{frame}{Cycle de Vie}
+\begin{itemize}[<+- | alert@+>]
+    \item L’Idée Initiale
+    \note[item]{L'idée initiale, qui vient en général de son ou ses créateurs}
+    \item La Publication
+    \note[item]{La publication est l'étape où les auteurs publient leur travail sur site web dédié.}
+    \item La Communauté
+    \note[item]{Des internautes consultent la publication des travaux postés par les créateurs par eux-mêmes (par l'intermédiaire de moteur de recherche) ou suite à la demande des créateurs.}
+    \item La Communication
+    \note[item]{Pour établir une communication en bonne et dûe forme, des régles de communication sont établies bien souvent par les créateurs eux-mêmes. Elles sont généralement constituées de règles de rédaction et de validation.}
+    \item Le Contrôle
+    \note[item]{Sous ce concept un peu flou se cache en fait la notion d'emploi du temps ; en effet des calendriers de l'avancement du projet sont établis et un organe du projet contrôle le respect du calendrier et des règles.}
+\end{itemize}
+\end{frame}
+
+\subsection{Organisation du Projet}
+\begin{frame}{Les Acteurs}
+    On ne compte que deux principaux acteurs dans l'organisation d'un projet :
+    \pause
+    \begin{itemize}[<+- | alert@+>]
+    \item Les meneurs.
+    \note[item]{Bien souvent les créateurs du projet mais pas que...}
+    \item La Communauté.
+    \note[item]{On parle donc ici de l'ensemble de la communauté qui contribuent au développement du logiciel.}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Les Types d'Organisations Existantes}
+    \begin{itemize}[<+- | alert@+>]
+        \item La Cathédrale
+        \begin{itemize}[<+- | alert@+>]
+            \item Une politique de développement restreinte à un nombre limité de personnes.
+            \note[item]{Généralement ou quelques meneurs principaux.}
+            \item Les modifications se font par demande à ces meneurs.
+            \item Ces meneurs peuvent être remplacés.
+        \end{itemize}
+        \item Le Bazar
+        \begin{itemize}[<+- | alert@+>]
+            \item Une forme d'organisation qui se veut profondément égalitaire.
+            \item Il n'y a pas de mainteneur principal.
+            \item Chacun peut participer au développement et à la gouvernance.
+            \item Les demandes de modifications sont envoyées à tout le monde.
+        \end{itemize}
+        \item Les Variantes
+        \begin{itemize}[<+- | alert@+>]
+            \item De nombreuses variantes existent.
+            \item Elles changent en fonction de l'importance et de la nature du projet.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\subsection{Les Limites}
+
+\begin{frame}{Les Limites d'un Projet Libre}
+    \begin{itemize}[<+- | alert@+>]
+    \item Généralement, plus on se rapproche du c\oe ur du projet et moins l'accès est facile. 
+    \note[item]{Ceux qui voudraient participer activement au projet se retrouve souvent à faire des tâches d'une importance moindre.}
+    \item Cela se comprend, notamment à cause de la volonté des développeurs à vouloir faire des outils de qualité pouvant rivaliser avec les solutions propriétaires.
+    \note[item]{Ce qui explique pourquoi l'élite, seule, a accès au c\oe ur du projet.}
+    \item Plus un projet devient important, moins un nouveau membre aura de chances d'y faire ce qu'il souhaite. Et vice-versa.
+    \end{itemize}
+\end{frame}
+
+
+
+\section{Les Intérêts du Libre}
+    \subsection{Respect des standards ouverts}
+
+\begin{frame}{Respect des standards ouverts}
+    \begin{itemize}[<+- | alert@+>]
+    \item L'utilisateur n'a pas à céder le pouvoir à une entreprise et peut avoir une emprise concrète sur le logiciel qu'il utilise.
+    \item Les formats de données qu’ils utilisent sont ouverts et sont donc documentés.
+    \item Il est facile de changer de logiciel pour un autre qui s'adpate plus à nos besoins.
+    
+    \end{itemize}
+\end{frame}      
+
+\subsection{Absence de coût de Licence}
+
+\begin{frame}{Absence de coût de Licence}
+    \begin{itemize}[<+- | alert@+>]    
+    \item Le droit d'utilisation d'un logiciel libre n'est quasiment jamais payant. 
+    \item Il existe des moyens de faire des dons qui aideront au financement du logiciel.
+    \note[item]{Ce qui leur permetrait de disposer de moyens de développement supérieurs.}
+    \end{itemize}
+\end{frame} 
+
+\subsection{Flexibilité}
+
+\begin{frame}{Flexibilité}
+    \begin{itemize}[<+- | alert@+>]
+    
+    \item Un accès libre au code du logiciel permet des modifications personnalisées. Cette modification peut être envoyée à d'autres développeurs du logiciel, qui peuvent continuer les modifications.
+    \item Permettant ainsi un développement continu par la communauté du logiciel. Ainsi que des mises à jour régulières.
+    \note[item]{On pourrait penser que c'est un inconvénient mais en réalité, chaque mise à jour améne son lot de fonctionnalités et de correction de bugs.}
+    \item La possibilité de collaborer avec les développeurs en communiquant.
+    \note[item]{Dans le cas d’un logiciel libre, les aspects de la communication et de la collaboration sont beaucoup plus présents ! Les utilisateurs utilisent et étudient le logiciel en question. A partir de là, ils peuvent suggérer des idées aux développeurs du logiciel qui les développeront ou non selon leur popularité, leur faisabilité et l’avis de l’équipe de développement.}
+    \end{itemize}
+\end{frame} 
+
+\subsection{Sécurité}
+
+\begin{frame}{Sécurité}
+    \begin{itemize}[<+- | alert@+>]
+    
+    \item Un accés au code permet de corriger un problème de sécurité, de manière rapide par les membres de la communauté.
+     \item Les failles de sécurités sont donc moins fréquentes et moins importantes.
+    \end{itemize}
+\end{frame} 
+
+\subsection{Pérennité}
+
+\begin{frame}{Pérennité}
+    \begin{itemize}[<+- | alert@+>]
+    \item Si vous avez des problèmes avec la compréhension du logiciel ou de sa documentation, une communauté active est prête à vous répondre.
+    \item En cas d'arrêt de développement du logiciel, il est possible de reprendre le code afin de de continuer à le développer.
+    \item Dépend en grande partie de la diffusion et de l'importance de la communauté du logiciel.
+    
+    \end{itemize}
+\end{frame} 
+
+\section{En Chiffre}
+\begin{frame}{Chiffre d'Affaire du Logiciel Libre}
+\vspace{0.6cm}
+\begin{figure}
+    \centering
+        \includegraphics[height=6cm]{chiffreAffaire}
+        \label{fig:chiffreAffaire}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Conclusion}
+    \begin{center}
+    \par Le Libre est une substitution aux logiciels privateurs qui permettent d'avoir accès à de nombreux outils. Ils nous rendent moins dépendant des entreprises et participent activement à la progression de l'informatique.
+    \end{center}
+
+\end{frame}
+
+\begin{frame}
+    \begin{center}
+    \par Merci de nous avoir écoutés ! 
+    \par En espérant vous avoir convaincu d'utiliser le libre !
+    \end{center}
+\end{frame}
+
+\begin{frame}{Bibliographie}
+    \begin{itemize}
+        \item \href{HTTPS://FR.WIKIVERSITY.ORG/WIKI/LOGICIEL_LIBRE}{Wikiversity - Logiciel Libre}
+        \item \href{HTTPS://WWW.GNU.ORG/PHILOSOPHY/FREE-SW.FR.HTML}{GNU - Qu'est-ce que le logiciel libre ?}
+        \item \href{HTTPS://WWW.GNU.ORG/COPYLEFT/COPYLEFT.FR.HTML}{GNU - Copyleft}
+        \item \href{HTTPS://WWW.DIATEM.NET/LES-LICENCES-OPEN-SOURCE/}{Diatem - Les différentes licences open source}
+        \item \href{HTTPS://FR.WIKIPEDIA.ORG/WIKI/LICENCE_BSD}{Wikipédia - Licence BSD}
+        \item \href{HTTPS://FR.WIKIPEDIA.ORG/WIKI/OPEN_SOURCE}{Wikipédia - Open Source}
+        \item \href{HTTPS://WWW.HALPANET.ORG/CONTENT/LOGICIELS-LIBRES-PROPRI-TAIRES}{Halpanet - Logiciel libre \& propriétaire}
+        \item \href{https://fr.wikipedia.org/wiki/Licence_publique_générale_GNU}{Wikiversity - Licence GNU}
+        \item \href{http://www.d-booker.fr/content/65-quels-avantages-a-utiliser-des-logiciels-libres}{Avantages des logiciels libres}
+    \end{itemize}
+\end{frame}
+
+\end{document}

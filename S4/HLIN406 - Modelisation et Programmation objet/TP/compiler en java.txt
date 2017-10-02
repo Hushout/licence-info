@@ -1,0 +1,12 @@
+//Compiler quelque fichiers avec leurs noms:
+
+javac <fileName> <fileName> <fileName> ... <fileName>
+
+//Compiler tous les fichier du dossier:
+
+javac *.java
+
+//compiler tous les fichiers du dossier et des sous dossier recursivement:
+
+find . -name "*.java" > sources.txt
+javac @sources.txt

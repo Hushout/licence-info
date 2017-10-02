@@ -1,0 +1,75 @@
+\documentclass[tikz]{standalone}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{ulem}
+\usepackage[french]{babel}
+
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes}
+
+\NoAutoSpacing
+\normalem
+
+\tikzset{
+    entity/.style={
+        rectangle split,
+        rectangle split parts=2,
+        draw, thick,
+        align=left
+    },
+    association/.style={
+        draw, thick, ellipse,
+        align=center
+    },
+    link/.style={
+        >=stealth, thick
+    },
+    linkcard/.style={
+        midway, above
+    }
+}
+
+\begin{document}
+\begin{tikzpicture}
+    \node[entity] (rel-file) at (0,0) {
+        Entry
+        \nodepart{two}
+        \uline{id}\\
+        name\\
+        type
+    };
+
+    \node[association, right=of rel-file] (assoc-part) {partie de};
+
+    \node[entity, right=of assoc-part] (rel-chunk) {
+        Chunk
+        \nodepart{two}
+        \uline{id}\\
+        hash\\
+        order
+    };
+
+    \draw[link, ->] (assoc-part) -- (rel-file) node [linkcard] {$1,n$};
+    \draw[link] (rel-chunk) -- (assoc-part) node [linkcard] {$1,1$};
+
+    \node[association, right=of rel-chunk] (assoc-stored) {stocké sur};
+
+    \node[entity, right=of assoc-stored] (rel-service) {
+        Service
+        \nodepart{two}
+        \uline{id}\\
+        provider\\
+        auth
+    };
+
+    \draw[link] (rel-chunk) -- (assoc-stored) node [linkcard] {$1,n$};
+    \draw[link, ->] (assoc-stored) -- (rel-service) node [linkcard] {$0,n$};
+
+    \node[association, below=.5cm of rel-file] (assoc-parent) {parent de};
+    \path[link, ->] (assoc-parent) edge [in=-120, out=150] node [linkcard, left] {$0,n$} (rel-file);
+    \path[link] (rel-file) edge [in=30, out=-60] node [linkcard, right] {$0,1$} (assoc-parent);
+\end{tikzpicture}
+\end{document}
