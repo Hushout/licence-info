@@ -183,4 +183,4 @@ void compote(int n, int m, int edge[][2], int comp[]){
 
 //Ex5:
 
-/* La proporsion des points isolés est d'a peu près 36% */
+/* La proporsion des points isolés est d'a peu près 13% */
