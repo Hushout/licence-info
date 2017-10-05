@@ -72,6 +72,8 @@ int main(int argc, char* argv[])
 	cout << "done" << endl;	
 	
 	delete[] point;
+	delete[] edge;
+	delete[] arbre;
   }
   else{
     cout << "Erreur d'argument: " << argv[0] << " <nbsommets> <option> (-p => affiche structure terminal)" << endl;
@@ -144,7 +146,7 @@ void tribulle(int m, int edge[][3]){
 }
 
 void kruskal(int n, int edge[][3], int arbre[][2]){
-  int comp[n];
+  int* comp = new int[n];
   int m = n*(n-1)/2;
   int aux1 = 0, aux2 = 0, h = 0;
   vector<vector<int> > listComp;
@@ -177,6 +179,7 @@ void kruskal(int n, int edge[][3], int arbre[][2]){
       }
     }
   }
+  delete[] comp;
 }
 
 void printarbre(int n, int arbre[][2]){
