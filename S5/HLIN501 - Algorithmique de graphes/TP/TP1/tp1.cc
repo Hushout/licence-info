@@ -150,8 +150,8 @@ void swap(int& x, int& y){
 }
 
 void compote(int n, int m, int edge[][2], int comp[]){
-  int aux1 = 0;
-  int aux2 = 0;
+	
+  int aux1 = 0, aux2 = 0;
   vector<vector<int> > listComp;
   
   for(int i = 0 ; i < n ; i++){
@@ -168,13 +168,13 @@ void compote(int n, int m, int edge[][2], int comp[]){
       aux2 = comp[edge[j][1]];
       
       if(listComp[aux1].size() > listComp[aux2].size()){
-	swap(aux1, aux2);
+		swap(aux1, aux2);
       }
       while(!(listComp[aux1].empty())){
-	int d = listComp[aux1].back();
-	listComp[aux2].push_back(d);
-	comp[d]=aux2;
-	listComp[aux1].pop_back();
+		int d = listComp[aux1].back();
+		listComp[aux2].push_back(d);
+		comp[d]=aux2;
+		listComp[aux1].pop_back();
       }
     }
   }

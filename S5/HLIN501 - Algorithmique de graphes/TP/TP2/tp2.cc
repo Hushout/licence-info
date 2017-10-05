@@ -3,14 +3,15 @@
 #include <vector>
 #include <cmath>
 #include <fstream>
+#include "Affichage.h"
 
 using namespace std;
-typedef struct coord{int abs; int ord;} coord;
+//typedef struct coord{int abs; int ord;} coord;
 
 void pointrandom(int n, coord point[]);
 void printpoint(int n, coord point[]);
 
-void distances(int n, int m, coord point[], int edge[][3]);
+void distances(int n, coord point[], int edge[][3]);
 void printedge(int m, int edge[][3]);
 
 void swap(int& a, int& b);
@@ -23,34 +24,57 @@ int pivot(int edge[][3], int deb, int fin);
 void trirapidebis(int edge[][3], int deb, int fin);
 void trirapide(int taille, int edge[][3]);
 
-int main(int argc, char** argv)
+int main(int argc, char* argv[])
 {
-  if(argc == 2){
+  if(argc >= 2/*&& argc <= 3*/){
+	  
     srand(time(NULL));
     int n = atoi(argv[1]);             //Le nombre de points.
-    //cout << "Entrer le nombre de points: ";
-    //cin >> n;
     int m=n*(n-1)/2;   // Le nombre de paires de points.
-    coord point[n];    // Les coordonnees des points dans le plan.
-    int edge[m][3];    // Les paires de points et le carre de leur longueur.
-    int arbre[n-1][2]; // Les aretes de l'arbre de Kruskal.
+    coord* point = new coord[n];    // Les coordonnees des points dans le plan.
+	int (*edge)[3] = new int[m][3];    // Les paires de points et le carre de leur longueur.
+    int (*arbre)[2] = new int[n-1][2]; // Les aretes de l'arbre de Kruskal.
 
+	cout << "-Randomizing point..." << endl;	
     pointrandom(n, point);
-    printpoint(n, point);
-    cout << endl;
-    distances(n, m, point, edge);
-    printedge(m, edge);
-    cout << endl;
-    cout << "tri:" << endl;
+    if(argc == 3 /* && argv[2] == "-p"*/){
+		printpoint(n, point);
+	}
+	cout << "done" << endl;
+
+	cout << "-Creating edge..." << endl;		
+    distances(n, point, edge);
+	
+    if(argc == 3  /* argv[2] == "-p"*/){
+		printedge(m, edge);
+	}
+	cout << "done" << endl;
+
+    cout << "-Sorting edge..." << endl;
     trirapide(m, edge);
-    printedge(m, edge);
-    cout << endl;
-    cout << "arbre:" << endl;
+	
+    if(argc == 3  /* argv[2] == "-p"*/){
+		printedge(m, edge);
+	}
+	cout << "done" << endl;
+	
+    cout << "-Creating arbre..." << endl;
     kruskal(n, edge, arbre);
-    printarbre(n-1, arbre);
+	
+	if(argc == 3  /* argv[2] == "-p"*/){
+		printarbre(n-1, arbre);
+	}
+	cout << "done" << endl;
+	
+	cout << "-Outputing arbre in Exemple.pdf..." << endl;
+	AffichageGraphique(n, point, arbre); //output => Exemple.ps
+	system("ps2pdf Exemple.ps"); //create .pdf with the .ps file
+	cout << "done" << endl;	
+	
+	delete[] point;
   }
   else{
-    cout << "Erreur d'argument: " << argv[0] << " <nbsommets>" << endl;
+    cout << "Erreur d'argument: " << argv[0] << " <nbsommets> <option> (-p => affiche structure terminal)" << endl;
   }
   return EXIT_SUCCESS;
 }
@@ -71,7 +95,7 @@ void printpoint(int n, coord point[]){
   cout << "\b}\n";
 }
 
-void distances(int n, int m, coord point[], int edge[][3]){
+void distances(int n, coord point[], int edge[][3]){
 
     int k = 0;
     
@@ -110,38 +134,46 @@ void tribulle(int m, int edge[][3]){
     
     for(int i = 0 ; i < m-1  ; i++){
       if(edge[i+1][2] < edge[i][2]){
-	swap(edge[i+1][0], edge[i][0]);
-	swap(edge[i+1][1], edge[i][1]);
-	swap(edge[i+1][2], edge[i][2]);
-	trie = false;
+		swap(edge[i+1][0], edge[i][0]);
+		swap(edge[i+1][1], edge[i][1]);
+		swap(edge[i+1][2], edge[i][2]);
+		trie = false;
       }
     }
   }
 }
 
 void kruskal(int n, int edge[][3], int arbre[][2]){
-  
   int comp[n];
-  int h = 0;
-    
-  for(int i = 0 ; i < n ; i++) {
+  int m = n*(n-1)/2;
+  int aux1 = 0, aux2 = 0, h = 0;
+  vector<vector<int> > listComp;
+  
+  for(int i = 0 ; i < n ; i++){
     comp[i] = i;
+    vector<int> vect;
+    vect.push_back(i);
+    listComp.push_back(vect);
   }
+  
+  for(int j = 0; j < m; j++){
     
-  for(int i = 0 ; i < n ; i++) {
-        
-    if(comp[edge[i][0]] != comp[edge[i][1]]) {
+    if(comp[edge[j][0]] != comp[edge[j][1]]){
+      aux1 = comp[edge[j][0]];
+      aux2 = comp[edge[j][1]];
       
-      int aux = comp[edge[i][0]];
-      arbre[h][0] = edge[i][0];
-      arbre[h][1] = edge[i][1];
-      h++;
-            
-      for(int k = 0 ; k < n ; k++) {
-                
-	if(comp[k] == aux) {
-	  comp[k] = comp[edge[i][1]];
-	}
+	  arbre[h][0] = edge[j][0];
+	  arbre[h][1] = edge[j][1];
+	  h++;
+	  
+      if(listComp[aux1].size() > listComp[aux2].size()){
+		swap(aux1, aux2);
+      }
+      while(!(listComp[aux1].empty())){
+		int d = listComp[aux1].back();
+		listComp[aux2].push_back(d);
+		comp[d]=aux2;
+		listComp[aux1].pop_back();
       }
     }
   }
