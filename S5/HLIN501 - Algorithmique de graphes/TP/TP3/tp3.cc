@@ -116,11 +116,32 @@ void printvoisins(int n, vector<int> voisins[]){
 
 void parcourslargeur(int n, vector<int> voisins[], int niveau[], int ordre[], int pere[]){
   int* dv = new int[n];
+
+  int* occ = new int[n];
+
+
  
   for(int i = 0 ; i < n ; i++){
     dv[i] = 0;
+    occ[i] = 0;
+    int j = 0;
+
+    while(j < (int)voisins[i].size()){
+    	occ[voisins[i][j]]++;
+    	j++;
+    }
   }
+  
   int racine = 0; //a trouver
+  int max = 0;
+
+  for(int i = 0 ; i < n ; i++){
+  	if(occ[i] > max){
+  		max = occ[i];
+  		racine = i;
+  	}
+  }
+
   int t = 2;
   dv[racine] = 1;
   ordre[racine] = 1;
