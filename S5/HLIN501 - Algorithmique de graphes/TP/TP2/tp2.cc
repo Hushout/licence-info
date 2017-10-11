@@ -3,6 +3,7 @@
 #include <vector>
 #include <cmath>
 #include <fstream>
+#include <ctime>
 #include "Affichage.h"
 
 using namespace std;
@@ -38,41 +39,55 @@ int main(int argc, char* argv[])
     int (*edge)[3] = new int[m][3];    // Les paires de points et le carre de leur longueur.
     int (*arbre)[2] = new int[n-1][2]; // Les aretes de l'arbre de Kruskal.
 
-    cout << "-Randomizing point..." << endl;	
+    clock_t time;
+
+    cout << "-Randomizing point..." << endl;
+    time = clock();
     pointrandom(n, point);
+    time = clock() - time;
+    
     if(argc == 3 /* && argv[2] == "-p"*/){
       printpoint(n, point);
     }
-    cout << "done" << endl;
+    cout << "done in " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
 
-    cout << "-Creating edge..." << endl;		
+    cout << "-Creating edge..." << endl;
+    time = clock();
     distances(n, point, edge);
+    time = clock() - time;
 	
     if(argc == 3  /* argv[2] == "-p"*/){
       printedge(m, edge);
     }
-    cout << "done" << endl;
+    cout << "done in " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
 
     cout << "-Sorting edge..." << endl;
+    time = clock();
     trirapide(m, edge);
-	
+    time = clock() - time;
+    
     if(argc == 3  /* argv[2] == "-p"*/){
       printedge(m, edge);
     }
-    cout << "done" << endl;
+    cout << "done in " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
 	
     cout << "-Creating arbre..." << endl;
+    time = clock();
     kruskal(n, edge, arbre);
-	
+    time = clock() - time;
+
     if(argc == 3  /* argv[2] == "-p"*/){
       printarbre(n-1, arbre);
     }
-    cout << "done" << endl;
+    cout << "done in " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
 	
     cout << "-Outputing arbre in Exemple.pdf..." << endl;
+    time = clock();
     AffichageGraphique(n, point, arbre); //output => Exemple.ps
     system("ps2pdf Exemple.ps"); //create .pdf with the .ps file
-    cout << "done" << endl;	
+    time = clock() - time;
+    
+    cout << "done in " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
 	
     delete[] point;
     delete[] edge;
