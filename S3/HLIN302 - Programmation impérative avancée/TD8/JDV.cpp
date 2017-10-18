@@ -230,7 +230,7 @@ void JDV::initOptions() {
     action;								\
   } else {								\
     cout << "l'option '" << argv[i] << "' attend un argument de type "	\
-	 << Type2String(opts.optionArgumentType(argv[i]));		\
+	 << TypeToString(opts.optionArgumentType(argv[i]));		\
     opt_error = true;							\
   }
 

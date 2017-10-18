@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -W -Wall
-SRCS = tp3.cc
+SRCS = tp3.cc Affichage.cc
 OBJS = $(SRCS:.cc = .o)
 BIN = tp3
 EXT = *.o

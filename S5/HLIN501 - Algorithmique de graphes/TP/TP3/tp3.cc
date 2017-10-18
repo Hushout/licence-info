@@ -1,13 +1,18 @@
 #include <cstdlib>
 #include <iostream>
 #include <vector>
+#include <cmath>
+#include <stack>
+#include <queue>
+#include <cmath>
 #include <fstream>
 #include <ctime>
+#include <cstring>
+#include "Affichage.h"
 
 using namespace std;
 
 void randomarray(int n, int sum, int array[]);
-
 void printarray(int n, int array[]);
 
 void voisinsrandom(int n, int m, vector<int> voisins[]);
@@ -15,35 +20,70 @@ void printvoisins(int n, vector<int> voisins[]);
 bool isIn(int n, vector<int> vect);
 
 void parcourslargeur(int n, vector<int> voisins[], int niveau[], int ordre[], int pere[]);
-
+void parcoursprofondeur(int n, vector<int> voisins[], int niveau[], int ordre[], int pere[]);
 void ecritureniveaux(int n, int niveau[]);
 
-void parcoursprofondeur(int n, vector<int> voisins[], int niveau[], int ordre[], int pere[]);
+void pointrandom(int n, coord point[]);
+void printpoint(int n, coord point[]);
+void createvoisins(int n, coord point[], vector<int> voisins[], int maxdist);
 
 int main(int argc, char** argv){
   srand(time(NULL));
-  if(argc == 3){
+  if(argc >= 3){
     int n = atoi(argv[1]);             //Le nombre de sommets.
     int m = atoi(argv[2]);             // Le nombre d'aretes.
     
-    vector<int> voisins[n];	// Les listes des voisins. 
-    int pere[n];            // L'arbre en largeur.
-    int ordre[n];           // L'ordre de parcours.
-    int niveau[n];          // Le niveau du point.
+    vector<int>* voisins = new vector<int>[n];	// Les listes des voisins. 
+    int* pere = new int[n];            // L'arbre en largeur.
+    int* ordre = new int[n];           // L'ordre de parcours.
+    int* niveau = new int[n];          // Le niveau du point.
+	coord* point = new coord[n];
     
-    voisinsrandom(n, m, voisins);
+	pointrandom(n, point);
+    createvoisins(n, point, voisins, m);
     printvoisins(n, voisins);
+	
+	if(argc > 3 && strchr(argv[3], 'p')){
+		cout << "Parcours en Profondeur:" << endl;
+		parcoursprofondeur(n, voisins, niveau, ordre, pere);
+		cout << "pere:" << endl;
+		printarray(n, pere);
+		cout << "ordre:" << endl;
+		printarray(n, ordre);
+		cout << "niveau:" << endl;
+		printarray(n, niveau);
+		cout << endl;
+		ecritureniveaux(n, niveau);
+		cout << endl;
+	}
+	else{
+		cout << "Parcours en largeur:" << endl;
+		parcourslargeur(n, voisins, niveau, ordre, pere);
+		cout << "pere:" << endl;
+		printarray(n, pere);
+		cout << "ordre:" << endl;
+		printarray(n, ordre);
+		cout << "niveau:" << endl;
+		printarray(n, niveau);
+		cout << endl;
+		ecritureniveaux(n, niveau);
+		cout << endl;
+	}
+	
+	AffichageGraphiqueVoisins(n, point, voisins); //output => Exemple.ps
+    system("ps2pdf Voisins.ps"); //create .pdf with the .ps file
+	AffichageGraphiqueParcours(n, point, pere); //output => Exemple.ps
+    system("ps2pdf Parcours.ps"); //create .pdf with the .ps file
 
-    parcourslargeur(n, voisins, niveau, ordre, pere);
-    cout << "pere:" << endl;
-    printarray(n, pere);
-    cout << "ordre:" << endl;
-    printarray(n, ordre);
-    cout << "niveau:" << endl;
-    printarray(n, niveau);
+    delete[] voisins;	
+    delete[] pere;           
+    delete[] ordre;
+	delete[] niveau;          
+	delete[] point;
   }
   else{
-    cout << "Erreur d'argument: " << argv[0] << " <sommets> <aretes> <options> (-p => affiche structure terminal)" << endl;
+    cout << "Erreur d'argument: " << argv[0] << " <sommets> <carrelongueurmaxaretes> <options>" << endl;
+	cout << "options: -p => affiche graphe en profondeur, -l => affiche graphe en largeur" << endl;
   }
 
 return 0;
@@ -116,31 +156,15 @@ void printvoisins(int n, vector<int> voisins[]){
 
 void parcourslargeur(int n, vector<int> voisins[], int niveau[], int ordre[], int pere[]){
   int* dv = new int[n];
-
-  int* occ = new int[n];
-
-
  
   for(int i = 0 ; i < n ; i++){
     dv[i] = 0;
-    occ[i] = 0;
-    int j = 0;
-
-    while(j < (int)voisins[i].size()){
-    	occ[voisins[i][j]]++;
-    	j++;
-    }
+	ordre[i] = -1;
+	pere[i] = -1;
+	niveau[i] = -1;
   }
   
-  int racine = 0; //a trouver
-  int max = 0;
-
-  for(int i = 0 ; i < n ; i++){
-  	if(occ[i] > max){
-  		max = occ[i];
-  		racine = i;
-  	}
-  }
+  int racine = 0; //choisie arbitrairement
 
   int t = 2;
   dv[racine] = 1;
@@ -148,13 +172,13 @@ void parcourslargeur(int n, vector<int> voisins[], int niveau[], int ordre[], in
   pere[racine] = racine;
   niveau[racine] = 0;
 
-  vector<int> AT;
-  AT.push_back(racine);
+  queue<int> AT;
+  AT.push(racine);
 
   while(!AT.empty()){
     
-    int v = AT.back();
-    AT.pop_back();
+    int v = AT.front();
+    AT.pop();
     
     for(int i = 0 ; i < (int)voisins[v].size() ; i++){
       
@@ -162,19 +186,110 @@ void parcourslargeur(int n, vector<int> voisins[], int niveau[], int ordre[], in
       
       if(dv[x] == 0){
       
-	dv[x] = 1;
-	vector<int>::iterator it;
-	it = AT.begin();
-	AT.insert(it, x);
-	ordre[x] = t; t+=1;
-	pere[x] = v;
-	niveau[x] = niveau[v] + 1;
+		dv[x] = 1;
+		AT.push(x);
+		ordre[x] = t; t+=1;
+		pere[x] = v;
+		niveau[x] = niveau[v] + 1;
       }
     }
   }
+  delete[] dv;
+}
+
+void parcoursprofondeur(int n, vector<int> voisins[], int niveau[], int ordre[], int pere[]){
+  int* dv = new int[n];
+ 
+  for(int i = 0 ; i < n ; i++){
+    dv[i] = 0;
+	ordre[i] = -1;
+	pere[i] = -1;
+	niveau[i] = -1;
+  }
   
+  int racine = 0; //choisie arbitrairement
+
+  int t = 2;
+  dv[racine] = 1;
+  ordre[racine] = 1;
+  pere[racine] = racine;
+  niveau[racine] = 0;
+
+  stack<int> AT;
+  AT.push(racine);
+
+  while(!AT.empty()){
+    
+    int v = AT.top();
+    AT.pop();
+    
+    for(int i = 0 ; i < (int)voisins[v].size() ; i++){
+      
+      int x = voisins[v][i];
+      
+      if(dv[x] == 0){
+      
+		dv[x] = 1;
+		AT.push(x);
+		ordre[x] = t; t+=1;
+		pere[x] = v;
+		niveau[x] = niveau[v] + 1;
+      }
+    }
+  }
+  delete[] dv;
 }
 
 void ecritureniveaux(int n, int niveau[]){
+	int* nbNiv = new int[n];
+	int nbNotIn = 0;
+	
+	for(int i = 0 ; i < n ; i++){
+		nbNiv[i] = -1;
+	}
+	for(int i = 0 ; i < n ; i++){
+		if(niveau[i] != -1)
+			nbNiv[niveau[i]]++;
+		else
+			nbNotIn++;
+	}
+	for(int i = 0 ; i < n ; i++){
+		if(nbNiv[i] != -1 && nbNiv[i] != 0)
+		cout << "Il y a " << nbNiv[i] << " au niveau " << i << endl;
+	}
+	if(nbNotIn)
+		cout << "Il y a " << nbNotIn << " qui ne sont pas dans la composante de 0." << endl;
 
+	delete[] nbNiv;
+}
+
+void pointrandom(int n, coord point[]){
+  int i = 0;
+  while(i < n){
+    point[i].abs = rand() % 613;
+    point[i].ord = rand() % 793;
+	i++;
+  }
+}
+
+void printpoint(int n, coord point[]){
+  cout << "{";
+  for(int i = 0 ; i < n ; i++){
+    cout << "{" << point[i].abs << ", " << point[i].ord << "} ";
+  }
+  cout << "\b}\n";
+}
+
+void createvoisins(int n, coord point[], vector<int> voisins[], int maxdist){
+
+  for(int i = 0 ; i < n ; i++){
+	for(int j = 0 ; j < n ; j++){
+		if(j != i){
+			int dist = pow(point[j].abs - point[i].abs , 2) + pow(point[j].ord - point[i].ord , 2);
+			if(dist <= maxdist){
+				voisins[i].push_back(j);
+			}
+		}
+	}
+  }
 }
