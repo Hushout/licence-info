@@ -1,45 +1,198 @@
 #!/bin/bash
 
-find . -name "*~" -type f -delete
+# supprime les fichier temporaire contenant "~" créé sous linux
+# find . -name "*~" -type f -delete
+ 
+# definitions des fonctions: 
 
-git fetch --all
+# affiche une chaine non nulle si un commit est necessaire, sinon ne renvoie rien
+commitneeded (){
+    status=$(git status)
+    echo "$status" | grep "git add"
+}
 
-fichiers=$(git diff --name-status master origin/master)
+# affiche une chaine non nulle si des fichiers non pas été fusionnés, sinon ne renvoie rien
+unmergedfile (){
+    status=$(git status)
+    echo "$status" | grep "both modified"
+}
 
-if [ -z "$fichiers" ]
-then
-	status=$(git status)
-	updateneeded=$(echo "$status" | grep "git add")
-	
-	if [ -n "$updateneeded" ]
+# commission de tous les changements apportés à la branche locales
+commitall () {
+    echo "-Commission des données locales..."
+    git add -A
+    git commit -m "Mise à jour"
+    echo "-Fait"
+    echo ""
+}
+
+# met en ligne les données locales mofifiées/ajoutées
+pushall () {
+    echo "-Mise en ligne des données locales..."
+    git push origin master
+    echo "-Fait"
+    echo ""
+}
+
+# fusionne les données de la branche local avec les données de master
+pullall () {
+    echo "-Fusion des données locales avec les données de master..."
+    
+    pull=$(git pull)
+    conflict=$(echo "$pull" | grep "CONFLICT")
+
+    if [ -n "$conflict" ]
+    then
+    echo ""
+	echo "Des conflits on été detecté:"
+	echo "$conflict"
+	echo ""
+	echo "Attention à ne pas perdre de données à la prochaine mise à jour"
+    else
+	echo "$pull"
+    fi
+    
+    echo "-Fait"
+    echo ""
+}
+
+# va chercher tous les changements de toutes les branches en ligne
+# ce qui permettra de voir si il y a eu des add, delete, modification etc...
+# quite le script si la connexion est impossible
+fetchall () {
+
+	echo "-Recherche des données en ligne..."
+
+	connexion=$(git fetch --all 2>&1)
+	failure=$(echo "$connexion" | grep "unable to access")
+
+	if [ -n "$failure" ]
 	then
-		echo "$status"
+		echo "La connexion est impossible ou la remote n'existe pas"
+		echo ""
+		echo "$failure"
+		exit 1
+	else
+		echo "$connexion"
+	fi
 
-		read -r -p "Mettre à jour master à partir de cette branche ? [y/n] " response
+	echo "-Fait"
+	echo ""
+}
 
+# debut du script update:
+
+# va chercher toute les données en ligne quitte le scripte si ce n'est pas possible
+fetchall
+
+# on regarde si il y a eu des changements sur master par rapport à la branche locale
+differences=$(git diff --name-status master origin)
+
+# si differences est nulle alors il n'y a pas de changement à apporter à la branche locale
+# on va alors voir si on peut mettre à jour master à partir de la branche locale
+if [ -z "$differences" ]
+then
+	result=$(commitneeded)
+	# si un commit est necessaire
+	if [ -n "$result" ]
+	then
+	# affiche le status de la branche locale
+	echo "-Aquisition du status de la branche locale..."
+	git status
+	echo "-Fait"
+	echo ""
+
+	read -r -p "Mettre à jour master à partir de cette branche ? [y/n] " response
+	echo ""
+	
+	# si la reponse est oui
+	if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+	then
+		commitall
+		pushall
+	else
+		echo "Mise à jour de master annulée"
+	fi
+	else
+	echo "Cette branche est identique à master, la mise à jour est inutile"
+	fi
+# sinon si differences n'est pas nulle, il faut mettre à jour la branche locale
+else
+	unmerged=$(unmergedfile)
+	# si il y n'y a pas de fichier non fusionné on recupere les données a partir de master
+	if [ -z "$unmerged" ]
+	then
+		result=$(commitneeded)
+		# si un commit est necessaire
+		if [ -n "$result" ]
+		then
+			commitall
+		else
+			echo "-Aucune commission des données locale n'est à faire"
+			echo ""
+		fi
+		
+		echo "La branche locale à du retard sur master, Une mise à jour est necessaire"
+		echo ""
+		
+		echo "$differences"
+		echo ""
+		
+		read -r -p "Voulez-vous vous mettre à jour la branche locale et obtenir les fichiers ci-dessus ? [y/n] " response
+		echo ""
+		
 		if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
 		then
-			git add -A
-			git commit -m "Mise à jour"
-			git push origin master
+			pullresult=$(pullall)
+			pullconflict=$(echo "$pullresult" | grep "CONFLICT")
+
+			echo "$pullresult"
+			echo ""
+
+			# si il n'y a pas de conflict on envoi les données en ligne
+			if [ -z "$pullconflict" ]
+			then
+				pushall
+			fi
 		else
 			echo "Mise à jour annulée"
 		fi
 	else
-		echo "Cette branche est identique à master, la mise à jour est inutile"
-	fi
+		echo "Attention des fichiers non pas été fusionnés:"
+		echo "$unmerged"
+		echo ""
+		
+		read -r -p "Voulez-vous ecraser les fichiers de master avec les fichiers de la branche locale ? [y/n] " response
+		echo ""
+		
+		# si la reponse est oui
+		if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+		then
+			commitall
+			pushall
+		else
+			read -r -p "Dans ce cas voulez-vous ecraser les fichiers de la branche locale avec les fichiers de master ? [y/n] " response
+			echo ""
+			
+			# si la reponse est oui
+			if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+			then
+				git status
+				echo ""
 
-else
-	echo "La branche local à du retard sur master, Une synchronisation est necessaire avant de pouvoir mettre à jour origin/master"
-	
-	echo "$fichiers"
-	
-	read -r -p "Voulez-vous vous synchroniser avec master et obtenir les fichiers ci-dessus ? [y/n] " response
-
-	if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
-	then
-		git reset --hard origin/master
-	else
-		echo "synchronisation annulée"
+				read -r -p "Attention les données qui n'ont pas été envoyées en ligne seront perdus continuer ? [y/n] " response
+				echo ""
+				
+				# si la reponse est oui
+				if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+				then
+					git reset --hard origin/master
+				else
+					echo "Aucun changement n'a été effectués, vous pouvez modifier les fichiers un par un puis envoyer les changements à master avec git add, git commit, git push"
+				fi
+			else
+				echo "Aucun changement n'a été effectués, vous pouvez modifier les fichiers un par un puis envoyer les changements à master avec git add, git commit, git push"
+			fi
+		fi
 	fi
 fi
