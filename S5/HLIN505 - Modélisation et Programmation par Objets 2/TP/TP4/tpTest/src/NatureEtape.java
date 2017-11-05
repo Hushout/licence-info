@@ -1,7 +1,7 @@
 
 public enum NatureEtape {
-musee,
-visiteMonument,
-visiteJardin,
-lieuInteretSansVisite;
+	musee,
+	visiteMonument,
+	visiteJardin,
+	lieuInteretSansVisite;
 }
