@@ -11,11 +11,11 @@ public class Personne implements ElementAvecPriorite {
     public String toString(){return nom+" "+age;}
 
     public int priorite(){
-	if(age >= 0 && age <= 12)
-	    return 1;
-	else if(age >= 60)
-	    return 2;
-	else
-	    return 3;
-    }
+       if(age >= 0 && age <= 12)
+           return 1;
+       else if(age >= 60)
+           return 2;
+       else
+           return 3;
+   }
 }
