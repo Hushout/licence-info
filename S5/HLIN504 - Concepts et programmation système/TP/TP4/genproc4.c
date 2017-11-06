@@ -13,14 +13,14 @@ int main(int argc, char** argv){
     
     if ((nPid = fork()) == 0){
       for(int j = 0; j < nbEspace ; j++){
-	printf(" ");
-      }
-      printf("un nouveau descendant %d de parent %d ! i=%d\n", getpid(), getppid(),i);
-      nbEspace +=4;
-    }
-    else{
-      int status;
-      wait(&status);
+       printf(" ");
+     }
+     printf("un nouveau descendant %d de parent %d ! i=%d\n", getpid(), getppid(),i);
+     nbEspace +=4;
+   }
+   else{
+    int status;
+    wait(&status);
     }//chaque parent attend la fin de ses enfants
 
   }
