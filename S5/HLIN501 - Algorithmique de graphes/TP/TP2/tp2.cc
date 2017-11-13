@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
     coord* point = new coord[n];    // Les coordonnees des points dans le plan.
     int (*edge)[3] = new int[m][3];    // Les paires de points et le carre de leur longueur.
     int (*arbre)[2] = new int[n-1][2]; // Les aretes de l'arbre de Kruskal.
-
+ 
     clock_t time;
 
     cout << "-Randomizing point..." << endl;
