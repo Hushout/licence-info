@@ -28,6 +28,8 @@ public class Window1 extends JFrame {
 		}
 		add(p, "Center");
 
+		//pack();
+
 		setVisible(true);
 	}
 
