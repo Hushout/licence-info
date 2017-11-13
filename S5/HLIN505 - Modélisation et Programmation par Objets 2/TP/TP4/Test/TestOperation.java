@@ -3,6 +3,10 @@ import org.junit.*;
 
 public class TestOperation {
 
+	public void setUp(){
+		
+	}
+
 	@Test
 	public void addition() {
 		assertTrue(4 == Operation.addition(2, 2));
