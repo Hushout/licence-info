@@ -65,6 +65,8 @@ int main(int argc, char* argv[]){
 
 		AffichageGraphiqueVoisins(n, point, voisin); //output => Voisins.ps
 		AffichageGraphiqueParcours(n, point, pere); //output => Parcours.ps 
+		system("ps2pdf Voisins.ps");
+		system("ps2pdf Parcours.ps");
 	}
 	else{
 		cout << "Erreur d'argument: " << argv[0] << " <sommets> <dist>" << endl;
