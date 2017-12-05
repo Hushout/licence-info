@@ -22,7 +22,7 @@ int main(int argc, char** argv){
                     {inf,0,2,inf,inf},   //long[i][j]=inf si l'arc ij n'existe pas
                     {inf,inf,0,2,inf},
                     {inf,-3,inf,0,2},
-                    {2,inf,inf,inf,0}}; 
+                    {2,inf,inf,inf,0}};
 /*
     int arc[n][n]={{0,0,0,1,0,1},//La matrice d'adjacence du graphe oriente D.
                    {1,0,1,1,0,0},
