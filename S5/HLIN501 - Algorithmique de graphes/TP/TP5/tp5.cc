@@ -6,7 +6,8 @@
 
 using namespace std;
 
-const int n = 41;
+const int n=41;
+const int n2 = 6;
 const int inf=9999;                    //La valeur infinie.    
 
 void floyd_warshall(int longueur[][n], int dist[][n], int chemin[][n]);
@@ -14,44 +15,44 @@ void printchemin(int chemin[][n]);
 
 void itineraire(int i, int j, int chemin[][n]);
 
-void fermeturetransitive(int arc[][n], int fermeture[][n]);
+void fermeturetransitive(int arc[][6], int fermeture[][6]);
+void printfermeture(int fermeture[][6]);
+
+void compfortconnexe(int n, int fermeutre[][6]);
 
 int main(int argc, char** argv){
 
 	if(argc == 3){
-	/*
-    int longueur[n][n]={{0,2,inf,4,inf}, //Les longueurs des arcs.
-                    {inf,0,2,inf,inf},   //long[i][j]=inf si l'arc ij n'existe pas
-                    {inf,inf,0,2,inf},
-                    {inf,-3,inf,0,2},
-                    {2,inf,inf,inf,0}};
 
-    */
-   	int (*longueur)[n] = new int[n][n];
-   	initlongueur(longueur);
-/*
-    int arc[n][n]={{0,0,0,1,0,1},//La matrice d'adjacence du graphe oriente D.
-                   {1,0,1,1,0,0},
-                   {0,0,0,1,0,0},
-                   {0,0,0,0,1,1},
-                   {0,0,1,0,0,1},
-                   {0,0,1,0,0,0}};
-                           
-    int fermeture[n][n];         // La matrice de la fermeture transitive de D.
-*/
+	int (*longueur)[n] = new int[n][n];
+	initlongueur(longueur);
+
+    int arc[6][6]={{0,0,0,1,0,1},//La matrice d'adjacence du graphe oriente D.
+				   {1,0,1,1,0,0},
+				   {0,0,0,1,0,0},
+				   {0,0,0,0,1,1},
+				   {0,0,1,0,0,1},
+				   {0,0,1,0,0,0}};
+
+    int fermeture[6][6];         // La matrice de la fermeture transitive de D.
+
     int (*dist)[n] = new int[n][n];                      //Le tableau des distances.
-    int (*chemin)[n] = new int[n][n];          //Le tableau de la premiere etape du chemin de i a j.
+    int (*chemin)[n] = new int[n][n];                    //Le tableau de la premiere etape du chemin de i a j.
 
     floyd_warshall(longueur, dist, chemin);
     //printchemin(chemin);
 
     itineraire(atoi(argv[1]), atoi(argv[2]), chemin);
-}
-else{
-	cout << "Erreur d'argument: " << argv[0] << " <i> <j>  (0 <= j i <= 4)" << endl;
-}
 
-return 0;
+    fermeturetransitive(arc, fermeture);
+  	printfermeture(fermeture);
+
+	}
+	else{
+		cout << "Erreur d'argument: " << argv[0] << " <i> <j>  (0 <= j i <= 40)" << endl;
+	}
+
+	return 0;
 }
 
 void floyd_warshall(int longueur[][n], int dist[][n], int chemin[][n]){
@@ -79,13 +80,13 @@ void floyd_warshall(int longueur[][n], int dist[][n], int chemin[][n]){
           			chemin[i][j] = chemin[i][k]; 
       			}
   			}
-		}
+  		}
 	}
 
 	for(int i = 0 ; i < n ; i++){
 		if(dist[i][i] < 0){
 			cout << "Il existe un cycle orienté de poids < 0" << endl;
-		return;
+			return;
 		}
 	}
 }
@@ -115,8 +116,41 @@ void itineraire(int i, int j, int chemin[][n]){
 	cout << endl;
 }
 
-void fermeturetransitive(int arc[][n], int fermeture[][n]){
+void fermeturetransitive(int arc[][6], int fermeture[][6]){
 
+	int n = 6;
+
+	for(int i = 0 ; i < n ; i++){
+		for(int j = 0 ; j < n ; j++){
+			fermeture[i][j] = arc[i][j];
+		}
+	}
+
+	for(int k = 0; k < n ; k++){
+		for(int i = 0 ; i < n ; i++){
+			for(int j = 0 ; j < n ; j++){
+
+				if(arc[i][k] && arc[k][j]){
+         			fermeture[i][j] = fermeture[i][k]; 
+      			}
+  			}
+		}
+	}
 }
 
+void printfermeture(int fermeture[][6]){
+	int n = 6;
+	cout << "{";
+	for(int i = 0 ; i < n ; i++){
+		cout << "{ ";
+		for(int j = 0 ; j < n ; j++){
+			cout << fermeture[i][j] << " ";
+		}
+		cout << "}";
+	}
+	cout << "}"  << endl;
+}
 
+void compfortconnexe(int n, int fermeutre[][6]){
+
+}
