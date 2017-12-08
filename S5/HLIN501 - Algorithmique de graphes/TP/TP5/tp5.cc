@@ -2,6 +2,7 @@
 #include <vector>
 #include <cstdlib>
 #include "villes.h"
+#include <map>
 
 
 using namespace std;
@@ -41,11 +42,17 @@ int main(int argc, char** argv){
 
     floyd_warshall(longueur, dist, chemin);
     //printchemin(chemin);
+    int i = atoi(argv[1]);
+    int j = atoi(argv[2]);
 
-    itineraire(atoi(argv[1]), atoi(argv[2]), chemin);
+    itineraire(i, j, chemin);
 
     fermeturetransitive(arc, fermeture);
   	printfermeture(fermeture);
+
+  	compfortconnexe(6, fermeture);
+
+  	//cout << "Les chemin est possible " << fermeture[i][j] << endl;
 
 	}
 	else{
@@ -131,7 +138,7 @@ void fermeturetransitive(int arc[][6], int fermeture[][6]){
 			for(int j = 0 ; j < n ; j++){
 
 				if(arc[i][k] && arc[k][j]){
-         			fermeture[i][j] = fermeture[i][k]; 
+         			fermeture[i][j] = 1; 
       			}
   			}
 		}
@@ -140,17 +147,59 @@ void fermeturetransitive(int arc[][6], int fermeture[][6]){
 
 void printfermeture(int fermeture[][6]){
 	int n = 6;
-	cout << "{";
+	cout << "{" << endl;
 	for(int i = 0 ; i < n ; i++){
 		cout << "{ ";
 		for(int j = 0 ; j < n ; j++){
 			cout << fermeture[i][j] << " ";
 		}
-		cout << "}";
+		cout << "}" << endl;
 	}
-	cout << "}"  << endl;
+	cout << "}" << endl;
 }
 
-void compfortconnexe(int n, int fermeutre[][6]){
+void compfortconnexe(int n, int fermeture[][6]){
 
+	vector<int> comp(n);
+
+	for(int i = 0 ; i < n ; i++){
+    	comp[i] = i;
+  	}
+
+	for(int i = 0 ; i < n ; i++){
+		for(int j = 0 ; j < n ; j++){
+			if(fermeture[i][j] && fermeture[j][i]){
+				int aux = comp[i];
+				for(int k = 0; k < n; k++){
+					if(comp[k] == aux){
+		  				comp[k] = comp[j];
+					}
+      			}
+			}
+		}
+	}
+
+	map<int, vector<int>> mp;
+	map<int, vector<int>>::iterator it;
+
+	for(int i = 0 ; i < n ; i++){
+		it = mp.find(comp[i]);
+		if(it != mp.end()){
+			mp[comp[i]].push_back(i);
+		}
+		else{
+			vector<int> newv;
+			newv.push_back(i);
+			mp[comp[i]] = newv;
+		}
+	}
+	cout << "Les composantes fortement connexes sont: ";
+	for(map<int, vector<int>>::iterator it = mp.begin() ; it != mp.end() ; it++){
+		cout << "{ ";
+		for(int i = 0 ; i < (int)it->second.size() ; i++){
+			cout << it->second[i] << " ";
+		}
+		cout << "} ";
+	}
+	cout << endl;
 }
