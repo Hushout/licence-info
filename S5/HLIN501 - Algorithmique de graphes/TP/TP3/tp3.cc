@@ -8,6 +8,7 @@
 #include <fstream>
 #include <ctime>
 #include <cstring>
+#include <ctime>
 #include "Affichage.h"
 
 using namespace std;
@@ -28,52 +29,87 @@ void printpoint(int n, coord point[]);
 void createvoisins(int n, coord point[], vector<int> voisins[], int maxdist);
 
 int main(int argc, char** argv){
-  srand(time(NULL));
   if(argc >= 3){
-    int n = atoi(argv[1]);             //Le nombre de sommets.
-    int m = atoi(argv[2]);             // Le nombre d'aretes.
     
+    srand(time(NULL));
+
+    int n = atoi(argv[1]);             //Le nombre de sommets.
+    int m = atoi(argv[2]);             //Le nombre d'aretes.
+
+    bool printall = false;
+    bool plargeur = false;
+
+    for(int i = 0 ; i < argc ; i++){
+      string s(argv[i]);
+      if(s == "-p")
+        printall = true;
+      if(s == "-l")
+        plargeur = true;
+    }
+
+    clock_t time;
+    
+    cout << "-Allocation mémoire..." << endl;
+    time = clock();
     vector<int>* voisins = new vector<int>[n];	// Les listes des voisins. 
     int* pere = new int[n];            // L'arbre en largeur.
     int* ordre = new int[n];           // L'ordre de parcours.
     int* niveau = new int[n];          // Le niveau du point.
     coord* point = new coord[n];
-    
+    time = clock() - time;
+    cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
+
+    cout << "-Generation des points aleatoire..." << endl;
+    time = clock();
     pointrandom(n, point);
+    time = clock() - time;
+    if(printall)
+      printpoint(n, point);
+    cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
+
+    cout << "-Creation de la liste des voisins..." << endl;
+    time = clock();
     createvoisins(n, point, voisins, m);
-    printvoisins(n, voisins);
-    
-    if(argc > 3 && strchr(argv[3], 'p')){
-      cout << "Parcours en Profondeur:" << endl;
+    time = clock() - time;
+    if(printall)
+      printvoisins(n, voisins);
+    cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
+
+
+    if(!plargeur){
+      cout << "-Parcours en profondeur de voisins..." << endl;
+      time = clock();
       parcoursprofondeur(n, voisins, niveau, ordre, pere);
-      cout << "pere:" << endl;
-      printarray(n, pere);
-      cout << "ordre:" << endl;
-      printarray(n, ordre);
-      cout << "niveau:" << endl;
-      printarray(n, niveau);
-      cout << endl;
-      ecritureniveaux(n, niveau);
-      cout << endl;
+      time = clock() - time;
     }
     else{
-      cout << "Parcours en largeur:" << endl;
+      cout << "Parcours en largeur de voisins..." << endl;
+      time = clock();
       parcourslargeur(n, voisins, niveau, ordre, pere);
-      cout << "pere:" << endl;
-      printarray(n, pere);
-      cout << "ordre:" << endl;
-      printarray(n, ordre);
-      cout << "niveau:" << endl;
-      printarray(n, niveau);
-      cout << endl;
-      ecritureniveaux(n, niveau);
-      cout << endl;
+      time = clock() - time;
     }
+
+    if(printall){
+      cout << "pere = ";
+      printarray(n, pere);
+      cout << endl << "ordre = ";
+      printarray(n, ordre);
+      cout << endl << "niveau = ";
+      printarray(n, niveau);
+    }
+    cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
+
+    ecritureniveaux(n, niveau);
+    cout << endl;
     
-	AffichageGraphiqueVoisins(n, point, voisins); //output => Exemple.ps
+    cout << "-Sorti du graphe dans Voisins.pdf et du parcour dans Parcours.pdf..." << endl;
+    time = clock();
+	  AffichageGraphiqueVoisins(n, point, voisins); //output => Exemple.ps
     system("ps2pdf Voisins.ps"); //create .pdf with the .ps file
-	AffichageGraphiqueParcours(n, point, pere); //output => Exemple.ps
+	  AffichageGraphiqueParcours(n, point, pere); //output => Exemple.ps
     system("ps2pdf Parcours.ps"); //create .pdf with the .ps file
+    time = clock() - time;
+    cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
 
     delete[] voisins;	
     delete[] pere;           
@@ -82,8 +118,10 @@ int main(int argc, char** argv){
     delete[] point;
   }
   else{
-    cout << "Erreur d'argument: " << argv[0] << " <sommets> <carrelongueurmaxaretes> <options>" << endl;
-    cout << "options: -p => affiche graphe en profondeur, -l => affiche graphe en largeur" << endl;
+    cout << endl << "Usage: " << argv[0] << " <sommets> <carrelongueurmaxaretes> <option>" << endl << endl;
+    cout << "OPTION:" << endl;
+    cout << "    -p => affiche les structures a chaque etape de calcul." << endl << endl;
+    cout << "    -l => execute un parcour en largeur au lieux d'un parcours en profondeur." << endl << endl;
   }
 
   return 0;
@@ -92,9 +130,9 @@ int main(int argc, char** argv){
 void printarray(int n, int array[]){
   cout << "{";
   for(int i = 0 ; i < n ; i++){
-    cout << array[i] << ", ";
+    cout << array[i] << " ";
   }
-  cout << "\b\b}\n";
+  cout << "\b\b}" << endl;
 }
 
 void voisinsrandom(int n, int m, vector<int> voisins[]){
@@ -136,14 +174,14 @@ void randomarray(int n, int m, int array[]){
     sum += array[i];
   }
   
-    // Normalize sum to m
+  // Normalize sum to m
   for (int i = 0; i < n; i++){
     array[i] /= sum * m;
   }
 }
 
 void printvoisins(int n, vector<int> voisins[]){
-  cout << "{";
+  cout << "voisins = {";
   for(int i = 0 ; i < n ; i++){
     cout << "{ ";
     for(int j = 0 ; j < (int)voisins[i].size() ; j++){
@@ -255,10 +293,10 @@ void ecritureniveaux(int n, int niveau[]){
 	}
 	for(int i = 0 ; i < n ; i++){
 		if(nbNiv[i] != -1 && nbNiv[i] != 0)
-      cout << "Il y a " << nbNiv[i] << " au niveau " << i << endl;
+      cout << "Il y a " << nbNiv[i] << " sommets au niveau " << i << endl;
   }
   if(nbNotIn)
-    cout << "Il y a " << nbNotIn << " qui ne sont pas dans la composante de 0." << endl;
+    cout << "Il y a " << nbNotIn << " sommets qui ne sont pas dans la composante de 0." << endl;
 
   delete[] nbNiv;
 }
@@ -273,9 +311,9 @@ void pointrandom(int n, coord point[]){
 }
 
 void printpoint(int n, coord point[]){
-  cout << "{";
+  cout << "point = {";
   for(int i = 0 ; i < n ; i++){
-    cout << "{" << point[i].abs << ", " << point[i].ord << "} ";
+    cout << "{" << point[i].abs << " " << point[i].ord << "} ";
   }
   cout << "\b}\n";
 }

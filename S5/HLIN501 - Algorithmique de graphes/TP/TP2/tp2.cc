@@ -7,14 +7,12 @@
 #include "Affichage.h"
 
 using namespace std;
-//typedef struct coord{int abs; int ord;} coord;
 
 void pointrandom(int n, coord point[]);
 void printpoint(int n, coord point[]);
 
 void distances(int n, coord point[], int edge[][3]);
 void distancesman(int n, coord point[], int edge[][3]);
-void distancessup(int n, coord point[], int edge[][3]);
 
 void printedge(int m, int edge[][3]);
 
@@ -33,68 +31,75 @@ int main(int argc, char* argv[])
   if(argc >= 2/*&& argc <= 3*/){
 	  
     srand(time(NULL));
+
     int n = atoi(argv[1]);             //Le nombre de points.
-    int m=n*(n-1)/2;   // Le nombre de paires de points.
+    int m = n*(n-1)/2;   // Le nombre de paires de points.
+    clock_t time;
+
+    bool printall = false;
+
+    for(int i = 0 ; i < argc ; i++){
+      string s(argv[i]);
+      if(s == "-p")
+        printall = true;
+    }
+
+    cout << "-Allocation mémoire..." << endl;
+    time = clock();
     coord* point = new coord[n];    // Les coordonnees des points dans le plan.
     int (*edge)[3] = new int[m][3];    // Les paires de points et le carre de leur longueur.
     int (*arbre)[2] = new int[n-1][2]; // Les aretes de l'arbre de Kruskal.
- 
-    clock_t time;
+    time = clock() - time;
+    cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
 
-    cout << "-Randomizing point..." << endl;
+    cout << "-Generation des points aléatoire..." << endl;
     time = clock();
     pointrandom(n, point);
     time = clock() - time;
-    
-    if(argc == 3 /* && argv[2] == "-p"*/){
+    if(printall)
       printpoint(n, point);
-    }
-    cout << "done in " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
+    cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
 
-    cout << "-Creating edge..." << endl;
+    cout << "-Creation de edge..." << endl;
     time = clock();
     distances(n, point, edge);
     time = clock() - time;
-	
-    if(argc == 3  /* argv[2] == "-p"*/){
+    if(printall)
       printedge(m, edge);
-    }
-    cout << "done in " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
+    cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
 
-    cout << "-Sorting edge..." << endl;
+    cout << "-Trie rapide de edge..." << endl;
     time = clock();
     trirapide(m, edge);
     time = clock() - time;
-    
-    if(argc == 3  /* argv[2] == "-p"*/){
+    if(printall)
       printedge(m, edge);
-    }
-    cout << "done in " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
+    cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
 	
-    cout << "-Creating arbre..." << endl;
+    cout << "-Creation de l'arbre..." << endl;
     time = clock();
     kruskal(n, edge, arbre);
     time = clock() - time;
-
-    if(argc == 3  /* argv[2] == "-p"*/){
+    if(printall)
       printarbre(n-1, arbre);
-    }
-    cout << "done in " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
+    cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
 	
-    cout << "-Outputing arbre in Exemple.pdf..." << endl;
+    cout << "-Sorti de l'arbre dans Exemple.pdf..." << endl;
     time = clock();
     AffichageGraphique(n, point, arbre); //output => Exemple.ps
     system("ps2pdf Exemple.ps"); //create .pdf with the .ps file
     time = clock() - time;
-    
-    cout << "done in " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
+    cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
 	
     delete[] point;
     delete[] edge;
     delete[] arbre;
   }
   else{
-    cout << "Erreur d'argument: " << argv[0] << " <nbsommets> <option> (-p => affiche structure terminal)" << endl;
+    cout << endl << "Usage: " << argv[0] << " <sommets> <option>" << endl << endl;
+    cout << "OPTION:" << endl;
+    cout << "    -p => affiche les structures a chaque etape de calcul." << endl << endl;
+    //cout << "    -m => utiliser les distances de manhatan."
   }
   return EXIT_SUCCESS;
 }
@@ -108,9 +113,9 @@ void pointrandom(int n, coord point[]){
 }
 
 void printpoint(int n, coord point[]){
-  cout << "{";
+  cout << "point = {";
   for(int i = 0 ; i < n ; i++){
-    cout << "{" << point[i].abs << ", " << point[i].ord << "} ";
+    cout << "{" << point[i].abs << " " << point[i].ord << "} ";
   }
   cout << "\b}\n";
 }
@@ -134,7 +139,6 @@ void distancesman(int n, coord point[], int edge[][3]){
   int k = 0;
     
   for(int i = 0 ; i < n - 1 ; i++) {
-        
     for(int j = i + 1 ; j < n ; j++) {
       edge[k][0] = i;
       edge[k][1] = j;
@@ -146,9 +150,9 @@ void distancesman(int n, coord point[], int edge[][3]){
 
 
 void printedge(int m, int edge[][3]){
-  cout << "{";
+  cout << "edge = {";
   for(int i = 0 ; i < m ; i++){
-    cout << "{" << edge[i][0] << ", " <<  edge[i][1] << ", " << edge[i][2] << "} ";
+    cout << "{" << edge[i][0] << " " <<  edge[i][1] << " " << edge[i][2] << "} ";
   }
   cout << "\b}\n";
 }
@@ -169,10 +173,10 @@ void tribulle(int m, int edge[][3]){
     
     for(int i = 0 ; i < m-1  ; i++){
       if(edge[i+1][2] < edge[i][2]){
-	swap(edge[i+1][0], edge[i][0]);
-	swap(edge[i+1][1], edge[i][1]);
-	swap(edge[i+1][2], edge[i][2]);
-	trie = false;
+      	swap(edge[i+1][0], edge[i][0]);
+      	swap(edge[i+1][1], edge[i][1]);
+      	swap(edge[i+1][2], edge[i][2]);
+      	trie = false;
       }
     }
   }
@@ -202,13 +206,13 @@ void kruskal(int n, int edge[][3], int arbre[][2]){
       h++;
 	  
       if(listComp[aux1].size() > listComp[aux2].size()){
-	swap(aux1, aux2);
+	       swap(aux1, aux2);
       }
       while(!(listComp[aux1].empty())){
-	int d = listComp[aux1].back();
-	listComp[aux2].push_back(d);
-	comp[d]=aux2;
-	listComp[aux1].pop_back();
+      	int d = listComp[aux1].back();
+      	listComp[aux2].push_back(d);
+      	comp[d]=aux2;
+      	listComp[aux1].pop_back();
       }
     }
   }
@@ -216,9 +220,9 @@ void kruskal(int n, int edge[][3], int arbre[][2]){
 }
 
 void printarbre(int n, int arbre[][2]){
-  cout << "{";
+  cout << "arbre = {";
   for(int i = 0 ; i < n ; i++){
-    cout << "{" << arbre[i][0] << ", " <<  arbre[i][1] << "} ";
+    cout << "{" << arbre[i][0] << " " <<  arbre[i][1] << "} ";
   }
   cout << "\b}\n";
 }

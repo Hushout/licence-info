@@ -11,54 +11,94 @@ void printgraphe(int m, int edge[][2]);
 void composante(int n, int m, int edge[][2], int comp[]);
 void printcomposante(int n, int comp[]);
 void ecrituretaille(int n, int m, int comp[]);
-void compote(int n, int m, int edge[][2], int comp[]);
+void composanteopti(int n, int m, int edge[][2], int comp[]);
 void swap(int& x, int& y);
 
 int main(int argc, char** argv)
 {
-   if(argc == 3){
+  if(argc >= 3){
 
-  srand(time(NULL));
+    srand(time(NULL));
 
-  int n = atoi(argv[1]);     // Nombre de sommets.	
-  int m = atoi(argv[2]);     // Nombre d'aretes.
-  int edge[m][2];    // Tableau des aretes.
-  int comp[n];       // comp[i] est le numero de la composante contenant i.
-  int comp2[n];
-  
-  clock_t time;
-  
-  grapherandom(n, m, edge);
-  printgraphe(m, edge);
-  time = clock();
-  composante(n, m, edge, comp);
-  time = clock() - time;
-  float tcomp = (float)time / CLOCKS_PER_SEC;
-  
-  time = clock();
-  compote(n, m, edge, comp2);
-  time = clock() - time;
-  float tcomp2 = (float)time / CLOCKS_PER_SEC;
-  
-  cout << endl;
+    bool onlyopti = false;
+    bool printall = false;
 
-  cout << "comp = "; 
-  printcomposante(n, comp);
-  cout << endl;
+    for(int i = 0 ; i < argc ; i++){
+      string s(argv[i]);
+      if(s == "-o")
+        onlyopti = true;
+      if(s == "-p")
+        printall = true;
+    }
 
-  cout << "comp2 = "; 
-  printcomposante(n, comp2);
-  cout << endl;
-  
-  cout <<"Temps d'execution composante = " << tcomp << endl;
-  cout <<"Temps d'execution compote = " <<  tcomp2 << endl;
-  
-  cout << endl;
-  ecrituretaille(n, m, comp);
-  cout << endl;
+    clock_t time;
+    float tcomp = -1;
+    float tcompopti = -1;
+
+    int n = atoi(argv[1]);     // Nombre de sommets.  
+    int m = atoi(argv[2]);     // Nombre d'aretes.
+
+    int* comp = NULL;
+
+    cout << "-Allocation mémoire..." << endl;
+    time = clock();
+    int (*edge)[2] = new int[m][2];    // Tableau des aretes.
+    if(!onlyopti)
+      comp = new int[n];       // comp[i] est le numero de la composante contenant i.
+    int* compopti = new int[n];
+    time = clock() - time;
+    cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+    
+    cout << "-Generation du graphe aléatoire..." << endl;
+    time = clock();
+    grapherandom(n, m, edge);
+    time = clock() - time;
+    if(printall)
+      printgraphe(m, edge);
+    cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+
+    if(!onlyopti){
+      cout << "-Application de composante..." << endl;
+      time = clock();
+      composante(n, m, edge, comp);
+      time = clock() - time;
+      tcomp = (float)time / CLOCKS_PER_SEC;
+      cout << "comp = "; 
+      if(printall)
+        printcomposante(n, comp);
+      cout << "Fait en " << tcomp << "s" << endl << endl;
+    }
+
+    cout << "-Application de composanteopti..." << endl;
+    time = clock();
+    composanteopti(n, m, edge, compopti);
+    time = clock() - time;
+    cout << "compopti = ";
+    if(printall)
+      printcomposante(n, compopti);
+    tcompopti = (float)time / CLOCKS_PER_SEC;
+    cout << "Fait en " << tcompopti << "s" << endl << endl;
+
+    ecrituretaille(n, m, compopti);
+    cout << endl;
+
+    if(!onlyopti)
+      cout <<"Temps d'execution composante = " << tcomp << "s" << endl;
+    cout <<"Temps d'execution composanteopti = " <<  tcompopti << "s" << endl;
+
+    cout << endl;
+
+    delete[] edge;
+    delete[] compopti;
+    if(!onlyopti)
+      delete[] comp;
+
   }
   else{
-    cout << "Erreur: entrez la n sommets puis m aretes en paramètre" << endl;
+    cout << endl << "Usage: " << argv[0] << " <sommets> <aretes> <option>" << endl << endl;
+    cout << "OPTION:" << endl;
+    cout << "    -o => execute uniquement composanteopti." << endl << endl;
+    cout << "    -p => affiche les structures a chaque etape de calcul." << endl << endl;
   }
   return EXIT_SUCCESS;
 }
@@ -74,12 +114,9 @@ void grapherandom(int n, int m, int edge[][2]){
 void printgraphe(int m, int edge[][2]){
   cout << "graphe = {";
   for(int i = 0; i < m ; i++){
-    if(i == m - 1)
-      cout << "{" << edge[i][0] << ", " << edge[i][1] << "}";
-    else
-      cout << "{" << edge[i][0] << ", " << edge[i][1] << "}, ";
+      cout << "{" << edge[i][0] << " " << edge[i][1] << "} ";
   }
-  cout << "}" << endl;
+  cout << "\b}" << endl;
 }
 
 //Ex2:
@@ -97,9 +134,9 @@ void composante(int n, int m, int edge[][2], int comp[]){
       aux = comp[edge[j][0]];
       
       for(int k = 0; k < n; k++){
-	if(comp[k] == aux){
-	  comp[k] = comp[edge[j][1]];
-	}
+      	if(comp[k] == aux){
+      	  comp[k] = comp[edge[j][1]];
+      	}
       }
     }
   }
@@ -109,19 +146,21 @@ void composante(int n, int m, int edge[][2], int comp[]){
 void printcomposante(int n, int comp[]){
   cout << "{";
   for(int i = 0; i < n ; i++){
-    if(i == n - 1)
-      cout << comp[i];
-    else
-      cout << comp[i] << ", ";
+      cout << comp[i] << " ";
   }
 
-  cout << "}" << endl;
+  cout << "\b}" << endl;
 }
 
 //Ex3:
 void ecrituretaille(int n, int m, int comp[]){
-  int compteSommets[n] = {0};
-  int compteTaille[n] = {0};
+  int* compteSommets = new int[n];
+  int* compteTaille = new int[n];
+  
+  for(int i = 0; i < n ; i++){
+    compteSommets[i] = 0;
+    compteTaille[i] = 0;
+  }
 
   for(int i = 0; i < n ; i++){
     compteSommets[comp[i]]++;
@@ -133,12 +172,15 @@ void ecrituretaille(int n, int m, int comp[]){
 
   for(int i = 1 ; i < n ; i++){
       if(i == 1){
-	cout << "Il y a " << compteTaille[i] << " points isoles." << endl;
+	     cout << "Il y a " << compteTaille[i] << " points isoles." << endl;
       }
       else if(compteTaille[i] != 0){
-	cout << "Il y a " << compteTaille[i] << " de taille " << i << "." << endl;
+	     cout << "Il y a " << compteTaille[i] << " composantes de taille " << i << "." << endl;
       }
   }
+
+  delete[] compteSommets;
+  delete[] compteTaille;
 }
 
 //Ex4:
@@ -149,7 +191,7 @@ void swap(int& x, int& y){
   y = temp;
 }
 
-void compote(int n, int m, int edge[][2], int comp[]){
+void composanteopti(int n, int m, int edge[][2], int comp[]){
 	
   int aux1 = 0, aux2 = 0;
   vector<vector<int> > listComp;
@@ -168,13 +210,13 @@ void compote(int n, int m, int edge[][2], int comp[]){
       aux2 = comp[edge[j][1]];
       
       if(listComp[aux1].size() > listComp[aux2].size()){
-		swap(aux1, aux2);
+		    swap(aux1, aux2);
       }
       while(!(listComp[aux1].empty())){
-		int d = listComp[aux1].back();
-		listComp[aux2].push_back(d);
-		comp[d]=aux2;
-		listComp[aux1].pop_back();
+    		int d = listComp[aux1].back();
+    		listComp[aux2].push_back(d);
+    		comp[d]=aux2;
+    		listComp[aux1].pop_back();
       }
     }
   }
