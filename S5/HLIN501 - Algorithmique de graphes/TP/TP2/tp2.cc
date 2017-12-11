@@ -97,9 +97,13 @@ int main(int argc, char* argv[])
   }
   else{
     cout << endl << "Usage: " << argv[0] << " <sommets> <option>" << endl << endl;
-    cout << "OPTION:" << endl;
-    cout << "    -p => affiche les structures a chaque etape de calcul." << endl << endl;
-    //cout << "    -m => utiliser les distances de manhatan."
+    cout << "DESCRIPTION:" << endl;
+    cout << "    Ce programme calcul un arbre couvrant de poids minimal à partir d'un graphe generé aléatoirement et le sort en pdf." << endl << endl;
+    cout << "ARGUMENTS:" << endl;
+    cout << "    <sommets> => le nombre de sommets du graphe." << endl;
+    cout << "    <option> => les options a appliquer au programme." << endl << endl;
+    cout << "OPTIONS:" << endl;
+    cout << "    -p => affiche les structures a chaque etapes de calcul." << endl << endl;
   }
   return EXIT_SUCCESS;
 }

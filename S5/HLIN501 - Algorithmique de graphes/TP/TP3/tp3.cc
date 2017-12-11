@@ -7,8 +7,6 @@
 #include <cmath>
 #include <fstream>
 #include <ctime>
-#include <cstring>
-#include <ctime>
 #include "Affichage.h"
 
 using namespace std;
@@ -118,9 +116,15 @@ int main(int argc, char** argv){
     delete[] point;
   }
   else{
-    cout << endl << "Usage: " << argv[0] << " <sommets> <carrelongueurmaxaretes> <option>" << endl << endl;
-    cout << "OPTION:" << endl;
-    cout << "    -p => affiche les structures a chaque etape de calcul." << endl << endl;
+    cout << endl << "Usage: " << argv[0] << " <sommets> <dist> <option1> <option2> ..." << endl << endl;
+    cout << "DESCRIPTION:" << endl;
+    cout << "    Ce programme calcul le parcour d'un graphe en profondeur ou en largeur et le sort en pdf." << endl << endl;
+    cout << "ARGUMENTS:" << endl;
+    cout << "    <sommets> => le nombre de sommets du graphe." << endl;
+    cout << "    <dist> => la distance maximal pour qu'une arete ce forme entre deux sommets du graphe." << endl;
+    cout << "    <option> => les options a appliquer au programme." << endl << endl;
+    cout << "OPTIONS:" << endl;
+    cout << "    -p => affiche les structures a chaque etape de calcul." << endl;
     cout << "    -l => execute un parcour en largeur au lieux d'un parcours en profondeur." << endl << endl;
   }
 
@@ -321,13 +325,13 @@ void printpoint(int n, coord point[]){
 void createvoisins(int n, coord point[], vector<int> voisins[], int maxdist){
 
   for(int i = 0 ; i < n ; i++){
-   for(int j = 0 ; j < n ; j++){
-    if(j != i){
-     int dist = pow(point[j].abs - point[i].abs , 2) + pow(point[j].ord - point[i].ord , 2);
-     if(dist <= maxdist){
-      voisins[i].push_back(j);
+    for(int j = 0 ; j < n ; j++){
+      if(j != i){
+        float dist = pow(pow(point[j].abs - point[i].abs , 2) + pow(point[j].ord - point[i].ord , 2), (float)1/2);
+        if(dist <= maxdist){
+          voisins[i].push_back(j);
+        }
+      }
     }
   }
-}
-}
-}
+} 

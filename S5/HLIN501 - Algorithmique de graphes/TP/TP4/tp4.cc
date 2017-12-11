@@ -26,50 +26,81 @@ int minxnontraite(int traite[], float d[], int n, int inontraite); // i = premie
 
 int main(int argc, char* argv[]){
 
-	srand(time(NULL));
-	if(argc == 3){
+	if(argc >= 3){
+
+		srand(time(NULL));
+
+		bool printall = false;
 		int n = atoi(argv[1]);                   //Le nombre de points.
-
 		int dmax = atoi(argv[2]);             // La distance jusqu'a laquelle on relie deux points.
-
 		clock_t time;
 
+
+		for(int i = 0 ; i < argc ; i++){
+	      string s(argv[i]);
+	      if(s == "-p")
+	        printall = true;
+	    }
+
+    
+    	cout << "-Allocation mémoire..." << endl;
+   		time = clock();
 		vector<int>* voisin = new vector<int>[n];   // Les listes de voisins.
 		coord *point = new coord[n];         // Les coordonnees des points.
-
-		//int (*arbre)[2] = new int[n-1][2];         // Les aretes de l'arbre de Dijkstra.
 		int* pere = new int[n];             // La relation de filiation de l'arbre de Dijkstra.
+		time = clock() - time;
+		cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
 
-
-
-		cout << "-Randomizing point..." << endl;
+		cout << "-Generation des points aleatoire..." << endl;
 		time = clock();
 		pointrandom(n, point);
 		time = clock() - time;
-		//printpoint(n, point);
-		cout << "done in " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+		if(printall)
+			printpoint(n, point);
+		cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
 
-		cout << "-Generating voisin..." << endl;
+		cout << "-Creation de la liste des voisins..." << endl;
 		time = clock();
 		voisins(n, dmax, point, voisin);
 		time = clock() - time;
-		//printvoisins(n, voisin);
-		cout << "done in " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+		if(printall)
+			printvoisins(n, voisin);
+		cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
 
-		cout << "-Applying dijkstra..." << endl;
+		cout << "-Application de dijkstra..." << endl;
 		time = clock();
 		dijkstra(n, voisin, point, pere);
 		time = clock() - time;
-		printarray(n, pere);
-		cout << "done in " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+		if(printall){
+			cout << "pere = ";
+			printarray(n, pere);
+		}
+		cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
 
+		cout << "-Sorti du graphe dans Voisins.pdf et de dijkstra dans Parcours.pdf..." << endl;
+		time = clock();
 		AffichageGraphiqueVoisins(n, point, voisin); //output => Voisins.ps
 		AffichageGraphiqueParcours(n, point, pere); //output => Parcours.ps 
 		system("ps2pdf Voisins.ps");
 		system("ps2pdf Parcours.ps");
+		time = clock() - time;
+		cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+
+
+		delete[] voisin;
+		delete[] point;
+		delete[] pere;
 	}
 	else{
-		cout << "Erreur d'argument: " << argv[0] << " <sommets> <dist>" << endl;
+		cout << endl << "Usage: " << argv[0] << " <sommets> <dist> <option>" << endl << endl;
+	    cout << "DESCRIPTION:" << endl;
+	    cout << "    Ce programme calcul un arbre de plus courts chemins issu d'un sommets dans un graphe generé aléatoirement et le sort en pdf." << endl << endl;
+	    cout << "ARGUMENTS:" << endl;
+	    cout << "    <sommets> => le nombre de sommets du graphe." << endl;
+	    cout << "    <dist> => la distance maximal pour qu'une arete ce forme entre deux sommets du graphe." << endl;
+	    cout << "    <option> => les options a appliquer au programme." << endl << endl;
+	    cout << "OPTIONS:" << endl;
+	    cout << "    -p => affiche les structures a chaque etape de calcul." << endl << endl;
 	}
 	return 0;
 }
