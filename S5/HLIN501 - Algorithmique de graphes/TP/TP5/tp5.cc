@@ -28,89 +28,8 @@ void compfortconnexe(int fermeutre[][tailleArc]);
 void randomlongueur(int longueur[][tailleLongueur]);
 void randomarc(int arc[][tailleArc], int nbarc);
 
-bool findchemin(int argc, char** argv){
-
-	int index = 0;
-	bool affiche = false;
-	for(int i = 0 ; i < argc ; i++){
-		string s(argv[i]);
-		if(s == "-i")
-			index = i;
-		else if(s == "-p")
-			affiche = true;
-	}
-	if(index && index + 2 <= argc){
-
-		cout << endl << "ITINERAIRE:" << endl << endl;
-
-		cout << "-Allocation memoire..." << endl;
-		int (*longueur)[tailleLongueur] = new int[tailleLongueur][tailleLongueur];
-		int (*dist)[tailleLongueur] = new int[tailleLongueur][tailleLongueur];                      //Le tableau des distances.
-	    int (*chemin)[tailleLongueur] = new int[tailleLongueur][tailleLongueur];                    //Le tableau de la premiere etape du chemin de i a j.
-	    cout << "Fait" << endl << endl;
-
-	    cout << "-Generation des arcs aleatoirement sur " << tailleLongueur << " sommets..." << endl;
-		randomlongueur(longueur);
-		if(affiche)
-			printchemin(longueur);
-		cout << "Fait" << endl << endl;
-
-		cout << "-Application de floyd_warshall..." << endl;
-	    floyd_warshall(longueur, dist, chemin);
-	    if(affiche)
-	    	printchemin(chemin);
-	    cout << "Fait" << endl << endl;
-	   	
-	   	int i = atoi(argv[index + 1]); int j = atoi(argv[index + 2]);
-
-	   	cout << "-Calcul de l'itineraire de " << i << " a " << j << "..." << endl;
-	    itineraire(i, j, chemin);
-	    cout << "Fait" << endl << endl;
-	    return true;
-	}
-	return false;
-}
-
-bool findcomp(int argc, char** argv){
-	int index = 0;
-	bool affiche = false;
-	for(int i = 0 ; i < argc ; i++){
-		string s(argv[i]);
-		if(s == "-c")
-			index = i;
-		else if(s == "-p")
-			affiche = true;
-	}
-	if(index && index + 1 <= argc){
-				
-		cout << endl << "COMPOSANTES:" << endl << endl;
-
-		cout << "-Allocation memoire..." << endl;
-		int (*arc)[tailleArc] = new int[tailleArc][tailleArc];
-		int (*fermeture)[tailleArc] = new int[tailleArc][tailleArc];
-		cout << "Fait" << endl << endl;
-
-		int nbarcs = atoi(argv[index + 1]);
-
-		cout << "-Generation de " << nbarcs << " arcs aleatoirement sur " << tailleArc << " sommets..." << endl;
-		randomarc(arc, nbarcs);
-		if(affiche)
-			printfermeture(arc);
-		cout << "Fait" << endl << endl;
-
-		cout << "-Calcul de la fermeture transitive..." << endl;
-	    fermeturetransitive(arc, fermeture);
-	    if(affiche)
-	   		printfermeture(fermeture);
-	    cout << "Fait" << endl << endl;
-
-	  	cout << "-Calcul et affichage des composantes fortement connexes..." << endl;
-	  	compfortconnexe(fermeture);
-	  	cout << "Fait" << endl << endl;
-	    return true;
-	}
-	return false;
-}
+bool findchemin(int argc, char** argv);
+bool findcomp(int argc, char** argv);
 
 int main(int argc, char** argv){
 
@@ -120,12 +39,16 @@ int main(int argc, char** argv){
 	bool donecomp = findcomp(argc, argv);
 
 	if(!(donechemin || donecomp)){
-		cout << "Usage: " << argv[0] << " <OPTION1> <OPTION2> ..." << endl << endl;
+		cout << endl << "Usage: " << argv[0] << " <choix> <options>" << endl << endl;
+	    cout << "DESCRIPTION:" << endl;
+	    cout << "    Ce programme calcul aux choix un itineraire de plus cours chemin dans un graphe orienté et/ou les composantes fortement connexes d'un graphe orienté." << endl << endl;
+	    cout << "ARGUMENTS:" << endl;
+	    cout << "    <choix> => ce qu'il faut calculer -i <sommeti> <sommetj> et/ou -c <nbarcs>." << endl;
+	    cout << "    <options> => les options a appliquer au programme." << endl << endl;
 		cout << "OPTIONS:" << endl;
-		cout << "    -i <entier i> <entier j> => permet de trouver un itineraire de i à j sur un graphe de " << tailleLongueur << " sommets dont les arcs sont tires au hasard." << endl << endl;
-		cout << "    -c <entier nbarcs> => affiche les composantes fortement connexes d'un graphe oriente de " << tailleArc << " sommets dont les arcs sont tires au hasard." << endl << endl;
+		cout << "    -i <sommeti> <sommetj> => trouve un itineraire de i à j sur un graphe orienté de " << tailleLongueur << " sommets dont les arcs sont tires au hasard." << endl;
+		cout << "    -c <nbarcs> => affiche les composantes fortement connexes d'un graphe orienté de " << tailleArc << " sommets dont les arcs sont tires au hasard." << endl;
 		cout << "    -p => affiche le contenu des structures alloués à chaque etapes de Calcul (si des structures on été allouées)." << endl << endl;
-		cout << endl;
 	}
 	return 0;
 }
@@ -169,13 +92,13 @@ void floyd_warshall(int longueur[][tailleLongueur], int dist[][tailleLongueur], 
 }
 
 void printchemin(int chemin[][tailleLongueur]){
-	cout << "chemin:" << endl;
 	int n = tailleLongueur;
 	for(int i = 0 ; i < n ; i++){
+		cout << "{";
 		for(int j = 0 ; j < n ; j++){
 			cout << chemin[i][j] << " ";
 		}
-		cout << endl;
+		cout << "\b}" << endl;
 	}
 }
 
@@ -192,7 +115,7 @@ void itineraire(int i, int j, int chemin[][tailleLongueur]){
 		if(next != -1)
 			cout << next << " ";
 		else
-			cout << endl << "Chemin impossible, réexecutez le programme pour faire un nouveau tirage des arcs.";
+			cout << endl << "Chemin impossible, réexecutez le programme pour faire un nouveau tirage des arcs";
 	}
 	cout << endl;
 }
@@ -222,10 +145,11 @@ void printfermeture(int fermeture[][tailleArc]){
 	
 	int n = tailleArc;
 	for(int i = 0 ; i < n ; i++){
+		cout << "{";
 		for(int j = 0 ; j < n ; j++){
 			cout << fermeture[i][j] << " ";
 		}
-		cout << endl;
+		cout << "\b}" << endl;
 	}
 }
 
@@ -252,8 +176,8 @@ void compfortconnexe(int fermeture[][tailleArc]){
 		}
 	}
 
-	map<int, vector<int>> mp;
-	map<int, vector<int>>::iterator it;
+	map<int, vector<int> > mp;
+	map<int, vector<int> >::iterator it;
 
 	for(int i = 0 ; i < n ; i++){
 		it = mp.find(comp[i]);
@@ -267,7 +191,7 @@ void compfortconnexe(int fermeture[][tailleArc]){
 		}
 	}
 
-	for(map<int, vector<int>>::iterator it = mp.begin() ; it != mp.end() ; it++){
+	for(map<int, vector<int> >::iterator it = mp.begin() ; it != mp.end() ; it++){
 		cout << "{";
 		for(int i = 0 ; i < (int)it->second.size() ; i++){
 			cout << it->second[i] << " ";
@@ -305,7 +229,7 @@ void randomarc(int arc[][tailleArc], int nbarc){
 
 	int n = tailleArc;
 	vector<int> ivisitable(n);
-	vector<vector<int>> jvisitable(n);
+	vector<vector<int> > jvisitable(n);
 
 	for(int i = 0 ; i < n ; i++)
 		ivisitable[i] = i;
@@ -329,4 +253,111 @@ void randomarc(int arc[][tailleArc], int nbarc){
 
 		nbarc--;
 	}
+}
+
+bool findchemin(int argc, char** argv){
+
+	int index = 0;
+	bool affiche = false;
+	for(int i = 0 ; i < argc ; i++){
+		string s(argv[i]);
+		if(s == "-i")
+			index = i;
+		else if(s == "-p")
+			affiche = true;
+	}
+	if(index && index + 2 <= argc){
+
+		clock_t time;
+
+		cout << endl << "ITINERAIRE:" << endl << endl;
+
+    	cout << "-Allocation mémoire..." << endl;
+    	time = clock();
+		int (*longueur)[tailleLongueur] = new int[tailleLongueur][tailleLongueur];
+		int (*dist)[tailleLongueur] = new int[tailleLongueur][tailleLongueur];                      //Le tableau des distances.
+	    int (*chemin)[tailleLongueur] = new int[tailleLongueur][tailleLongueur];                    //Le tableau de la premiere etape du chemin de i a j.
+	    time = clock() - time;
+		cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+
+	    cout << "-Generation des arcs aleatoirement sur " << tailleLongueur << " sommets..." << endl;
+		randomlongueur(longueur);
+		if(affiche){
+			cout << "longueur = ";
+			printchemin(longueur);
+		}
+		cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+
+		cout << "-Application de floyd_warshall..." << endl;
+	    floyd_warshall(longueur, dist, chemin);
+	    if(affiche){
+	    	cout << "chemin = ";
+	    	printchemin(chemin);
+	    }
+		cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+	   	
+	   	int i = atoi(argv[index + 1]); int j = atoi(argv[index + 2]);
+
+	   	cout << "-Calcul de l'itineraire le plus court de " << i << " a " << j << "..." << endl;
+	    itineraire(i, j, chemin);
+		cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+	    return true;
+	}
+	return false;
+}
+
+bool findcomp(int argc, char** argv){
+	int index = 0;
+	bool affiche = false;
+	for(int i = 0 ; i < argc ; i++){
+		string s(argv[i]);
+		if(s == "-c")
+			index = i;
+		else if(s == "-p")
+			affiche = true;
+	}
+	if(index && index + 1 <= argc){
+
+		clock_t time;
+
+				
+		cout << endl << "COMPOSANTES:" << endl << endl;
+
+		cout << "-Allocation memoire..." << endl;
+		time = clock();
+		int (*arc)[tailleArc] = new int[tailleArc][tailleArc];
+		int (*fermeture)[tailleArc] = new int[tailleArc][tailleArc];
+		time = clock() - time;
+		cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+
+		int nbarcs = atoi(argv[index + 1]);
+
+		cout << "-Generation de " << nbarcs << " arcs aleatoirement sur " << tailleArc << " sommets..." << endl;
+		time = clock();
+		randomarc(arc, nbarcs);
+		time = clock() - time;
+		if(affiche){
+			cout << "arc = ";
+			printfermeture(arc);
+		}
+		cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+
+		cout << "-Calcul de la fermeture transitive..." << endl;
+		time = clock();
+	    fermeturetransitive(arc, fermeture);
+	    time = clock() - time;
+	    if(affiche){
+	    	cout << "fermeture = ";
+	   		printfermeture(fermeture);
+	    }
+		cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+
+	  	cout << "-Calcul et affichage des composantes fortement connexes..." << endl;
+	  	time = clock();
+	  	compfortconnexe(fermeture);
+	  	time = clock() - time;
+		cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+	    return true;
+	}
+	return false;
 }

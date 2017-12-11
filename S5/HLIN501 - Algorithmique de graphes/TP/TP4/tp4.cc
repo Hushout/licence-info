@@ -92,13 +92,13 @@ int main(int argc, char* argv[]){
 		delete[] pere;
 	}
 	else{
-		cout << endl << "Usage: " << argv[0] << " <sommets> <dist> <option>" << endl << endl;
+		cout << endl << "Usage: " << argv[0] << " <sommets> <dist> <options>" << endl << endl;
 	    cout << "DESCRIPTION:" << endl;
 	    cout << "    Ce programme calcul un arbre de plus courts chemins issu d'un sommets dans un graphe generé aléatoirement et le sort en pdf." << endl << endl;
 	    cout << "ARGUMENTS:" << endl;
 	    cout << "    <sommets> => le nombre de sommets du graphe." << endl;
 	    cout << "    <dist> => la distance maximal pour qu'une arete ce forme entre deux sommets du graphe." << endl;
-	    cout << "    <option> => les options a appliquer au programme." << endl << endl;
+	    cout << "    <options> => les options a appliquer au programme." << endl << endl;
 	    cout << "OPTIONS:" << endl;
 	    cout << "    -p => affiche les structures a chaque etape de calcul." << endl << endl;
 	}
@@ -108,9 +108,9 @@ int main(int argc, char* argv[]){
 void printarray(int n, int array[]){
   cout << "{";
   for(int i = 0 ; i < n ; i++){
-    cout << array[i] << ", ";
+    cout << array[i] << " ";
   }
-  cout << "\b\b}\n";
+  cout << "\b}\n";
 }
 
 float distance(coord* a, coord* b){
@@ -129,7 +129,7 @@ void pointrandom(int n, coord point[]){
 void printpoint(int n, coord point[]){
 	cout << "{";
 	for(int i = 0 ; i < n ; i++){
-		cout << "{" << point[i].abs << ", " << point[i].ord << "} ";
+		cout << "{" << point[i].abs << " " << point[i].ord << "} ";
 	}
 	cout << "\b}\n";
 }
@@ -152,13 +152,13 @@ void voisins(int n, int dmax, coord point[], vector<int> voisin[]){
 void printvoisins(int n, vector<int> voisin[]){
 	cout << "{";
 	for(int i = 0 ; i < n ; i++){
-		cout << "{ ";
+		cout << "{";
 		for(int j = 0 ; j < (int)voisin[i].size() ; j++){
 			cout << voisin[i][j] << " ";
 		}
-		cout << "}";
+		cout << "\b} ";
 	}
-	cout << "}\n";
+	cout << "\b}\n";
 }
 
 void dijkstra(int n, vector<int> voisin[], coord point[], int pere[]){

@@ -36,6 +36,7 @@ int main(int argc, char** argv){
 
     bool printall = false;
     bool plargeur = false;
+    bool aretes = false;
 
     for(int i = 0 ; i < argc ; i++){
       string s(argv[i]);
@@ -43,6 +44,8 @@ int main(int argc, char** argv){
         printall = true;
       if(s == "-l")
         plargeur = true;
+      if(s == "-a")
+      	aretes = true;
     }
 
     clock_t time;
@@ -66,9 +69,16 @@ int main(int argc, char** argv){
     cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
 
     cout << "-Creation de la liste des voisins..." << endl;
-    time = clock();
-    createvoisins(n, point, voisins, m);
-    time = clock() - time;
+    if(!aretes){
+    	time = clock();
+    	createvoisins(n, point, voisins, m);
+    	time = clock() - time;
+    }
+    else{
+    	time = clock();
+    	voisinsrandom(n, m, voisins);
+    	time = clock() - time;
+    }
     if(printall)
       printvoisins(n, voisins);
     cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
@@ -116,15 +126,17 @@ int main(int argc, char** argv){
     delete[] point;
   }
   else{
-    cout << endl << "Usage: " << argv[0] << " <sommets> <dist> <option1> <option2> ..." << endl << endl;
+    cout << endl << "Usage: " << argv[0] << " <sommets> <dist/aretes> <options>" << endl << endl;
     cout << "DESCRIPTION:" << endl;
     cout << "    Ce programme calcul le parcour d'un graphe en profondeur ou en largeur et le sort en pdf." << endl << endl;
     cout << "ARGUMENTS:" << endl;
     cout << "    <sommets> => le nombre de sommets du graphe." << endl;
     cout << "    <dist> => la distance maximal pour qu'une arete ce forme entre deux sommets du graphe." << endl;
-    cout << "    <option> => les options a appliquer au programme." << endl << endl;
+    cout << "    <aretes> => le nombre d'aretes du graphe" << endl;
+    cout << "    <options> => les options a appliquer au programme." << endl << endl;
     cout << "OPTIONS:" << endl;
     cout << "    -p => affiche les structures a chaque etape de calcul." << endl;
+    cout << "    -a => initialise la liste des voisin au hasard en specifiant le nombre d'aretes au lieu d'une distance." << endl;
     cout << "    -l => execute un parcour en largeur au lieux d'un parcours en profondeur." << endl << endl;
   }
 

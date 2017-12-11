@@ -96,12 +96,12 @@ int main(int argc, char* argv[])
     delete[] arbre;
   }
   else{
-    cout << endl << "Usage: " << argv[0] << " <sommets> <option>" << endl << endl;
+    cout << endl << "Usage: " << argv[0] << " <sommets> <options>" << endl << endl;
     cout << "DESCRIPTION:" << endl;
     cout << "    Ce programme calcul un arbre couvrant de poids minimal à partir d'un graphe generé aléatoirement et le sort en pdf." << endl << endl;
     cout << "ARGUMENTS:" << endl;
     cout << "    <sommets> => le nombre de sommets du graphe." << endl;
-    cout << "    <option> => les options a appliquer au programme." << endl << endl;
+    cout << "    <options> => les options a appliquer au programme." << endl << endl;
     cout << "OPTIONS:" << endl;
     cout << "    -p => affiche les structures a chaque etapes de calcul." << endl << endl;
   }

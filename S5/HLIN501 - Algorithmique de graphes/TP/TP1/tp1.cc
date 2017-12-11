@@ -95,13 +95,13 @@ int main(int argc, char** argv)
 
   }
   else{
-    cout << endl << "Usage: " << argv[0] << " <sommets> <aretes> <option1> <option2> ..." << endl << endl;
+    cout << endl << "Usage: " << argv[0] << " <sommets> <aretes> <options>" << endl << endl;
     cout << "DESCRIPTION:" << endl;
     cout << "    Ce programme calcul les composantes connexes d'un graphe generé aléatoirement et les affichent." << endl << endl;
     cout << "ARGUMENTS:" << endl;
     cout << "    <sommets> => le nombre de sommets du graphe." << endl;
     cout << "    <aretes> => le nombre d'aretes du graphe." << endl;
-    cout << "    <option> => les options a appliquer au programme." << endl << endl;
+    cout << "    <options> => les options a appliquer au programme." << endl << endl;
     cout << "OPTIONS:" << endl;
     cout << "    -o => execute uniquement composanteopti." << endl;
     cout << "    -p => affiche les structures a chaque etapes de calcul." << endl << endl;
