@@ -153,22 +153,19 @@ void printarray(int n, int array[]){
 
 void voisinsrandom(int n, int m, vector<int> voisins[]){
   
-  int taille = 0;
-  while(taille < m){
+  while(m > 0){
     
     int numVois = rand() % n;
     int v = rand() % n;
-    
-    while(v == numVois){
+  
+    while(v == numVois)
       v = rand() % n;
-    }
 
     if(!isIn(v, voisins[numVois])){
       voisins[numVois].push_back(v);
       voisins[v].push_back(numVois);
     }
-
-    taille++;
+    m--;
   }
 }
 

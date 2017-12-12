@@ -1,8 +1,8 @@
 #include <cstdlib>
 #include <iostream>
 #include <vector>
-#include <cmath>
 #include <fstream>
+#include <cmath>
 #include <ctime>
 #include "Affichage.h"
 
@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
       printedge(m, edge);
     cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
 	
-    cout << "-Creation de l'arbre..." << endl;
+    cout << "-Calcul de l'arbre couvrant..." << endl;
     time = clock();
     kruskal(n, edge, arbre);
     time = clock() - time;
@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
       printarbre(n-1, arbre);
     cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl<<endl;
 	
-    cout << "-Sorti de l'arbre dans Exemple.pdf..." << endl;
+    cout << "-Sorti de l'arbre couvrant dans Exemple.pdf..." << endl;
     time = clock();
     AffichageGraphique(n, point, arbre); //output => Exemple.ps
     system("ps2pdf Exemple.ps"); //create .pdf with the .ps file
@@ -188,35 +188,36 @@ void tribulle(int m, int edge[][3]){
 
 void kruskal(int n, int edge[][3], int arbre[][2]){
   int* comp = new int[n];
-  int m = n*(n-1)/2;
-  int aux1 = 0, aux2 = 0, h = 0;
-  vector<vector<int> > listComp;
+  int m = n*(n-1)/2, h = 0;
+  
+  vector<vector<int> > sommets(n);
   
   for(int i = 0 ; i < n ; i++){
     comp[i] = i;
-    vector<int> vect;
-    vect.push_back(i);
-    listComp.push_back(vect);
+    vector<int> v; v.push_back(i);
+    sommets[i] = v;
   }
   
-  for(int j = 0; j < m; j++){
-    
-    if(comp[edge[j][0]] != comp[edge[j][1]]){
-      aux1 = comp[edge[j][0]];
-      aux2 = comp[edge[j][1]];
-      
-      arbre[h][0] = edge[j][0];
-      arbre[h][1] = edge[j][1];
+  for(int i = 0; i < m; i++){
+        
+    int x = edge[i][0]; int y = edge[i][1];
+
+    if(comp[x] != comp[y]){
+     
+      arbre[h][0] = x;
+      arbre[h][1] = y;
       h++;
-	  
-      if(listComp[aux1].size() > listComp[aux2].size()){
-	       swap(aux1, aux2);
-      }
-      while(!(listComp[aux1].empty())){
-      	int d = listComp[aux1].back();
-      	listComp[aux2].push_back(d);
-      	comp[d]=aux2;
-      	listComp[aux1].pop_back();
+
+      if(sommets[comp[x]].size() > sommets[comp[y]].size())
+        swap(x, y);
+
+      int aux = comp[x];
+
+      while(!sommets[aux].empty()){
+        int z = sommets[aux].back();
+        comp[z] = comp[y];
+        sommets[comp[y]].push_back(z);
+        sommets[aux].pop_back();
       }
     }
   }

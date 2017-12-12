@@ -63,9 +63,10 @@ int main(int argc, char** argv)
       composante(n, m, edge, comp);
       time = clock() - time;
       tcomp = (float)time / CLOCKS_PER_SEC;
-      cout << "comp = "; 
-      if(printall)
+      if(printall){
+        cout << "comp = "; 
         printcomposante(n, comp);
+      }
       cout << "Fait en " << tcomp << "s" << endl << endl;
     }
 
@@ -73,9 +74,10 @@ int main(int argc, char** argv)
     time = clock();
     composanteopti(n, m, edge, compopti);
     time = clock() - time;
-    cout << "compopti = ";
-    if(printall)
+    if(printall){
+      cout << "compopti = ";
       printcomposante(n, compopti);
+    }
     tcompopti = (float)time / CLOCKS_PER_SEC;
     cout << "Fait en " << tcompopti << "s" << endl << endl;
 
@@ -148,13 +150,11 @@ void composante(int n, int m, int edge[][2], int comp[]){
   }
 }
 
-
 void printcomposante(int n, int comp[]){
   cout << "{";
   for(int i = 0; i < n ; i++){
       cout << comp[i] << " ";
   }
-
   cout << "\b}" << endl;
 }
 
@@ -199,30 +199,31 @@ void swap(int& x, int& y){
 
 void composanteopti(int n, int m, int edge[][2], int comp[]){
 	
-  int aux1 = 0, aux2 = 0;
-  vector<vector<int> > listComp;
+  //int aux = 0, aux2 = 0;
+  vector<vector<int> > sommets(n);
   
   for(int i = 0 ; i < n ; i++){
     comp[i] = i;
-    vector<int> vect;
-    vect.push_back(i);
-    listComp.push_back(vect);
+    vector<int> v; v.push_back(i);
+    sommets[i] = v;
   }
   
-  for(int j = 0; j < m; j++){
-    
-    if(comp[edge[j][0]] != comp[edge[j][1]]){
-      aux1 = comp[edge[j][0]];
-      aux2 = comp[edge[j][1]];
+  for(int i = 0; i < m; i++){
+
+    int x = edge[i][0]; int y = edge[i][1];
+
+    if(comp[x] != comp[y]){
       
-      if(listComp[aux1].size() > listComp[aux2].size()){
-		    swap(aux1, aux2);
-      }
-      while(!(listComp[aux1].empty())){
-    		int d = listComp[aux1].back();
-    		listComp[aux2].push_back(d);
-    		comp[d]=aux2;
-    		listComp[aux1].pop_back();
+      if(sommets[comp[x]].size() > sommets[comp[y]].size())
+		    swap(x, y);
+
+      int aux = comp[x];
+
+      while(!sommets[aux].empty()){
+    		int z = sommets[aux].back();
+        comp[z] = comp[y];
+    		sommets[comp[y]].push_back(z);
+    		sommets[aux].pop_back();
       }
     }
   }

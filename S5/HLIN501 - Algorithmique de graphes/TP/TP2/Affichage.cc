@@ -16,7 +16,7 @@ void AffichageGraphique(int n, coord point[], int arbre[][2])       // Cree le f
  output << "%%BoundingBox: 0 0 612 792" << endl;
  output << endl;  
  for(int i=0;i<n;i++)
-   {output << point[i].abs << " " << point[i].ord << " 3 0 360 arc" <<endl;
+   {output << point[i].abs << " " << point[i].ord << " 1 0 360 arc" <<endl;
    output << "0 setgray" <<endl;
    output << "fill" <<endl;
    output << "stroke"<<endl;

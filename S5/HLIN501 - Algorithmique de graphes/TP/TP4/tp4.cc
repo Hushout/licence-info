@@ -173,7 +173,6 @@ void dijkstra(int n, vector<int> voisin[], coord point[], int pere[]){
   }
 
   int inontraite = 0;
-  int x = 0;
   int racine = 0; //choisie arbitrairement
 
   d[racine] = 0;
@@ -182,7 +181,7 @@ void dijkstra(int n, vector<int> voisin[], coord point[], int pere[]){
 
   while((inontraite = existenontraite(traite, n)) != -1){
     
-    x = minxnontraite(traite, d, n, inontraite);
+    int x = minxnontraite(traite, d, n, inontraite);
     traite[x] = 1;
     
     for(int i = 0 ; i < (int)voisin[x].size() ; i++){
@@ -191,7 +190,7 @@ void dijkstra(int n, vector<int> voisin[], coord point[], int pere[]){
 
       float lxy = distance(&point[x], &point[y]);
 
-      if(traite[y] == 0 && d[y] > d[x] + lxy){
+      if(!traite[y] && d[y] > d[x] + lxy){
         d[y] = d[x] + lxy;
         pere[y] = x;
       }
