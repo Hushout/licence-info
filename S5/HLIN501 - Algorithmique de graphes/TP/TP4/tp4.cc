@@ -24,6 +24,8 @@ void dijkstra(int n, vector<int> voisin[], coord point[], int pere[]);
 int existenontraite(int traite[], int n); //renvoie l'indice du sommet non traité ou -1 si aucun
 int minxnontraite(int traite[], float d[], int n, int inontraite); // i = premier sommet non traité
 
+void makeGXX(int n, coord point[], vector<int> voisin[]);
+
 int main(int argc, char* argv[]){
 
 	if(argc >= 3){
@@ -31,6 +33,7 @@ int main(int argc, char* argv[]){
 		srand(time(NULL));
 
 		bool printall = false;
+		bool gxxmode = false;
 		int n = atoi(argv[1]);                   //Le nombre de points.
 		int dmax = atoi(argv[2]);             // La distance jusqu'a laquelle on relie deux points.
 		clock_t time;
@@ -40,9 +43,11 @@ int main(int argc, char* argv[]){
 	      string s(argv[i]);
 	      if(s == "-p")
 	        printall = true;
+	      if(s == "-g")
+	      	gxxmode = true;
 	    }
 
-    
+    	
     	cout << "-Allocation mémoire..." << endl;
    		time = clock();
 		vector<int>* voisin = new vector<int>[n];   // Les listes de voisins.
@@ -51,17 +56,23 @@ int main(int argc, char* argv[]){
 		time = clock() - time;
 		cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
 
-		cout << "-Generation des points aleatoire..." << endl;
-		time = clock();
-		pointrandom(n, point);
-		time = clock() - time;
-		if(printall)
-			printpoint(n, point);
-		cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+		if(!gxxmode){
+			cout << "-Generation des points aleatoire..." << endl;
+			time = clock();
+			pointrandom(n, point);
+			time = clock() - time;
+			if(printall)
+				printpoint(n, point);
+			cout << "Fait en " << (float)time / CLOCKS_PER_SEC << "s" << endl << endl;
+		}
+
 
 		cout << "-Creation de la liste des voisins..." << endl;
 		time = clock();
-		voisins(n, dmax, point, voisin);
+		if(!gxxmode)
+			voisins(n, dmax, point, voisin);
+		else
+			makeGXX(n, point, voisin);
 		time = clock() - time;
 		if(printall)
 			printvoisins(n, voisin);
@@ -100,7 +111,8 @@ int main(int argc, char* argv[]){
 	    cout << "    <dist> => la distance maximal pour qu'une arete ce forme entre deux sommets du graphe." << endl;
 	    cout << "    <options> => les options a appliquer au programme." << endl << endl;
 	    cout << "OPTIONS:" << endl;
-	    cout << "    -p => affiche les structures a chaque etape de calcul." << endl << endl;
+	    cout << "    -p => affiche les structures a chaque etape de calcul." << endl;
+	    cout << "    -g => applique l'algo makeGXX plus besoin de l'argument <dist>" << endl << endl;
 	}
 	return 0;
 }
@@ -114,6 +126,7 @@ void printarray(int n, int array[]){
 }
 
 float distance(coord* a, coord* b){
+	//return pow(abs(b->abs - a->abs) + abs(b->ord - a->ord), 2);
 	return pow(pow(b->abs - a->abs , 2) + pow(b->ord - a->ord , 2), (float)1/2);
 }
 
@@ -220,4 +233,28 @@ int minxnontraite(int traite[], float d[], int n, int inontraite){
 		}
 	}
 	return minx;
+}
+
+void makeGXX(int n, coord point[], vector<int> voisin[]){
+	int max = pow(n, (float)1/2);
+
+	int k = 0;
+	for (int i = 0; i < max; ++i){
+		for (int j = 0; j < max; ++j){
+			point[k].abs = 60 * i;
+			point[k].ord = 60 * j;
+			k++;
+		}
+	}
+
+	k = 0;
+	for (int i = 0; i < max; ++i){
+		for (int j = 0; j < max; ++j){
+			int k = i * (max - 1) + j;
+			voisin[k].push_back((i + 1) * (max - 1) + j);
+			voisin[k].push_back(i * (max - 1) + (j + 1));
+			voisin[k].push_back((i + 1) * (max - 1) + (j + 1));
+		}
+	}
+
 }
