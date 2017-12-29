@@ -113,6 +113,10 @@ void pointrandom(int n, coord point[]){
   for(int i = 0 ; i < n  ; i++){
     point[i].abs = rand() % 613;
     point[i].ord = rand() % 793;
+    
+    //point[i].abs = (300 + 200 * cos(i));
+    //point[i].ord = (400 + 150 * (sin(i) - cos(i)));
+    
   }
 }
 
@@ -134,6 +138,7 @@ void distances(int n, coord point[], int edge[][3]){
       edge[k][0] = i;
       edge[k][1] = j;
       edge[k][2] = pow(point[j].abs - point[i].abs , 2) + pow(point[j].ord - point[i].ord , 2);
+      //edge[k][2] = pow((point[i].abs - point[i].ord) - (point[j].abs - point[j].ord), 2);
       k++;
     }
   }
