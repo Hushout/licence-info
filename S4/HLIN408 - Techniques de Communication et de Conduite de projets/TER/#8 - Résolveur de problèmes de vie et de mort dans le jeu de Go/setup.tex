@@ -1,0 +1,130 @@
+
+%------------------------------------------------------------------------------
+%       Inclusion des packages et parametrage
+%------------------------------------------------------------------------------
+
+
+
+    % -----------------     Génaral   ------------------ %
+    % Police
+    % http://tex.stackexchange.com/questions/44694/fontenc-vs-inputenc
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8x]{inputenc}
+    
+    % Autorise les 'anciennes' commandes pour la table des matières.
+    % Permet de basculer entre 'book' et 'scrbook'
+    \usepackage{scrhack}
+    
+    
+    % -----------------     Marges    ------------------ %
+    % Permet de réduires les marges hautes et basses qui sont un poil trop grosses par défaut.
+    \usepackage{geometry}
+    \geometry{top=80pt, bottom=80pt}
+
+
+    % -----------------     Aspect     ----------------- %
+    % Modifie l'apect des 'captions' pour garder une cohérence avec le reste
+    \usepackage[labelfont=bf, labelsep=colon, format=hang, textfont=singlespacing]{caption}
+    
+    % Modifie le comportement de reset de la numérotation des figures, des formules et des tableaux entre les chapitres.
+    \usepackage{chngcntr}
+    \counterwithout{equation}{chapter}
+    \counterwithout{figure}{chapter}
+    \counterwithout{table}{chapter}
+
+    % Format global utilisé
+    \setkomafont{chapter}{\normalfont\bfseries\huge}
+
+    % Espace interlignes
+    \usepackage{setspace}
+    \onehalfspacing
+    % \doublespacing  % Décommenter pour une version avec annotations (correction)
+
+    % ------------------- functional, default-------------------
+    \usepackage[dvipsnames]{xcolor}  % plus de couleurs
+    \usepackage{array}  % format personnalisé sur les tableau (requis pour la table des matières).
+    \usepackage{graphicx}
+    \usepackage{subfig}
+    \usepackage{amsmath}
+    \usepackage{amsthm}
+    \usepackage{amsfonts}
+    \usepackage{calc}  % calculs anvant la compilation
+    \usepackage[unicode=true,bookmarks=true,bookmarksnumbered=true,
+                bookmarksopen=true,bookmarksopenlevel=1,breaklinks=false,
+                pdfborder={0 0 0},backref=false,colorlinks=false]{hyperref}
+
+
+%------------------------------------------------------------------------------
+%       (re)new commands / settings
+%------------------------------------------------------------------------------
+    % ----------------- Référencement ----------------
+    \newcommand{\secref}[1]{Section~\ref{#1}}
+    \newcommand{\chapref}[1]{Chapitre~\ref{#1}}
+    \renewcommand{\eqref}[1]{Équation~(\ref{#1})}
+    \newcommand{\figref}[1]{Figure~\ref{#1}}
+    \newcommand{\tabref}[1]{Tableau~\ref{#1}}
+
+    % ------------------- Couleurs -------------------
+    \definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+    \definecolor{UniBlue}{RGB}{0, 74, 153}
+    \definecolor{UniRed}{RGB}{193, 0, 42}
+    \definecolor{UniGrey}{RGB}{154, 155, 156}
+
+
+    % ------------------- Aspect -------------------
+    % Évite les problèmes liés au placement éloigné des flottants.
+    \let\mySection\section\renewcommand{\section}{\suppressfloats[t]\mySection}
+    \let\mySubSection\subsection\renewcommand{\subsection}{\suppressfloats[t]\mySubSection}
+
+
+    % ------ Commandes personnalisées (utiles pendant la création ------
+    % Todo
+    \newcommand{\todo}[1]{\textbf{\textcolor{red}{(TODO: #1)}}}
+    \newcommand{\extend}[1]{\textbf{\textcolor{darkgreen}{(EXTEND: #1)}}}
+    
+    % Colore les botes
+    \newcommand{\draft}[1]{\textbf{\textcolor{NavyBlue}{(DRAFT: #1)}}}
+
+
+
+    % ------------------- pdf settings -------------------
+    % Propriétées de PDF
+    \hypersetup{pdftitle={Rapport TER},
+                pdfauthor={Victor Huesca},
+                pdfsubject={Rapport du TER du Jeu de Go},
+                pdfkeywords={IA, Go, vie ou mort, algorithme, rapport},
+                pdfpagelayout=OneColumn, pdfnewwindow=true, pdfstartview=XYZ, plainpages=false}
+
+
+    % Pour la plupart des algo de ce rapport
+    \usepackage[english, frenchb]{babel}
+    \usepackage[french]{algorithme}
+
+
+    % Pour les algo de compression (Le caption entre en conflie avec le paquet ci-dessus).
+    \usepackage[french]{algorithm2e}
+    \usepackage{algorithm}
+    \usepackage{algorithmic}
+    \usepackage[]{amssymb, amsmath}
+    \usepackage{framed}
+    \usepackage{natbib}
+
+    % Francisation des algorithmes
+    \renewcommand{\algorithmicrequire} {\textbf{\textsc{Entrées:}}}
+    \renewcommand{\algorithmicensure}  {\textbf{\textsc{Sorties:}}}
+    \renewcommand{\algorithmicwhile}   {\textbf{tantque}}
+    \renewcommand{\algorithmicdo}      {\textbf{faire}}
+    \renewcommand{\algorithmicendwhile}{\textbf{fin tantque}}
+    \renewcommand{\algorithmicend}     {\textbf{fin}}
+    \renewcommand{\algorithmicif}      {\textbf{si}}
+    \renewcommand{\algorithmicendif}   {\textbf{finsi}}
+    \renewcommand{\algorithmicelse}    {\textbf{sinon}}
+    \renewcommand{\algorithmicthen}    {\textbf{alors}}
+    \renewcommand{\algorithmicfor}     {\textbf{pour}}
+    \renewcommand{\algorithmicforall}  {\textbf{pour tout}}
+    \renewcommand{\algorithmicdo}      {\textbf{faire}}
+    \renewcommand{\algorithmicendfor}  {\textbf{fin pour}}
+    \renewcommand{\algorithmicloop}    {\textbf{boucler}}
+    \renewcommand{\algorithmicendloop} {\textbf{fin boucle}}
+    \renewcommand{\algorithmicrepeat}  {\textbf{répéter}}
+    \renewcommand{\algorithmicuntil}   {\textbf{jusqu'à}}

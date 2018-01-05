@@ -1,0 +1,40 @@
+{VERSION 6 0 "IBM INTEL LINUX" "6.0" }
+{USTYLETAB {CSTYLE "Maple Input" -1 0 "Courier" 0 1 255 0 0 1 0 1 0 0 
+1 0 0 0 0 1 }{CSTYLE "2D Math" -1 2 "Times" 0 1 0 0 0 0 0 0 2 0 0 0 0 
+0 0 1 }{CSTYLE "2D Output" 2 20 "" 0 1 0 0 255 1 0 0 0 0 0 0 0 0 0 1 }
+{PSTYLE "Normal" -1 0 1 {CSTYLE "" -1 -1 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "Heading 1" 0 3 1 
+{CSTYLE "" -1 -1 "" 1 18 0 0 0 0 0 1 0 0 0 0 0 0 0 0 }1 0 0 0 8 4 0 0 
+0 0 0 0 -1 0 }{PSTYLE "Heading 2" 3 4 1 {CSTYLE "" -1 -1 "" 1 14 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 }0 0 0 -1 8 2 0 0 0 0 0 0 -1 0 }{PSTYLE "Maple
+ Output" 0 11 1 {CSTYLE "" -1 -1 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 }
+3 3 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "" 11 12 1 {CSTYLE "" -1 -1 "
+" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 }1 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }}
+{SECT 0 {PARA 0 "" 0 "" {TEXT -1 14 "Logique L2 TP1" }}{SECT 1 {PARA 
+3 "" 0 "" {TEXT -1 15 "Initialisations" }}{SECT 1 {PARA 4 "" 0 "" 
+{TEXT -1 33 "Initialisation de l'environnement" }}{EXCHG {PARA 0 "> " 
+0 "" {MPLTEXT 1 0 34 "restart:kernelopts(assertlevel=2):" }}}}{SECT 1 
+{PARA 4 "" 0 "" {TEXT -1 67 "Cr\351ation des types : symbole, connecte
+ur=\{non,et,ou,impl,equi\}, fbf" }}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 
+1 0 200 "TypeTools[AddType](connecteur,'\{identical(non),identical(et)
+,identical(ou),identical(impl),identical(equi)\}');\nTypeTools[AddType
+](symbole,'And(symbol, Not(connecteur))');\nTypeTools[AddType](fbf,fbf
+?);" }}}}{SECT 1 {PARA 4 "" 0 "" {TEXT -1 42 "Cr\351ation des types : \+
+ensSP, interpr\351tation" }}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 122 
+"TypeTools[AddType](ensSP,'set(symbole)');\nTypeTools[AddType](coupleI
+nt,'[symbole,\{0,1\}]');\nTypeTools[AddType](intp,intp?);" }}}}{SECT 
+1 {PARA 4 "" 0 "" {TEXT -1 33 "Qu'est-ce qu'une interpr\351tation ?" }
+}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 272 "intp?:=proc(intI)::boolean
+;\ndescription \"renvoie vrai si I est une structure d'interpr\351tati
+on\";\nif (not type(intI,set(coupleInt))) then return false;\nelse \n \+
+ # on teste que la relation est fonctionnelle\n  return evalb(nops(map
+(e->e[1],intI))=nops(intI));\nend if;\nend proc;" }}{PARA 12 "" 1 "" 
+{XPPMATH 20 "6#>%&intp?Gf+6#%%intIG6\"F(F(@%4-%%typeG6$9$-%$setG6#%*co
+upleIntGO%&falseGO-%&evalbG6#/-%%nopsG6#-%$mapG6$f*6#%\"eGF(6$%)operat
+orG%&arrowGF(&F.6#\"\"\"F(F(F(F.-F;6#F.6#QUrenvoie~vrai~si~I~est~une~s
+tructure~d'interpr|dytationF(F(F(%(booleanG" }}}{EXCHG }{EXCHG }}}
+{SECT 1 {PARA 3 "" 0 "" {TEXT -1 18 " A vous de jouer !" }}{SECT 0 
+{PARA 4 "" 0 "" {TEXT -1 16 "F1,F2... et fbf?" }}}{EXCHG {PARA 0 "> " 
+0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }
+}}}}{MARK "0 0" 8 }{VIEWOPTS 1 1 0 1 1 1803 1 1 1 1 }{PAGENUMBERS 0 1 
+2 33 1 1 }

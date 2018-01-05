@@ -1,0 +1,8 @@
+[
+{ "nom" : "Hôtels",
+  "lien" : "hotels.json"
+},
+{ "nom" : "Restaurants",
+  "lien" : "restaurants.json"
+}
+]

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Bataille Navale</title>
+  <link rel="stylesheet" type="text/css" href="bataille_navale.css">
+</head>
+<body>
+  <script>
+  //quand on clique sur le bouton en bas, on reinitialise le jeu
+  function reset(){
+    for (var i = 1 ; i < 6 ; i++){
+      for (var j = 1 ; j < 6 ; j++){
+        var str = 'button' + i + j;
+        var bouton = document.getElementById(str);
+        bouton.innerHTML = ('?');
+      }
+    }
+  }
+
+  function tableCreate(){
+    //Initialisation des variables
+    var bateaux = '11 12 13 22 32 34 35 52 53 54 55';
+    var body = document.getElementsByTagName('body')[0];
+    var tbl = document.createElement('table');
+    tbl.setAttribute('border', '1');
+    var tbdy = document.createElement('tbody');
+    //Début de la double boucle
+    //Créations des rangées
+    for (var i = 0 ; i < 6 ; i++){
+      var tr = document.createElement('tr');
+      //Création des cases
+      for (var j = 0 ; j < 6 ; j++){
+        //cas spécifique pour les en-têtes
+        if (i == 0 || j == 0 ){
+          var th = document.createElement('th');
+          //en-têtes de colonnes
+          if (i < j){
+            th.innerHTML = j;
+          }
+          //en-têtes de lignes
+          else if(j < i){
+            th.innerHTML = String.fromCharCode(96 + i);;
+          }
+          tr.appendChild(th);
+        } else {
+          var td = document.createElement('td');
+          var button = document.createElement('button');
+          var num = 10 * i + j;
+          var str = num.toString();
+          //on place les bateaux d'après la chaîne définie au début
+          if(bateaux.indexOf(str) > -1){
+            button.setAttribute('class' , 'bateau');
+          }
+          else{
+            button.setAttribute('class' , 'ocean');
+          }
+          button.setAttribute('id' , 'button' + i + j);
+          button.setAttribute('size' , '4');
+          button.innerHTML = '?';
+          //lorsqu'on clique sur un bouton, on change son texte selon s'il y a un bateau
+          button.onclick = function(){
+            if(this.className == 'bateau'){
+              this.innerHTML = 'BOUM';
+            }
+            else{
+              this.innerHTML = '~~~~';
+            }
+          }
+          //on crée la table
+          td.appendChild(button);
+          tr.appendChild(td)
+        }
+      }
+      tbdy.appendChild(tr);
+    }
+    tbl.appendChild(tbdy);
+    body.appendChild(tbl)
+  }
+  tableCreate();
+  </script>
+  <button type="button" name="reset" onClick="reset()">Réinitialiser le jeu</button>
+</body>
+</html>

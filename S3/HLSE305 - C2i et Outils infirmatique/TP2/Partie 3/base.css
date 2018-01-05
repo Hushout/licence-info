@@ -1,0 +1,36 @@
+body{
+    background-color: dimgray;
+}
+
+div.un {
+    background-color: red;
+    padding-left:3;
+    padding-right:3;
+    padding-bottom:5;
+    padding-top:5;
+}
+
+div.deux {
+    background-color: blue;
+    padding-left:3;
+    padding-right:3;
+    padding-bottom:5;
+    padding-top:5;
+}
+
+div.trois {
+    background-color: green;
+    padding-left:3;
+    padding-right:3;
+    padding-bottom:5;
+    padding-top:5;
+    border:2px solid black;
+}
+
+div.quatre {
+    background-color: yellow;
+    padding-left:3;
+    padding-right:3;
+    padding-bottom:5;
+    padding-top:5;
+}

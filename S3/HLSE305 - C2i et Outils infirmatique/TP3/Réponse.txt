@@ -1,0 +1,27 @@
+- quel est l'effet de la touche du clavier Inser (ou Ins) pendant la saisie de texte ?
+Inser sélectionne un caractère entier et le remplace par le prochain caractère tapé.
+
+- quelle est la différence entre passer à la ligne par la touche Entrée et par la combinaison de
+touches Maj+Entrée ? Indice : dans les deux cas, essayer d'aligner la première partie (avant le
+retour à la ligne) à gauche et l'autre partie à droite. Remarque : une différence entre les deux
+retours à la ligne apparaîtra si vous affichez les caractères invisibles (icône
+) ;
+
+La touche Entrée va deplacé le curseur à la ligne suivante. Alors que la combinaison Maj+Entrée va en plus étalé les mots de la ligne, sur toute la longueur, avant de placer le curseur à la ligne suivante.
+
+- à quoi sert l'espace « insécable » inséré par la combinaison de touches Maj+Ctrl+Espace ?
+Indice : regarder ce qu'il arrive à deux mots séparés par cet espace en fin de ligne.
+
+L'espace insécable sert à éviter que deux mots ne soient séparés par un retour à la ligne, ce qui fait qu'ils se comporteront comme un seul mot tout en étant séparés par un espace. 
+
+Quelle option doit-on cocher pour éviter d'avoir une « canichene » ? A quoi sert l'option « Respecter la casse » ?
+
+On doit cocher l'option Mots entier uniquement.
+L'option sert à distinguer ou non les caractères spéciaux comme les majuscules et les lettres avec accents, pour améliorer la précision des mots rechercher et éviter de remplacer des mots qui sont différents de par ces caractères.
+
+En faisant un clic droit sur l'image de la formule, choisir de l'ancrer comme un caractère. A quoi cela sert-il ?
+
+Cela a permi de considerer l'image comme un caractère, me permettant de la placer plus facilement à l'intérieur du pargraphe.
+
+Cliquer sur la référence : que se passe-t-il ? Modifier la légende de l'image, y a-t-il quelque chose à faire pour modifier la référence ?
+ En modifiant la légende n'a pas été modifié, il ne faut donc rien faire pour modifier la référence. 

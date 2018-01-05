@@ -1,0 +1,8 @@
+compiler:
+
+g++ -Wall fichier.cpp -o fichiercompil
+
+executer:
+
+./fichiercompil
+

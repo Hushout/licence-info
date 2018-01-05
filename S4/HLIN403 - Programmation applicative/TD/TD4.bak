@@ -1,0 +1,36 @@
+#lang scheme
+
+;/////////////////////////////////////////////////////////////////////////////
+;/////////////////////////////// HLIN403 - TD4 ///////////////////////////////
+;/////////////////////////////////////////////////////////////////////////////
+
+
+
+;Ex1:
+
+(define somme-carres 
+  (lambda (n)
+    (if (= n 0) 0 ( + (* n n) (somme-carres (- n 1))))))
+
+;Ex2:
+
+(define puissance
+  (lambda (n k)
+    (if (= k 0) 1 (* n (puissance n (- k 1))))))
+
+
+;Ex3:
+
+;1)
+
+(define somme-prix
+  (lambda (n)
+    (if (= n 0) 0 (+ (puiss (- n 1) 2) (somme-prix (- n 1))))))
+
+;2)
+
+(define gain-jour
+  (lambda (n)
+    (abs (- 300000 (somme-prix n)))))
+
+;Ex4:
