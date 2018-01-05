@@ -18,21 +18,21 @@ int main(int argc, char** argv){
       int c = 0;
       
       while((c = fgetc(f)) != EOF){
-	
-	if(!isIn(c, listCarDiff, nbCarDiff)){
-	  listCarDiff[nbCarDiff] = c;
-	  nbCarDiff++;
-	}
-      }
-      printf("%d caractères differents : ", nbCarDiff);
-      printArray(listCarDiff, nbCarDiff);
-    }
-    fclose(f);
-  }
-  else{
-    printf("Erreur argument: %s <fichier>", argv[1]);
-  }
-  return 0;
+       
+       if(!isIn(c, listCarDiff, nbCarDiff)){
+         listCarDiff[nbCarDiff] = c;
+         nbCarDiff++;
+       }
+     }
+     printf("%d caractères differents : ", nbCarDiff);
+     printArray(listCarDiff, nbCarDiff);
+   }
+   fclose(f);
+ }
+ else{
+  printf("Erreur argument: %s <fichier>", argv[1]);
+}
+return 0;
 }
 
 int isIn(char c, char array[], int size){

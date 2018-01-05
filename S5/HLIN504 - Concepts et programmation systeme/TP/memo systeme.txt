@@ -1,0 +1,35 @@
+char:
+-128 / +127
+'0' = 48, 'A' = 65, 'a' = 97 (toupper = c - 32, tollower = c + 32)
+
+int:
+-32 768 / +32 767
+
+commandes utiles:
+pwd -> print work directory
+touch "mon ficher" -> creer un nouveau fichier
+
+fonction c utiles:
+gechar(); -> attend de lire un char sur stdin
+
+fichier:
+fopen(const char* chemin, const char* mode); -> ouvre un fichire 
+(mode: r = lecture seule, w = ecriture seule, a = ajout a la fin
++ & b -> rb+ = ecriture lecture dans un fichier existant en binaire)
+
+processus:
+
+fork() -> -1 si erreur / 0 si dans process fils / pid fils si dans pere:
+-alloue block controle dans table process
+-copie processe present dans fils sauf pid et ppid
+-alloue pid au fils
+-associe segment données pile au fils
+-mis process en execution
+
+getpid() -> renvoie pid processus appelant
+getppid() -> renvoie pid parent
+exit(int status) -> termine le programme
+assert(bool) -> avorter le programme
+
+atexit(*function) -> execute fonction a la fin
+on_exit(*function) -> same

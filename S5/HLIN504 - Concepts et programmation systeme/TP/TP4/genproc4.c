@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h> //fork(), getpid(),
-#include <sys/types.h> //toutes
+#include <sys/types.h> //renvoie des types pid_t
 #include <sys/wait.h>
 
 //le dernier processus vivant sera le premier lancé.
