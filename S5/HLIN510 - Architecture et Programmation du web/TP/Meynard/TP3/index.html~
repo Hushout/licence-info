@@ -1,0 +1,26 @@
+<!doctype html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="" />
+    <title>Odorico Thibault - HLIN510</title>
+  </head>
+
+  <body>
+
+    <header>
+    </header>
+
+    <section>
+      <form method="get">
+	<label for="val">Entrez un code: </label>
+	<input type="text" name="code" value="1" pattern="[0-9]{4}" required title="4 nombres"/>
+
+      </form>
+    </section>
+
+    <footer>
+    </footer>
+  </body>
+</html>

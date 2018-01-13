@@ -1,0 +1,7 @@
+Exception: STATUS_STACK_OVERFLOW at eip=611A1093
+eax=00001268 ebx=00093980 ecx=00092788 edx=61206FD1 esi=000937B0 edi=61206FCE
+ebp=612EFA30 esp=0009377C program=C:\Users\Thibault\Cours\S5\HLIN501 - Algorithmique de graphes\TP\TP2\tp2.exe, pid 8140, thread unknown (0x2460)
+cs=0023 ds=002B es=002B fs=0053 gs=002B ss=002B
+Stack trace:
+Frame     Function  Args
+End of stack trace
