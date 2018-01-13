@@ -1,0 +1,107 @@
+guillemet "$var" analyse si variable dedans, plus lent que guillemet '' . $var . ''
+
+pour afficher bien les tableaux :
+for($i = 0 ; $i < 100 ; $i++)
+foreach($tableau as $element)
+foreach($map as $key => $element)
+echo '<pre>';
+print_r($coordonnees);
+echo '</pre>';
+
+utile avec tableaux:
+array_key_exists('cle', $array) => verify si clef existe
+in_array('val', $array) => verify si valeur existe
+array_search('val', $array) => recupere la clé d'une valeur sinon renvoi faux
+
+Envoie de lien url:
+<a href = "index.php?nom=boby&amp;prenom=josé">Envoyer</a>
+(ne pas depasser 256 caractères sinon bug donc faire attention a get)
+
+formulaire:
+
+<form method="post/get" action="cible.php"></form>
+
+get => donnes envoyer par url recupere avec $_GET (< 256 caractères)
+post => donnes pas envoyer par url on peut faire passer ce qu'on veut recuperer avec $_POST
+
+Injection html/javascript:
+la commande suivante empeche le navigateur d'interpreter le code html
+htmlspecialchars($_POST['prenom']);
+celle-ci les retire totalement
+strip_tags($_POST['prenom']);
+
+VARIABLE GLOBALES:
+$_SERVER['REMOTE_ADDR'] => adresse ip de l'utilisateur
+$_SESSION => les varibles stocker temporairement sur le serveur
+$_COOKIE => les variables enregistrer sur l'ordi du visiteur
+$_FILES => listes des fichier envoyé par formulaire
+
+SESSION ET COOKIES:
+PHPSESSID => identifiant session
+session_start() => demarre la session (a utilliser sur tout les page avant tout code html)
+session_destroy() => ferme la session
+
+			nom		valeur		date d'expiration
+setcookie('pseudo', 'M@teo21', time() + 365*24*3600, null, null, false, true); => (a utilliser avant tout code html egalement, le dernier true securité en plus pour faille xss)
+
+FICHIER:
+changer les droit du fichier a 777 au prealable;
+$fichier = fopen('fichier.txt', 'r+');
+//modifier fichier ici
+$c = fgetc($fichier);
+$s = fgets($fichier);
+fseek($fichier, position);
+fputs($fichier, 'ma phrase');
+$fclose($fichier);
+(r => lecture seule
+r+ => lecture ecriture
+a => ecriture seule + creer  fichier si non existant
+a+ => lecture ecriture + creer fichier si non existant
+=> si a ou a+ donner tjrs ajouter en fin fichier)
+
+BASE DE DONNEES:
+avec query, immediat mais moins securisé:
+$bdd = new PDO('mysql:host=localhost;dbname=test;charset=utf8','root',''array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)););
+$reponse = $bdd->query('SELECT * FROM TABLE');
+$donnes = $reponse->fetch();
+$reponse->closeCursor(); => apres la fin d'une requete
+
+avec prepare, plus adapté pour les variables et plus securisé:
+$req = $bdd->prepare('SELECT nom FROM jeux_video WHERE possesseur = ? AND prix <= ?');
+$req->execute(array($_GET['possesseur'], $_GET['prix_max']));
+array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)); => affiche les erreurs plus clairement
+
+pour modifier les bdd:
+directement
+$bdd->exec('INSERT INTO jeux_video VALUES(\'Battlefield 1942\', \'Patrick\', \'PC\', 45, 50, \'2nde guerre mondiale\')');
+avec preparation:
+
+$req = $bdd->prepare('INSERT INTO jeux_video VALUES(:nom, :possesseur, :console, :prix, :nbre_joueurs_max, :commentaires)');
+
+$req->execute(array(
+
+    'nom' => $nom,
+
+    'possesseur' => $possesseur,
+
+    'console' => $console,
+
+    'prix' => $prix,
+
+    'nbre_joueurs_max' => $nbre_joueurs_max,
+
+    'commentaires' => $commentaires
+
+    ));
+
+$nb_modifs = $bdd->exec('UPDATE jeux_video SET possesseur = \'Florent\' WHERE possesseur = \'Michel\'');
+
+DATE FR:
+$comments = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE post_id = ? ORDER BY comment_date DESC');
+$comments->execute(array($postId));
+
+REDIRECTION:
+header('Location: minichat.php');
+
+
+

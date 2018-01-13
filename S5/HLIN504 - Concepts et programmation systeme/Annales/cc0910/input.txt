@@ -1,5 +1,0 @@
-albert  1234
-bernard 0012
-claudia 0450
-pierre  7894
-pierrett0012
