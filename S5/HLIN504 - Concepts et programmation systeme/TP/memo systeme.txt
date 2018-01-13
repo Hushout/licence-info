@@ -1,24 +1,31 @@
+LES TYPES EN C:
+
 char:
 -128 / +127
 '0' = 48, 'A' = 65, 'a' = 97 (toupper = c - 32, tollower = c + 32)
 
 int:
+complement à 2
 -32 768 / +32 767
 
-commandes utiles:
+float:
+1 bit sur poid fort
+
+
+
+COMMANDES UTILES:
 pwd -> print work directory
 touch "mon ficher" -> creer un nouveau fichier
 
-fonction c utiles:
+FONCTION C UTILES
 gechar(); -> attend de lire un char sur stdin
 
-fichier:
+FICHIER:
 fopen(const char* chemin, const char* mode); -> ouvre un fichire 
 (mode: r = lecture seule, w = ecriture seule, a = ajout a la fin
 + & b -> rb+ = ecriture lecture dans un fichier existant en binaire)
 
-processus:
-
+PROCESSUS:
 fork() -> -1 si erreur / 0 si dans process fils / pid fils si dans pere:
 -alloue block controle dans table process
 -copie processe present dans fils sauf pid et ppid
@@ -33,3 +40,87 @@ assert(bool) -> avorter le programme
 
 atexit(*function) -> execute fonction a la fin
 on_exit(*function) -> same
+
+differences thread et fork:
+thread partage memoire virtuel, les fork non
+thread pere tuer alors tous thread fils aussi, les fork non
+
+GENERAL:
+UTF-8 -> code char de 1 à 4 octets
+1 kibi ~= 1 kilo
+
+COMPTILATION:
+1) Prétraitement (preprocessing)
+2) Analyse syntaxique (parsing)
+3) Analyse sémantique
+4) Géneration du code
+5) Edition des liens
+
+PRINTF:
+p -> adresse pointeur 
+e -> scientific notation (E uppercase)
+o -> unsigned octal
+x -> unsigned hexadecimal integer (X uppercase)
+a -> hexadecimal floating point (A uppercase)
+
+(number) -> formatte la zone d'ecrite minimal
+(space) -> si pas de signe alors un espace
+- -> align le l'ecriture à gauche de la zone formaté
++ -> affiche signe meme si positif
+# -> affiche le 0x selon le format d'ecriture
+0 -> rempli la zone formatter avec des zeros
+.(number) -> precision
+* -> permet de mettre un paramètre un nombre 
+ex: printf("%.*f", 3, 3.23);
+
+DROIT D'ACCES:
+(user, group, others)
+r w x  r w x  r w x
+r -> read, w -> write, x -> execution
+4		   2           1
+addition 4 + 2 + 1 -> 7 = tous les droits
+
+ENTREES SORTIES:
+extern FILE* stdin; (0)
+extern FILE* stdout; (1)
+extern FILE* stderr; (3)
+
+descritpteur de ficher -> entier representant un fichier (0 = stdin)
+
+EXECUTION:
+int execve(const char *filename, char *const argv[], char *const envp[]); 
+-> appel système a la base des autres fonctions
+
+exec + l -> argument sous forme de liste
+exec + v -> arg sous forme de tableau
+exec + p -> fichier a executer rechercher avec variable PATH
+exec + e -> nouvel environnement transmis au processus fils
+
+GESTION DES FICHIER:
+struct stat
+{
+	dev_t st_dev; /* Périphérique */
+	ino_t st_ino; /* Numéro i-noeud */
+	umode_t st_mode; /* type de fichier et droits */
+	nlink_t st_nlink; /* Nb liens matériels */
+	uid_t st_uid; /* UID propriétaire */
+	gid_t st_gid; /* GID propriétaire */
+	dev_t st_rdev; /* Type périphérique */
+	off_t st_size; /* Taille totale en octets */
+	unsigned long st_blksize; /* Taille de bloc pour E/S */
+	unsigned long st_blocks; /* Nombre de blocs alloués */
+	time_t st_atime; /* Heure dernier accès */
+	time_t st_mtime; /* Heure dernière modification */
+	time_t st_ctime; /* Heure dernier changement état*/
+};
+
+trouver type fichier -> st_mode & S_IFMT == (S_IFREG, S_IFDIR, S_IFLNK)
+trouver droit fichier -> st_mode & (S_IRUSR, S_IWGRP, S_IXOTH) 
+
+struct dirent
+{
+	long d_ino; /* inode number */
+	off_t d_off; /* offset to this dirent */
+	unsigned short d_reclen; /* length of this d_name */
+	char d_name [NAME_MAX+1]; /* file name (null-terminated) */
+}
