@@ -36,4 +36,3 @@ SHL <=> << (Décalage à gauche des bits)
 unsigned a = 0xF0F0; // a == 1111 0000 1111 0000
 unsigned b = 2; 	 // nombre de decalage vers la gauche
 unsigned c = a << b; // c == 1100 0011 1100 0000 soit 0xC3C0
-
