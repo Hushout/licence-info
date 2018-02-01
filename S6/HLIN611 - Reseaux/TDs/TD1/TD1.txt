@@ -41,4 +41,7 @@ Dt = 8000 - 500 = 7500µs
 
 3) 
 
-4)
+4) Connexion acceptable: 0,9 * nbCellules
+Moyenne temps cellule: 0,9 * 120 + 0,1 * 200 = 128ms
+Decalage minimal: 0, 9 * nbCellules x 30 * 10 ^ ⁻6 + 128 * 10 ^ - 3 ~= nbCellules * 2.7*10^-5 + 128*10^-3
+
