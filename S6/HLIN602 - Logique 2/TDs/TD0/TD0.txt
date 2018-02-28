@@ -106,3 +106,4 @@ Question 6:
 1) ouvrir_porte -> (possède_clé v possède_couteau)
 2) (coupure ^ !vacciné) -> risque_tetanos
 3) conduit -> majeur
+4) velo -> (!vtt -> !ammortisseur)
