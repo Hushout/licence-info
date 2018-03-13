@@ -128,8 +128,6 @@ send_changes() {
 	echo ""
 
 	if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
-		
-		git add -A
 
 		COMMIT_MSG="$1"
 		
@@ -141,6 +139,8 @@ send_changes() {
 				COMMIT_MSG="Mise à jour du $(date)"
 			fi
 		fi
+
+		git add -A
 
 		echo -e "${BLUE}Commission des données...${NC}"
 		git commit -m "$COMMIT_MSG"
