@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -Wall -ansi -pedantic
-SRCS = fichierTP3.cpp progListeSC.cpp mainTP3.cpp
+SRCS = fichierTP3.cpp progListeSC.cpp main.cpp
 OBJS = $(SRCS:.cpp = .o)
 BIN = TP3
 EXT = *.o

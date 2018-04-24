@@ -1,8 +1,8 @@
 CC = g++
 CFLAGS = -W -Wall
-SRCS = fichierTP2.cpp progListeSC.cpp
+SRCS = main.cpp progListeSC.cpp
 OBJS = $(SRCS:.cpp = .o)
-BIN = fichierTP2
+BIN = TP2
 EXT = *.o
 
 all: $(OBJS)

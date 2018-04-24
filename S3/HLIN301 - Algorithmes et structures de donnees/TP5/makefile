@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -W -Wall -ansi -pedantic
-SRCS = outilsTab5.cpp mainTP5.cpp
+SRCS = outilsTab5.cpp main.cpp
 OBJS = $(SRCS:.cpp = .o)
 BIN = TP5
 EXT = *.o
