@@ -1,0 +1,161 @@
+\chapter{Optimisation \& Parseur}\label{chap:Optimisation}
+    \section{Optimisation algorithmique}
+        Nous avons utilisé deux types d'optimisation :
+        \begin{itemize}
+            \item La première est déjà implantée dans l'algo au-dessus, c'est ce qui distingue le tsumego brut, du tsumego normal. Elle se situe dans le while, c'est la condition A->Info == 0 ? : elle indique a l'algorithme de sortir de la boucle si on a tué le groupe, c'est ce qu'on appelle plus communément du \textbf{Pruning}.\\
+            \item La deuxième a pour but de faire une économie mémoire dans notre tsumego, en effet au lieu de développer tout l'arbre des possibilités de coups possibles, ce qui ferait exploser la mémoire, nous développons qu'un "étage" de l'arbre, afin d'appliquer le tsumego sur chacun de ses éléments un à un en prenant bien soin d'effacer le fils précédent si la recherche développée à partir de celui-ci s'est révélée négative.
+        \end{itemize}
+            
+    \section{Optimisation mémoire}
+        \subsection{Format compression}
+            \paragraph{}Afin d’essayer de résoudre des problèmes plus conséquents, nous nous somme penché sur l’optimisation mémoire pour la fonction de Tsumego. En analysant les instances présentes dans le Tsumego on se rends compte que ce sont les différentes instances de Goban qui sont coûteuses en mémoire. Nous avons cherché comment résoudre ceci et avons opté pour une paire de fonctions : une pour compresser le goban et une pour le décompresser.
+    
+            \paragraph{}Il a fallu pour cela définir un format économe pour stocker le Goban en mémoire et pour cela nous avons tenté d’éliminer les informations superflues. Tout d’abord nous avons fait le constat que seuls les états des intersections du goban étaient utiles pour reconstruire l’entièreté de celui-ci. En effet les différents groupes peuvent être retrouvés via la fonction de recherche de groupes, quant aux scores de chaque joueur et l’historique, ces informations ne sont d’aucune utilité pour le Tsumego. 
+            
+            \paragraph{}Ensuite nous avons cherché de la même manière à réduire l’espace mémoire de chaque intersection. Tout d’abord en éliminant les coordonnées de celles-ci car elles peuvent être trouvées automatiquement lors de la création d’un Goban. À ce Stade il ne nous restait plus qu’à trouver comment stocker les états. La façon la plus optimal étant de coder chaque état sur un nombre de bits défini puis de coller les états les uns à la suite des autres. 
+            
+            \paragraph{}De prime abord on pourrait penser qu’il nous faut coder jusqu’à 6 états différents (Blanc, Noir, Vide, KO\_blanc, KO\_noir, Non\_Jouable) cf. partie sur l’état d’une intersection de Goban. Par conséquent il nous faudrait 3 bits (6 < 8 = 2\^3) pour stocker n’importe quel état. Ors il se trouve que l’état Non\_Jouable n’a pas à être codé car il n’est pas stocké (pour les raisons évoqués ci-dessus). De plus les deux états de KO peuvent être résumer en un seul à condition de garder l’information sur le joueur courant à chaque étape du Tsumego. Il ne reste donc plus que 4 état possibles ce qui permet de coder n’importe quel état sur 2 bits seulement.
+            
+            \paragraph{}Grâce à ce format compressé un goban de 9 par 9 intersections peut être stocké sur 20 octets et 2 bits. Lorsque que l’on sait que son penchant non compressé pèse à minima 1ko (1040 octets pour être exact) à taille équivalente, on se rends compte de l’efficacité de la compression.
+            \[ 9 * 9 = 81 intersections \,;\; 81 * 2 = 162 bits \,;\; 162 = 8 * 20 + 2\]
+            Mais pour pouvoir stocker le Goban sous cette forme il faut écrire deux fonctions permettant de passer de la version compressée à celle de base et réciproquement.
+
+
+        \newpage
+        \subsection{Compression du Goban}
+            \paragraph{}Pour la compression nous avons écrit l’algorithme qui suit. Cette version est assez bas niveau car nous parlons d’une compression binaire, néanmoins ce code a été simplifié pour faciliter sa compréhension. De même toutes les astuces pour économiser du temps de calcule sont passé sous silence. Nous espérons que le lecteur avisé ne s’offusquera pas de cet écart.
+            
+            \begin{algorithm}
+                \caption{Algorithme de compression}
+                \begin{algorithmic}
+                %%-----------------------------------------------
+                \REQUIRE goban : Goban à compresser (les cases inutiles sont marquées)
+                \ENSURE Un tableau d'octets
+        
+                \STATE $nb\_rev \leftarrow \textit{nbInterUtiles}(goban);$
+                \STATE $nb\_octets \leftarrow \textit{plafond}(\frac{nb\_rev}{8});$
+                \STATE $nb\_bits\_bouchon \leftarrow 8 - (nb\_rev \mod 8);$
+                \STATE $act \leftarrow 0;$
+                \STATE $tmp \leftarrow 0;$
+                \STATE $comp \leftarrow \textit{tableau}[nb\_octets]$
+                
+                \FORALL {$inter \in goban$}
+                    \STATE $comp[cur] \leftarrow (comp[cur] << 2);$
+                    \STATE $comp[cur] \leftarrow (comp[cur] + \textit{code}(inter));$
+                    \IF{$tmp == 8$} 
+                        \STATE $cur \leftarrow cur + 1;$
+                        \STATE $tmp \leftarrow 0;$
+                    \ENDIF
+                \ENDFOR
+         
+                \STATE $comp[nb\_octets - 1] \leftarrow (comp[nb\_octets - 1] << nb\_bits\_bouchon);$
+                \STATE \textbf{Retourner} $comp$.
+                %%-----------------------------------------------
+                \end{algorithmic}
+            \end{algorithm}
+    
+            \begin{framed}
+                    \underline{Notations :}
+                    \begin{itemize}
+                        \item A << N : décalage binaire N bits vers la gauche, appliqué à A ;
+                        \item A >> N : décalage binaire N bits vers la droite, appliqué à A ;
+                        \item Ob10101011 : représentation d’un octet en binaire non signé (dans cet exemple 171) ;
+                        \item \& : le ET bit à bit de deux entiers sous leur forme binaire ;
+                    \end{itemize}
+                \end{framed}
+    
+    
+        \subsection{Décompression du Goban}
+            \paragraph{}Pour la décompression nous avons écrit l’algorithme qui suit. Cette version est assez bas niveau car nous parlons d’une compression binaire, néanmoins ce code a été simplifié pour faciliter sa compréhension. En particulier le cas du dernier octet compressé (celui pouvant contenir des bits de bourrage) a été omis pour éviter les doublons. Comme pour le cas de la compression, nous priions notre lecteur de ne pas s’offusquer de ces quelques imprécisions.
+    
+            \begin{algorithm}
+                \caption{Algorithme de décompression}
+                \begin{algorithmic}
+                %%-----------------------------------------------
+                \REQUIRE model : Goban où les case inutiles sont marquées, \\
+                comp : tableau d'octet (goban compresssé)
+                \ENSURE Goban décompressé
+                
+                \STATE $goban \leftarrow \textit{creerGoban}(model);$
+                \STATE $nb\_rev \leftarrow \textit{nbInterUtiles}(goban);$
+                \STATE $nb\_octets \leftarrow \textit{plafond}(\frac{nb\_rev}{8});$
+                \STATE $nb\_bits\_bouchon \leftarrow 8 - (nb\_rev \mod 8);$
+                \STATE $act \leftarrow -1;$
+                \STATE $masque \leftarrow 0b11111100;$
+                
+                \FORALL {$i \in [0, nb\_octets]$}
+                    \STATE $oct\_act \leftarrow comp[i];$
+                    
+                    \FORALL {$j \in [0, 4]$}
+                        \STATE $val \leftarrow ((oct\_act \& masque) >> 6);$
+                        \STATE $oct\_act \leftarrow oct\_act << 2;$
+                        \STATE $act \leftarrow \textit{indiceProchaineItersectionUtile}(model);$
+                        \STATE $goban[cur] \leftarrow tmp;$
+                    \ENDFOR
+                \ENDFOR
+                
+                \STATE \textbf{Retourner} $goban$.
+                %%-----------------------------------------------
+            \end{algorithmic}
+            \end{algorithm}
+
+            \begin{framed}
+                    \underline{Notations :}
+                    \begin{itemize}
+                        \item A << N : décalage binaire N bits vers la gauche, appliqué à A ;
+                        \item A >> N : décalage binaire N bits vers la droite, appliqué à A ;
+                        \item Ob10101011 : représentation d’un octet en binaire non signé (dans cet exemple 171) ;
+                        \item \& : le ET bit à bit de deux entiers sous leur forme binaire ;
+                    \end{itemize}
+                \end{framed}
+
+
+    \section{Le parseur}
+        \paragraph{}Afin d'implémenter plus facilement tout les problèmes les plus connus et complexes du Jeu de Go afin d'utiliser le Tsumego dessus, nous avons décidé de créer un parseur afin d'importer facilement les Goban nécessaires.
+        
+        \paragraph{}Nous avons défini une nouvelle extension .go, qui n'est au final qu'un fichier texte de quatre caractères différents :
+        \begin{itemize}
+            \item - " N " : Pour les pierres noires
+            \item- " B " : Pour les pierres blanches
+            \item- " - " : Pour les zones non jouables
+            \item- " \_ ": Pour les zones vides jouables
+        \end{itemize}
+        
+        \paragraph{}Puis on lit le fichier dans lequel chaque ligne correspond à une ligne du Goban pour remplir celui-ci petit à petit.
+
+        \begin{algorithme}
+            \caption{Parseur}
+            \textbf{Données :}
+            \Type{fichier}{String};\\
+            \textbf{Résultat :} Rend un Goban parsé\\
+            \textbf{Variables :}   
+            \Type{goban}{Goban},
+            \Type{y}{entier},
+            \Type{x}{entier},
+            \Type{piece}{char};\\
+            \textbf{Début :}\\
+            \IfThenElse{regex(".go",fichier)}
+            {\textit{ouvrir} file(fichier);\\
+            \IfThenElse{file}
+                {x$\leftarrow$0\\
+                y$\leftarrow$0\\
+            \While{file.get(piece)}
+                {\If{piece = 'B'}
+                    {goban.coord(x , y).setVal(Blanc)}\\
+                \If{piece = 'N' }
+                    {goban.coord(x , y).setVal(Noir)}\\
+                \If{piece = '-' }
+                    {goban.coord(x , y).setVal(Vide)}\\
+                \If{piece = '\_' }
+                    {goban.coord(x , y).setVal(Non Jouable)}\\
+                \If{piece = 'B' }
+                    {goban.coord(x , y).setVal(Blanc)}\\
+                \IfThenElse{piece = '/n' }{y++}
+                {"Caractère lu inconnu à la position (" x ", " y ") !"}
+                
+                x < TGOBAN? x++ : x$\leftarrow$0\\}
+            }
+                {"Impossible d'ouvrir le fichier ! "}
+            }{"Fichier introuvable"}
+            \textbf{Renvoyer} goban
+        \end{algorithme}

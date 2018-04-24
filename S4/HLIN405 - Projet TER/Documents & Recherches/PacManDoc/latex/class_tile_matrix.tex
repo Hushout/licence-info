@@ -1,0 +1,850 @@
+\hypertarget{class_tile_matrix}{}\section{Référence de la classe Tile\+Matrix}
+\label{class_tile_matrix}\index{Tile\+Matrix@{Tile\+Matrix}}
+
+
+La class \hyperlink{class_tile_matrix}{Tile\+Matrix} permet de modifier des Matrices de Tuiles ainsi que de les charger/sauvegarder dans des fichiers.  
+
+
+Graphe d\textquotesingle{}héritage de Tile\+Matrix\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_tile_matrix}
+\end{center}
+\end{figure}
+\subsection*{Fonctions membres publiques}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_tile_matrix_a0cdc3972eeb32776a7e1e28dc14cb0de}{is\+Empty} ()
+\begin{DoxyCompactList}\small\item\em Verifie si la \hyperlink{class_tile_matrix}{Tile\+Matrix} est vide (hauteur et largeur nulle). \end{DoxyCompactList}\item 
+Sprite \hyperlink{class_tile_matrix_a68d291b38ca0942fbf51683f3df2f0a6}{load\+Sprite} (int sprite\+Number)
+\begin{DoxyCompactList}\small\item\em Charge un sprite à partir d\textquotesingle{}un entier envoie un message d\textquotesingle{}erreur si le l\textquotesingle{}entier est trop bas où trop grand \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_a093a489c26d38f24eb33caca39b6d8f7}{update\+Tile\+At} (int i, int j, int Tile\+Code)
+\begin{DoxyCompactList}\small\item\em Modifie une Tuile de la \hyperlink{class_tile_matrix}{Tile\+Matrix} avec un entier qui code une Tuile. \end{DoxyCompactList}\item 
+Game\+Object \hyperlink{class_tile_matrix_a8a16545b24b05b208469e9d58654b916}{Create\+Tile} (int i, int j, int num\+Sprite)
+\begin{DoxyCompactList}\small\item\em Creer une Tuile à partir d\textquotesingle{}un numéro de ligne, de colonne et d\textquotesingle{}un numero corespondant à un Sprite à charger dans cette Tuile. \end{DoxyCompactList}\item 
+\hyperlink{class_tile_matrix_a2fd594060764e898a105c2452d75f46f}{Tile\+Matrix} (Vector2 \hyperlink{class_tile_matrix_ac005af42acbdcf02179ba2514d20f59a}{position}, string tiles\+Path)
+\begin{DoxyCompactList}\small\item\em Constructeur par default. \end{DoxyCompactList}\item 
+\hyperlink{class_tile_matrix_a64f9596f9d73b577fbd3d1df5ee412a8}{Tile\+Matrix} (int \hyperlink{class_tile_matrix_a03b3e21bbee70f916ba6075150d8570b}{hauteur}, int \hyperlink{class_tile_matrix_adbffb02d3f0eba910ccbe6054a776105}{largeur}, Vector2 \hyperlink{class_tile_matrix_ac005af42acbdcf02179ba2514d20f59a}{position}, string tiles\+Path, int tile\+Number)
+\begin{DoxyCompactList}\small\item\em Constructeur avec plus de paramètres. \end{DoxyCompactList}\item 
+\hyperlink{class_tile_matrix_aa58cf34f960df2c3247fffce1ff53fcf}{Tile\+Matrix} (\hyperlink{class_tile_matrix}{Tile\+Matrix} M)
+\begin{DoxyCompactList}\small\item\em Constructeur par copy. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_a0e990be66abfae5959b5bacb8c3c25c4}{copy} (\hyperlink{class_tile_matrix}{Tile\+Matrix} M)
+\begin{DoxyCompactList}\small\item\em Copie toute les valeur et le format d\textquotesingle{}une \hyperlink{class_matrice}{Matrice} M. \end{DoxyCompactList}\item 
+double \hyperlink{class_tile_matrix_ab32694c884107298c3bb5fdc0f4622b3}{max} ()
+\begin{DoxyCompactList}\small\item\em Max \end{DoxyCompactList}\item 
+int \hyperlink{class_tile_matrix_a488170ba429dc466153ae164ed3eb5b7}{get\+Tile\+Code\+At} (int i, int j)
+\begin{DoxyCompactList}\small\item\em Accesseur en lecture sur L\textquotesingle{}entier qui code la Tuile à la ligne i et la colonne j de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_aa565334932b2541174e3601bf1fcaa0a}{set\+Tile\+Code\+At} (int i, int j, int val)
+\begin{DoxyCompactList}\small\item\em Modifie le code de la Tuile à la ligne i et la colonne j de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_a6b17e33f46e947e5cb81a0c056e17614}{move\+Line\+At} (int i, int stepX, int stepY)
+\begin{DoxyCompactList}\small\item\em Deplace une ligne de la \hyperlink{class_tile_matrix}{Tile\+Matrix} à l\textquotesingle{}affichage. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_ae524f79b278e3e77c428d33f69e82508}{move\+Colomn\+At} (int j, int stepX, int stepY)
+\begin{DoxyCompactList}\small\item\em Deplace une colonne de la \hyperlink{class_tile_matrix}{Tile\+Matrix} à l\textquotesingle{}affichage. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_afc71f9142da00380320980d56eef47ab}{move\+Lines\+Between} (int i1, int i2, int stepX, int stepY)
+\begin{DoxyCompactList}\small\item\em Deplace certaine lignes de la \hyperlink{class_tile_matrix}{Tile\+Matrix} à l\textquotesingle{}affichage. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_a3e5871c9ab9dab10f83c86584db871f7}{move\+Columns\+Between} (int j1, int j2, int stepX, int stepY)
+\begin{DoxyCompactList}\small\item\em Deplace certaine colonnes de la \hyperlink{class_tile_matrix}{Tile\+Matrix} à l\textquotesingle{}affichage. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_aa54a37298476381854db5a561de3fbc0}{Add\+Line} (int tile\+Number)
+\begin{DoxyCompactList}\small\item\em Ajoute une ligne à la fin de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_a9ca9a8babaf656aa675af069caf90e90}{Add\+Column} (int tile\+Number)
+\begin{DoxyCompactList}\small\item\em Ajoute une colonne à la fin de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_ad3dc00ccf107bf42068ed0dc2be5bc3b}{insert\+Ligne\+At} (int i, int tile\+Number)
+\begin{DoxyCompactList}\small\item\em Insert une ligne dans la \hyperlink{class_tile_matrix}{Tile\+Matrix}. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_a0726b04506143b1710bb87b4565d9738}{insert\+Colonne\+At} (int j, int tile\+Number)
+\begin{DoxyCompactList}\small\item\em Insert une colonne dans la \hyperlink{class_matrice}{Matrice}. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_ab1c633e4f9e6d6f9c3d5ffa87723ad5c}{destroy} ()
+\begin{DoxyCompactList}\small\item\em Detruit entierement la \hyperlink{class_tile_matrix}{Tile\+Matrix}. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_a2edc148c07d023408d1a659b8033e0f4}{remove\+Ligne\+At} (int i)
+\begin{DoxyCompactList}\small\item\em Supprime une ligne de la tile\+Matrix. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_a8756d0d2b534e557db1f7555f32a9ff9}{remove\+Colonne\+At} (int j)
+\begin{DoxyCompactList}\small\item\em Supprime une colonne de la tile\+Matrix. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_a1ff5f7a4550c1fb5214f8a2f3d585c88}{set\+Ligne} (int i, int tile\+Number)
+\begin{DoxyCompactList}\small\item\em Accesseur en ecriture, change toute les Tuiles d\textquotesingle{}une ligne. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_a646d11a4f74c0663bd772cf114d6fc5b}{set\+Colonne} (int j, int tile\+Number)
+\begin{DoxyCompactList}\small\item\em Accesseur en ecriture, change toute les Tuiles d\textquotesingle{}une colonne. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_a35a767fec694f00e38bbd04efbb5c875}{draw\+Rect\+Full} (int i\+Min, int i\+Max, int j\+Min, int j\+Max, int tile\+Code)
+\begin{DoxyCompactList}\small\item\em Dessine un rectangle composé d\textquotesingle{}une certaine Tuile. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_a4ec108d873c8d6aa686ecea4aa8b270b}{draw\+Rect\+Corner} (int i\+Min, int i\+Max, int j\+Min, int j\+Max, int tile\+Code)
+\begin{DoxyCompactList}\small\item\em Dessine un cadre composé d\textquotesingle{}une certaine Tuile dans la \hyperlink{class_tile_matrix}{Tile\+Matrix}. \end{DoxyCompactList}\item 
+List$<$ int $>$ \hyperlink{class_tile_matrix_a789263572eb4022a693fe71a6c8b5f38}{draw\+Rect\+To\+Buffer} (int i\+Min, int i\+Max, int j\+Min, int j\+Max)
+\begin{DoxyCompactList}\small\item\em Creer un buffer sous forme de list d\textquotesingle{}entier avec une partie rectangulaire de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. \end{DoxyCompactList}\item 
+List$<$ int $>$ \hyperlink{class_tile_matrix_a02466fdb56bd99691c6402e1bc64e21a}{copy\+Rect\+To\+Pos} (int i\+Min, int i\+Max, int j\+Min, int j\+Max, int indI, int indJ)
+\begin{DoxyCompactList}\small\item\em Copy une rectangle de la \hyperlink{class_tile_matrix}{Tile\+Matrix} à une autre position de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_a785c889f1932381852d14e136f81fd28}{draw\+Buffer\+Rect\+To\+Pos} (int i\+Min, int i\+Max, int j\+Min, int j\+Max, int indI, int indJ, List$<$ int $>$ copy\+Buffer)
+\begin{DoxyCompactList}\small\item\em Dessine un buffer sous forme de list d\textquotesingle{}entier dans la \hyperlink{class_tile_matrix}{Tile\+Matrix} \end{DoxyCompactList}\item 
+bool \hyperlink{class_tile_matrix_a0f2e1f3c6eda5d5c60a48ccf3ab26c3b}{check\+Bounds} (int i, int j)
+\begin{DoxyCompactList}\small\item\em Verifie si le couple i, j est bien indexé dans la matrice et pas en dehors. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_ae0239badb424adde14ae390b25fcf32d}{save} (string chemin, bool append=true)
+\begin{DoxyCompactList}\small\item\em Sauvegarde toute la \hyperlink{class_tile_matrix}{Tile\+Matrix} dans un fichier. \end{DoxyCompactList}\item 
+void \hyperlink{class_tile_matrix_ad67296e27a165e8a0e1a2649c890664b}{load} (string chemin, int num=0)
+\begin{DoxyCompactList}\small\item\em Charge une \hyperlink{class_tile_matrix}{Tile\+Matrix} contenu dans un fichier. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Attributs protégés}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ List$<$ Game\+Object $>$ $>$ \hyperlink{class_tile_matrix_a6207d77aeeddf839bf1ddec2b6fc322d}{\+\_\+matrice}
+\begin{DoxyCompactList}\small\item\em Liste de liste (contient les Tuiles).\end{DoxyCompactList}\item 
+int \hyperlink{class_tile_matrix_a4d8f5ec3a0d74fcb8a9ef2310bf4dd10}{\+\_\+hauteur}
+\begin{DoxyCompactList}\small\item\em Hauteur de la \hyperlink{class_tile_matrix}{Tile\+Matrix}.\end{DoxyCompactList}\item 
+int \hyperlink{class_tile_matrix_a4ea5e0b0b8a31f5ac4ed12d4e179ce6b}{\+\_\+largeur}
+\begin{DoxyCompactList}\small\item\em Largeur de la \hyperlink{class_tile_matrix}{Tile\+Matrix}.\end{DoxyCompactList}\item 
+Vector2 \hyperlink{class_tile_matrix_af9d70f85f8287561695ada4c09ed1ddc}{\+\_\+position}
+\begin{DoxyCompactList}\small\item\em Position de la \hyperlink{class_tile_matrix}{Tile\+Matrix}.\end{DoxyCompactList}\item 
+Sprite \mbox{[}$\,$\mbox{]} \hyperlink{class_tile_matrix_a4ce60be6cdb0aa0133b65e1661677583}{\+\_\+tiles\+Sprites}
+\begin{DoxyCompactList}\small\item\em Tableau de sprites qui va contenir toutes les Tuiles à charger.\end{DoxyCompactList}\item 
+string \hyperlink{class_tile_matrix_afc092c5321540c2a11817ee0b188449d}{\+\_\+tiles\+Path}
+\begin{DoxyCompactList}\small\item\em Chemin de la texture contenant les tuiles.\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Propriétés}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{class_tile_matrix_a03b3e21bbee70f916ba6075150d8570b}{hauteur}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Accesseur en lecture sur la hauteur. \end{DoxyCompactList}\item 
+int \hyperlink{class_tile_matrix_adbffb02d3f0eba910ccbe6054a776105}{largeur}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Accesseur en lecture sur la largeur. \end{DoxyCompactList}\item 
+Vector2 \hyperlink{class_tile_matrix_ac005af42acbdcf02179ba2514d20f59a}{position}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Accesseur en lecture/ecriture sur la position de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. \end{DoxyCompactList}\item 
+int \hyperlink{class_tile_matrix_a98329fd27bbbf07aa907efbd1b8a3822}{Tiles\+Number}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Accesseur en lecture sur le nombre de Tuiles disponible avec la texture chargée. \end{DoxyCompactList}\item 
+string \hyperlink{class_tile_matrix_aaff226a076c705b100bc8076ce3d025a}{Tiles\+Path}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Accesseur en lecture sur le chemin de la texture chargée contenant les tuiles. \end{DoxyCompactList}\item 
+Game\+Object \hyperlink{class_tile_matrix_a19ee238fde6e939b8d4eb6a23fd78563}{this\mbox{[}int i, int j\mbox{]}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Indexeur de la \hyperlink{class_tile_matrix}{Tile\+Matrix} permet un acces au données en lecture et en ecriture. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Description détaillée}
+La class \hyperlink{class_tile_matrix}{Tile\+Matrix} permet de modifier des Matrices de Tuiles ainsi que de les charger/sauvegarder dans des fichiers. 
+
+
+
+\subsection{Documentation des constructeurs et destructeur}
+\mbox{\Hypertarget{class_tile_matrix_a2fd594060764e898a105c2452d75f46f}\label{class_tile_matrix_a2fd594060764e898a105c2452d75f46f}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!Tile\+Matrix@{Tile\+Matrix}}
+\index{Tile\+Matrix@{Tile\+Matrix}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{Tile\+Matrix()}{TileMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Tile\+Matrix.\+Tile\+Matrix (\begin{DoxyParamCaption}\item[{Vector2}]{position,  }\item[{string}]{tiles\+Path }\end{DoxyParamCaption})}
+
+
+
+Constructeur par default. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em position} & Position où sera afficher la \hyperlink{class_tile_matrix}{Tile\+Matrix} \\
+\hline
+{\em tiles\+Path} & Chemin de la texture contenant les Tuiles \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_a64f9596f9d73b577fbd3d1df5ee412a8}\label{class_tile_matrix_a64f9596f9d73b577fbd3d1df5ee412a8}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!Tile\+Matrix@{Tile\+Matrix}}
+\index{Tile\+Matrix@{Tile\+Matrix}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{Tile\+Matrix()}{TileMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Tile\+Matrix.\+Tile\+Matrix (\begin{DoxyParamCaption}\item[{int}]{hauteur,  }\item[{int}]{largeur,  }\item[{Vector2}]{position,  }\item[{string}]{tiles\+Path,  }\item[{int}]{tile\+Number }\end{DoxyParamCaption})}
+
+
+
+Constructeur avec plus de paramètres. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em hauteur} & Nombres de lignes de la \hyperlink{class_tile_matrix}{Tile\+Matrix} \\
+\hline
+{\em largeur} & Nombres de collonnes de la \hyperlink{class_tile_matrix}{Tile\+Matrix} \\
+\hline
+{\em position} & Position où sera affichée la \hyperlink{class_tile_matrix}{Tile\+Matrix} \\
+\hline
+{\em tiles\+Path} & Chemin de la texture contenant les Tuiles \\
+\hline
+{\em tile\+Number} & Entier correspondant à une Tuile avec laquel sera initialisée la \hyperlink{class_tile_matrix}{Tile\+Matrix} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_aa58cf34f960df2c3247fffce1ff53fcf}\label{class_tile_matrix_aa58cf34f960df2c3247fffce1ff53fcf}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!Tile\+Matrix@{Tile\+Matrix}}
+\index{Tile\+Matrix@{Tile\+Matrix}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{Tile\+Matrix()}{TileMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Tile\+Matrix.\+Tile\+Matrix (\begin{DoxyParamCaption}\item[{\hyperlink{class_tile_matrix}{Tile\+Matrix}}]{M }\end{DoxyParamCaption})}
+
+
+
+Constructeur par copy. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em M} & La \hyperlink{class_tile_matrix}{Tile\+Matrix} que l\textquotesingle{}on veut copier \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Documentation des fonctions membres}
+\mbox{\Hypertarget{class_tile_matrix_a9ca9a8babaf656aa675af069caf90e90}\label{class_tile_matrix_a9ca9a8babaf656aa675af069caf90e90}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!Add\+Column@{Add\+Column}}
+\index{Add\+Column@{Add\+Column}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{Add\+Column()}{AddColumn()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+Add\+Column (\begin{DoxyParamCaption}\item[{int}]{tile\+Number }\end{DoxyParamCaption})}
+
+
+
+Ajoute une colonne à la fin de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em tile\+Number} & Code de la Tuile avec laquel sera initialiser la colonne \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_aa54a37298476381854db5a561de3fbc0}\label{class_tile_matrix_aa54a37298476381854db5a561de3fbc0}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!Add\+Line@{Add\+Line}}
+\index{Add\+Line@{Add\+Line}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{Add\+Line()}{AddLine()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+Add\+Line (\begin{DoxyParamCaption}\item[{int}]{tile\+Number }\end{DoxyParamCaption})}
+
+
+
+Ajoute une ligne à la fin de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em tile\+Number} & Code de la Tuile avec laquel sera initialiser la ligne \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_a0f2e1f3c6eda5d5c60a48ccf3ab26c3b}\label{class_tile_matrix_a0f2e1f3c6eda5d5c60a48ccf3ab26c3b}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!check\+Bounds@{check\+Bounds}}
+\index{check\+Bounds@{check\+Bounds}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{check\+Bounds()}{checkBounds()}}
+{\footnotesize\ttfamily bool Tile\+Matrix.\+check\+Bounds (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption})}
+
+
+
+Verifie si le couple i, j est bien indexé dans la matrice et pas en dehors. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em i} & Ligne de la \hyperlink{class_tile_matrix}{Tile\+Matrix} \\
+\hline
+{\em j} & Colonne de la \hyperlink{class_tile_matrix}{Tile\+Matrix} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Vrai si le couple i, j est bien indexé, faut sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tile_matrix_a0e990be66abfae5959b5bacb8c3c25c4}\label{class_tile_matrix_a0e990be66abfae5959b5bacb8c3c25c4}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!copy@{copy}}
+\index{copy@{copy}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{copy()}{copy()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+copy (\begin{DoxyParamCaption}\item[{\hyperlink{class_tile_matrix}{Tile\+Matrix}}]{M }\end{DoxyParamCaption})}
+
+
+
+Copie toute les valeur et le format d\textquotesingle{}une \hyperlink{class_matrice}{Matrice} M. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em M} & La \hyperlink{class_tile_matrix}{Tile\+Matrix} que l\textquotesingle{}on veut copier \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_a02466fdb56bd99691c6402e1bc64e21a}\label{class_tile_matrix_a02466fdb56bd99691c6402e1bc64e21a}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!copy\+Rect\+To\+Pos@{copy\+Rect\+To\+Pos}}
+\index{copy\+Rect\+To\+Pos@{copy\+Rect\+To\+Pos}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{copy\+Rect\+To\+Pos()}{copyRectToPos()}}
+{\footnotesize\ttfamily List$<$int$>$ Tile\+Matrix.\+copy\+Rect\+To\+Pos (\begin{DoxyParamCaption}\item[{int}]{i\+Min,  }\item[{int}]{i\+Max,  }\item[{int}]{j\+Min,  }\item[{int}]{j\+Max,  }\item[{int}]{indI,  }\item[{int}]{indJ }\end{DoxyParamCaption})}
+
+
+
+Copy une rectangle de la \hyperlink{class_tile_matrix}{Tile\+Matrix} à une autre position de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. 
+
+\mbox{\Hypertarget{class_tile_matrix_a8a16545b24b05b208469e9d58654b916}\label{class_tile_matrix_a8a16545b24b05b208469e9d58654b916}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!Create\+Tile@{Create\+Tile}}
+\index{Create\+Tile@{Create\+Tile}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{Create\+Tile()}{CreateTile()}}
+{\footnotesize\ttfamily Game\+Object Tile\+Matrix.\+Create\+Tile (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j,  }\item[{int}]{num\+Sprite }\end{DoxyParamCaption})}
+
+
+
+Creer une Tuile à partir d\textquotesingle{}un numéro de ligne, de colonne et d\textquotesingle{}un numero corespondant à un Sprite à charger dans cette Tuile. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em i} & Ligne de la \hyperlink{class_tile_matrix}{Tile\+Matrix} \\
+\hline
+{\em j} & Colonne de la \hyperlink{class_tile_matrix}{Tile\+Matrix} \\
+\hline
+{\em num\+Sprite} & Entier correspondant à un Sprite à charger \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_ab1c633e4f9e6d6f9c3d5ffa87723ad5c}\label{class_tile_matrix_ab1c633e4f9e6d6f9c3d5ffa87723ad5c}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!destroy@{destroy}}
+\index{destroy@{destroy}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{destroy()}{destroy()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+destroy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Detruit entierement la \hyperlink{class_tile_matrix}{Tile\+Matrix}. 
+
+\mbox{\Hypertarget{class_tile_matrix_a785c889f1932381852d14e136f81fd28}\label{class_tile_matrix_a785c889f1932381852d14e136f81fd28}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!draw\+Buffer\+Rect\+To\+Pos@{draw\+Buffer\+Rect\+To\+Pos}}
+\index{draw\+Buffer\+Rect\+To\+Pos@{draw\+Buffer\+Rect\+To\+Pos}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{draw\+Buffer\+Rect\+To\+Pos()}{drawBufferRectToPos()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+draw\+Buffer\+Rect\+To\+Pos (\begin{DoxyParamCaption}\item[{int}]{i\+Min,  }\item[{int}]{i\+Max,  }\item[{int}]{j\+Min,  }\item[{int}]{j\+Max,  }\item[{int}]{indI,  }\item[{int}]{indJ,  }\item[{List$<$ int $>$}]{copy\+Buffer }\end{DoxyParamCaption})}
+
+
+
+Dessine un buffer sous forme de list d\textquotesingle{}entier dans la \hyperlink{class_tile_matrix}{Tile\+Matrix} 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em i\+Min} & Dimension du buffer i\+Min \\
+\hline
+{\em i\+Max} & Dimension du buffer i\+Max \\
+\hline
+{\em j\+Min} & Dimension du buffer j\+Min \\
+\hline
+{\em j\+Max} & Dimension du buffer j\+Max \\
+\hline
+{\em indI} & Ligne de la \hyperlink{class_tile_matrix}{Tile\+Matrix} où le buffer doit être dessiné \\
+\hline
+{\em indJ} & Colonne de la \hyperlink{class_tile_matrix}{Tile\+Matrix} où le buffer doit être dessiné \\
+\hline
+{\em copy\+Buffer} & Buffer à dessiner dans la \hyperlink{class_tile_matrix}{Tile\+Matrix} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Buffer contenant toute les valeurs du rectangle selectionner sous forme de List d\textquotesingle{}entier 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tile_matrix_a4ec108d873c8d6aa686ecea4aa8b270b}\label{class_tile_matrix_a4ec108d873c8d6aa686ecea4aa8b270b}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!draw\+Rect\+Corner@{draw\+Rect\+Corner}}
+\index{draw\+Rect\+Corner@{draw\+Rect\+Corner}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{draw\+Rect\+Corner()}{drawRectCorner()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+draw\+Rect\+Corner (\begin{DoxyParamCaption}\item[{int}]{i\+Min,  }\item[{int}]{i\+Max,  }\item[{int}]{j\+Min,  }\item[{int}]{j\+Max,  }\item[{int}]{tile\+Code }\end{DoxyParamCaption})}
+
+
+
+Dessine un cadre composé d\textquotesingle{}une certaine Tuile dans la \hyperlink{class_tile_matrix}{Tile\+Matrix}. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em i\+Min} & Ligne où le cadre commencera à se dessiner \\
+\hline
+{\em i\+Max} & Ligne où le cadre finira de se dessiner \\
+\hline
+{\em j\+Min} & Colonne où le cadre commencera à se dessiner \\
+\hline
+{\em j\+Max} & Colonne où le cadre finira de se dessiner \\
+\hline
+{\em tile\+Code} & Code de la Tuile qui composera le cadre \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_a35a767fec694f00e38bbd04efbb5c875}\label{class_tile_matrix_a35a767fec694f00e38bbd04efbb5c875}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!draw\+Rect\+Full@{draw\+Rect\+Full}}
+\index{draw\+Rect\+Full@{draw\+Rect\+Full}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{draw\+Rect\+Full()}{drawRectFull()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+draw\+Rect\+Full (\begin{DoxyParamCaption}\item[{int}]{i\+Min,  }\item[{int}]{i\+Max,  }\item[{int}]{j\+Min,  }\item[{int}]{j\+Max,  }\item[{int}]{tile\+Code }\end{DoxyParamCaption})}
+
+
+
+Dessine un rectangle composé d\textquotesingle{}une certaine Tuile. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em i\+Min} & Ligne où le rectangle commencera à se dessiner \\
+\hline
+{\em i\+Max} & Ligne où le rectangle finira de se dessiner \\
+\hline
+{\em j\+Min} & Colonne où le rectangle commencera à se dessiner \\
+\hline
+{\em j\+Max} & Colonne où le rectangle finira de se dessiner \\
+\hline
+{\em tile\+Code} & Code de la Tuile qui composera le rectangle \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_a789263572eb4022a693fe71a6c8b5f38}\label{class_tile_matrix_a789263572eb4022a693fe71a6c8b5f38}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!draw\+Rect\+To\+Buffer@{draw\+Rect\+To\+Buffer}}
+\index{draw\+Rect\+To\+Buffer@{draw\+Rect\+To\+Buffer}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{draw\+Rect\+To\+Buffer()}{drawRectToBuffer()}}
+{\footnotesize\ttfamily List$<$int$>$ Tile\+Matrix.\+draw\+Rect\+To\+Buffer (\begin{DoxyParamCaption}\item[{int}]{i\+Min,  }\item[{int}]{i\+Max,  }\item[{int}]{j\+Min,  }\item[{int}]{j\+Max }\end{DoxyParamCaption})}
+
+
+
+Creer un buffer sous forme de list d\textquotesingle{}entier avec une partie rectangulaire de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em i\+Min} & Ligne où la \hyperlink{class_tile_matrix}{Tile\+Matrix} commencera à creer un buffer correspondant \\
+\hline
+{\em i\+Max} & Ligne où la \hyperlink{class_tile_matrix}{Tile\+Matrix} finira la copie du buffer correspondant \\
+\hline
+{\em j\+Min} & Colonne où la \hyperlink{class_tile_matrix}{Tile\+Matrix} commencera à creer un buffer correspondant \\
+\hline
+{\em j\+Max} & Colonne où la \hyperlink{class_tile_matrix}{Tile\+Matrix} finira la copie du buffer correspondant \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Buffer contenant toute les valeurs du rectangle selectionner sous forme de List d\textquotesingle{}entier 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tile_matrix_a488170ba429dc466153ae164ed3eb5b7}\label{class_tile_matrix_a488170ba429dc466153ae164ed3eb5b7}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!get\+Tile\+Code\+At@{get\+Tile\+Code\+At}}
+\index{get\+Tile\+Code\+At@{get\+Tile\+Code\+At}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{get\+Tile\+Code\+At()}{getTileCodeAt()}}
+{\footnotesize\ttfamily int Tile\+Matrix.\+get\+Tile\+Code\+At (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption})}
+
+
+
+Accesseur en lecture sur L\textquotesingle{}entier qui code la Tuile à la ligne i et la colonne j de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em i} & Ligne N°i \\
+\hline
+{\em j} & Colonne N°j \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Le code de la Tuile à la ligne i et la colonne j de la \hyperlink{class_tile_matrix}{Tile\+Matrix} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tile_matrix_a0726b04506143b1710bb87b4565d9738}\label{class_tile_matrix_a0726b04506143b1710bb87b4565d9738}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!insert\+Colonne\+At@{insert\+Colonne\+At}}
+\index{insert\+Colonne\+At@{insert\+Colonne\+At}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{insert\+Colonne\+At()}{insertColonneAt()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+insert\+Colonne\+At (\begin{DoxyParamCaption}\item[{int}]{j,  }\item[{int}]{tile\+Number }\end{DoxyParamCaption})}
+
+
+
+Insert une colonne dans la \hyperlink{class_matrice}{Matrice}. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em j} & Numero de la colonne après laquel doit être ajoutée une nouvelle colonne \\
+\hline
+{\em tile\+Number} & Code de la Tuile avec laquel sera initialiser colonne \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_ad3dc00ccf107bf42068ed0dc2be5bc3b}\label{class_tile_matrix_ad3dc00ccf107bf42068ed0dc2be5bc3b}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!insert\+Ligne\+At@{insert\+Ligne\+At}}
+\index{insert\+Ligne\+At@{insert\+Ligne\+At}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{insert\+Ligne\+At()}{insertLigneAt()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+insert\+Ligne\+At (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{tile\+Number }\end{DoxyParamCaption})}
+
+
+
+Insert une ligne dans la \hyperlink{class_tile_matrix}{Tile\+Matrix}. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em i} & Numero de la ligne après laquel doit être ajoutée ajouter une nouvelle ligne \\
+\hline
+{\em tile\+Number} & Code de la Tuile avec laquel sera initialiser la ligne \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_a0cdc3972eeb32776a7e1e28dc14cb0de}\label{class_tile_matrix_a0cdc3972eeb32776a7e1e28dc14cb0de}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!is\+Empty@{is\+Empty}}
+\index{is\+Empty@{is\+Empty}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{is\+Empty()}{isEmpty()}}
+{\footnotesize\ttfamily bool Tile\+Matrix.\+is\+Empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Verifie si la \hyperlink{class_tile_matrix}{Tile\+Matrix} est vide (hauteur et largeur nulle). 
+
+\begin{DoxyReturn}{Renvoie}
+Vrai si vide faux sinon. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tile_matrix_ad67296e27a165e8a0e1a2649c890664b}\label{class_tile_matrix_ad67296e27a165e8a0e1a2649c890664b}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!load@{load}}
+\index{load@{load}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+load (\begin{DoxyParamCaption}\item[{string}]{chemin,  }\item[{int}]{num = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Charge une \hyperlink{class_tile_matrix}{Tile\+Matrix} contenu dans un fichier. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em chemin} & Chemin du fichier que l\textquotesingle{}on veut charger \\
+\hline
+{\em num} & Numero de la matrice que l\textquotesingle{}on veut charger si le fichier contient plus d\textquotesingle{}une \hyperlink{class_tile_matrix}{Tile\+Matrix} (0 est la valeur de base) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_a68d291b38ca0942fbf51683f3df2f0a6}\label{class_tile_matrix_a68d291b38ca0942fbf51683f3df2f0a6}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!load\+Sprite@{load\+Sprite}}
+\index{load\+Sprite@{load\+Sprite}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{load\+Sprite()}{loadSprite()}}
+{\footnotesize\ttfamily Sprite Tile\+Matrix.\+load\+Sprite (\begin{DoxyParamCaption}\item[{int}]{sprite\+Number }\end{DoxyParamCaption})}
+
+
+
+Charge un sprite à partir d\textquotesingle{}un entier envoie un message d\textquotesingle{}erreur si le l\textquotesingle{}entier est trop bas où trop grand 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em sprite\+Number} & Un entier correspondant à un sprite \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Un Sprite correspondant à un entier. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tile_matrix_ab32694c884107298c3bb5fdc0f4622b3}\label{class_tile_matrix_ab32694c884107298c3bb5fdc0f4622b3}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!max@{max}}
+\index{max@{max}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{max()}{max()}}
+{\footnotesize\ttfamily double Tile\+Matrix.\+max (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Max 
+
+\begin{DoxyReturn}{Renvoie}
+Le Max 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tile_matrix_ae524f79b278e3e77c428d33f69e82508}\label{class_tile_matrix_ae524f79b278e3e77c428d33f69e82508}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!move\+Colomn\+At@{move\+Colomn\+At}}
+\index{move\+Colomn\+At@{move\+Colomn\+At}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{move\+Colomn\+At()}{moveColomnAt()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+move\+Colomn\+At (\begin{DoxyParamCaption}\item[{int}]{j,  }\item[{int}]{stepX,  }\item[{int}]{stepY }\end{DoxyParamCaption})}
+
+
+
+Deplace une colonne de la \hyperlink{class_tile_matrix}{Tile\+Matrix} à l\textquotesingle{}affichage. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em j} & Colonne à deplacer \\
+\hline
+{\em stepX} & Pas avec lequel la colonne sera deplacé sur les X\\
+\hline
+{\em stepY} & Pas avec lequel la colonne sera deplacé sur les Y \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_a3e5871c9ab9dab10f83c86584db871f7}\label{class_tile_matrix_a3e5871c9ab9dab10f83c86584db871f7}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!move\+Columns\+Between@{move\+Columns\+Between}}
+\index{move\+Columns\+Between@{move\+Columns\+Between}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{move\+Columns\+Between()}{moveColumnsBetween()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+move\+Columns\+Between (\begin{DoxyParamCaption}\item[{int}]{j1,  }\item[{int}]{j2,  }\item[{int}]{stepX,  }\item[{int}]{stepY }\end{DoxyParamCaption})}
+
+
+
+Deplace certaine colonnes de la \hyperlink{class_tile_matrix}{Tile\+Matrix} à l\textquotesingle{}affichage. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em j1} & Colonne à partir de laquel les colonnes seront deplacées \\
+\hline
+{\em j2} & Colonne à partir de laquel les colonnes ne seront plus deplacées \\
+\hline
+{\em stepX} & Pas avec lequel la colonne sera deplacé sur les X\\
+\hline
+{\em stepY} & Pas avec lequel la colonne sera deplacé sur les Y \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_a6b17e33f46e947e5cb81a0c056e17614}\label{class_tile_matrix_a6b17e33f46e947e5cb81a0c056e17614}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!move\+Line\+At@{move\+Line\+At}}
+\index{move\+Line\+At@{move\+Line\+At}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{move\+Line\+At()}{moveLineAt()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+move\+Line\+At (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{stepX,  }\item[{int}]{stepY }\end{DoxyParamCaption})}
+
+
+
+Deplace une ligne de la \hyperlink{class_tile_matrix}{Tile\+Matrix} à l\textquotesingle{}affichage. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em i} & Ligne à deplacer \\
+\hline
+{\em stepX} & Pas avec lequel la ligne sera deplacé sur les X\\
+\hline
+{\em stepY} & Pas avec lequel la ligne sera deplacé sur les Y \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_afc71f9142da00380320980d56eef47ab}\label{class_tile_matrix_afc71f9142da00380320980d56eef47ab}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!move\+Lines\+Between@{move\+Lines\+Between}}
+\index{move\+Lines\+Between@{move\+Lines\+Between}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{move\+Lines\+Between()}{moveLinesBetween()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+move\+Lines\+Between (\begin{DoxyParamCaption}\item[{int}]{i1,  }\item[{int}]{i2,  }\item[{int}]{stepX,  }\item[{int}]{stepY }\end{DoxyParamCaption})}
+
+
+
+Deplace certaine lignes de la \hyperlink{class_tile_matrix}{Tile\+Matrix} à l\textquotesingle{}affichage. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em i1} & Ligne à partir de laquel les lignes seront deplacées \\
+\hline
+{\em i2} & Ligne à partir de laquel les lignes ne seront plus deplacées \\
+\hline
+{\em stepX} & Pas avec lequel la ligne sera deplacé sur les X\\
+\hline
+{\em stepY} & Pas avec lequel la ligne sera deplacé sur les Y \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_a8756d0d2b534e557db1f7555f32a9ff9}\label{class_tile_matrix_a8756d0d2b534e557db1f7555f32a9ff9}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!remove\+Colonne\+At@{remove\+Colonne\+At}}
+\index{remove\+Colonne\+At@{remove\+Colonne\+At}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{remove\+Colonne\+At()}{removeColonneAt()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+remove\+Colonne\+At (\begin{DoxyParamCaption}\item[{int}]{j }\end{DoxyParamCaption})}
+
+
+
+Supprime une colonne de la tile\+Matrix. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em j} & Colonne à supprimer \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_a2edc148c07d023408d1a659b8033e0f4}\label{class_tile_matrix_a2edc148c07d023408d1a659b8033e0f4}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!remove\+Ligne\+At@{remove\+Ligne\+At}}
+\index{remove\+Ligne\+At@{remove\+Ligne\+At}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{remove\+Ligne\+At()}{removeLigneAt()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+remove\+Ligne\+At (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})}
+
+
+
+Supprime une ligne de la tile\+Matrix. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em i} & Ligne à supprimer \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_ae0239badb424adde14ae390b25fcf32d}\label{class_tile_matrix_ae0239badb424adde14ae390b25fcf32d}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!save@{save}}
+\index{save@{save}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+save (\begin{DoxyParamCaption}\item[{string}]{chemin,  }\item[{bool}]{append = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Sauvegarde toute la \hyperlink{class_tile_matrix}{Tile\+Matrix} dans un fichier. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em chemin} & Chemin où l\textquotesingle{}on veut sauvegarder la \hyperlink{class_tile_matrix}{Tile\+Matrix} \\
+\hline
+{\em append} & Booléen determinant si les donnés doivent êtres ajouter (vrai) où ecraser (false) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_a646d11a4f74c0663bd772cf114d6fc5b}\label{class_tile_matrix_a646d11a4f74c0663bd772cf114d6fc5b}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!set\+Colonne@{set\+Colonne}}
+\index{set\+Colonne@{set\+Colonne}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{set\+Colonne()}{setColonne()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+set\+Colonne (\begin{DoxyParamCaption}\item[{int}]{j,  }\item[{int}]{tile\+Number }\end{DoxyParamCaption})}
+
+
+
+Accesseur en ecriture, change toute les Tuiles d\textquotesingle{}une colonne. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em j} & Colonne N°j \\
+\hline
+{\em tile\+Number} & Code des nouvelles Tuiles sur toute la colonne j \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_a1ff5f7a4550c1fb5214f8a2f3d585c88}\label{class_tile_matrix_a1ff5f7a4550c1fb5214f8a2f3d585c88}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!set\+Ligne@{set\+Ligne}}
+\index{set\+Ligne@{set\+Ligne}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{set\+Ligne()}{setLigne()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+set\+Ligne (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{tile\+Number }\end{DoxyParamCaption})}
+
+
+
+Accesseur en ecriture, change toute les Tuiles d\textquotesingle{}une ligne. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em i} & Ligne N°i \\
+\hline
+{\em tile\+Number} & Code des nouvelle Tuiles sur toute la ligne i \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_aa565334932b2541174e3601bf1fcaa0a}\label{class_tile_matrix_aa565334932b2541174e3601bf1fcaa0a}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!set\+Tile\+Code\+At@{set\+Tile\+Code\+At}}
+\index{set\+Tile\+Code\+At@{set\+Tile\+Code\+At}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{set\+Tile\+Code\+At()}{setTileCodeAt()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+set\+Tile\+Code\+At (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j,  }\item[{int}]{val }\end{DoxyParamCaption})}
+
+
+
+Modifie le code de la Tuile à la ligne i et la colonne j de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em i} & Ligne N°i \\
+\hline
+{\em j} & Colonne N°j \\
+\hline
+{\em val} & Correspond à la val à changer\\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tile_matrix_a093a489c26d38f24eb33caca39b6d8f7}\label{class_tile_matrix_a093a489c26d38f24eb33caca39b6d8f7}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!update\+Tile\+At@{update\+Tile\+At}}
+\index{update\+Tile\+At@{update\+Tile\+At}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{update\+Tile\+At()}{updateTileAt()}}
+{\footnotesize\ttfamily void Tile\+Matrix.\+update\+Tile\+At (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j,  }\item[{int}]{Tile\+Code }\end{DoxyParamCaption})}
+
+
+
+Modifie une Tuile de la \hyperlink{class_tile_matrix}{Tile\+Matrix} avec un entier qui code une Tuile. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em i} & Ligne de la \hyperlink{class_tile_matrix}{Tile\+Matrix} \\
+\hline
+{\em j} & Colonne de la \hyperlink{class_tile_matrix}{Tile\+Matrix} \\
+\hline
+{\em Tile\+Code} & Entier correspondant à une Tuile \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Documentation des données membres}
+\mbox{\Hypertarget{class_tile_matrix_a4d8f5ec3a0d74fcb8a9ef2310bf4dd10}\label{class_tile_matrix_a4d8f5ec3a0d74fcb8a9ef2310bf4dd10}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!\+\_\+hauteur@{\+\_\+hauteur}}
+\index{\+\_\+hauteur@{\+\_\+hauteur}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{\+\_\+hauteur}{\_hauteur}}
+{\footnotesize\ttfamily int Tile\+Matrix.\+\_\+hauteur\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Hauteur de la \hyperlink{class_tile_matrix}{Tile\+Matrix}.
+
+\mbox{\Hypertarget{class_tile_matrix_a4ea5e0b0b8a31f5ac4ed12d4e179ce6b}\label{class_tile_matrix_a4ea5e0b0b8a31f5ac4ed12d4e179ce6b}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!\+\_\+largeur@{\+\_\+largeur}}
+\index{\+\_\+largeur@{\+\_\+largeur}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{\+\_\+largeur}{\_largeur}}
+{\footnotesize\ttfamily int Tile\+Matrix.\+\_\+largeur\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Largeur de la \hyperlink{class_tile_matrix}{Tile\+Matrix}.
+
+\mbox{\Hypertarget{class_tile_matrix_a6207d77aeeddf839bf1ddec2b6fc322d}\label{class_tile_matrix_a6207d77aeeddf839bf1ddec2b6fc322d}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!\+\_\+matrice@{\+\_\+matrice}}
+\index{\+\_\+matrice@{\+\_\+matrice}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{\+\_\+matrice}{\_matrice}}
+{\footnotesize\ttfamily List$<$List$<$Game\+Object$>$ $>$ Tile\+Matrix.\+\_\+matrice\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Liste de liste (contient les Tuiles).
+
+\mbox{\Hypertarget{class_tile_matrix_af9d70f85f8287561695ada4c09ed1ddc}\label{class_tile_matrix_af9d70f85f8287561695ada4c09ed1ddc}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!\+\_\+position@{\+\_\+position}}
+\index{\+\_\+position@{\+\_\+position}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{\+\_\+position}{\_position}}
+{\footnotesize\ttfamily Vector2 Tile\+Matrix.\+\_\+position\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Position de la \hyperlink{class_tile_matrix}{Tile\+Matrix}.
+
+\mbox{\Hypertarget{class_tile_matrix_afc092c5321540c2a11817ee0b188449d}\label{class_tile_matrix_afc092c5321540c2a11817ee0b188449d}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!\+\_\+tiles\+Path@{\+\_\+tiles\+Path}}
+\index{\+\_\+tiles\+Path@{\+\_\+tiles\+Path}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{\+\_\+tiles\+Path}{\_tilesPath}}
+{\footnotesize\ttfamily string Tile\+Matrix.\+\_\+tiles\+Path\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Chemin de la texture contenant les tuiles.
+
+\mbox{\Hypertarget{class_tile_matrix_a4ce60be6cdb0aa0133b65e1661677583}\label{class_tile_matrix_a4ce60be6cdb0aa0133b65e1661677583}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!\+\_\+tiles\+Sprites@{\+\_\+tiles\+Sprites}}
+\index{\+\_\+tiles\+Sprites@{\+\_\+tiles\+Sprites}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{\+\_\+tiles\+Sprites}{\_tilesSprites}}
+{\footnotesize\ttfamily Sprite \mbox{[}$\,$\mbox{]} Tile\+Matrix.\+\_\+tiles\+Sprites\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Tableau de sprites qui va contenir toutes les Tuiles à charger.
+
+
+
+\subsection{Documentation des propriétés}
+\mbox{\Hypertarget{class_tile_matrix_a03b3e21bbee70f916ba6075150d8570b}\label{class_tile_matrix_a03b3e21bbee70f916ba6075150d8570b}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!hauteur@{hauteur}}
+\index{hauteur@{hauteur}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{hauteur}{hauteur}}
+{\footnotesize\ttfamily int Tile\+Matrix.\+hauteur\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Accesseur en lecture sur la hauteur. 
+
+\begin{DoxyReturn}{Renvoie}
+Hauteur de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tile_matrix_adbffb02d3f0eba910ccbe6054a776105}\label{class_tile_matrix_adbffb02d3f0eba910ccbe6054a776105}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!largeur@{largeur}}
+\index{largeur@{largeur}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{largeur}{largeur}}
+{\footnotesize\ttfamily int Tile\+Matrix.\+largeur\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Accesseur en lecture sur la largeur. 
+
+\begin{DoxyReturn}{Renvoie}
+Largeur de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tile_matrix_ac005af42acbdcf02179ba2514d20f59a}\label{class_tile_matrix_ac005af42acbdcf02179ba2514d20f59a}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!position@{position}}
+\index{position@{position}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{position}{position}}
+{\footnotesize\ttfamily Vector2 Tile\+Matrix.\+position\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Accesseur en lecture/ecriture sur la position de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. 
+
+\begin{DoxyReturn}{Renvoie}
+position de la \hyperlink{class_tile_matrix}{Tile\+Matrix}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tile_matrix_a19ee238fde6e939b8d4eb6a23fd78563}\label{class_tile_matrix_a19ee238fde6e939b8d4eb6a23fd78563}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!this\mbox{[}int i, int j\mbox{]}@{this[int i, int j]}}
+\index{this\mbox{[}int i, int j\mbox{]}@{this[int i, int j]}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{this[int i, int j]}{this[int i, int j]}}
+{\footnotesize\ttfamily Game\+Object Tile\+Matrix.\+this\mbox{[}int i, int j\mbox{]}\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Indexeur de la \hyperlink{class_tile_matrix}{Tile\+Matrix} permet un acces au données en lecture et en ecriture. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em i} & Ligne N°i \\
+\hline
+{\em j} & Colonne N°j \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+La Tuile que la matrice contiens à la ligne i et la colonne j 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tile_matrix_a98329fd27bbbf07aa907efbd1b8a3822}\label{class_tile_matrix_a98329fd27bbbf07aa907efbd1b8a3822}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!Tiles\+Number@{Tiles\+Number}}
+\index{Tiles\+Number@{Tiles\+Number}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{Tiles\+Number}{TilesNumber}}
+{\footnotesize\ttfamily int Tile\+Matrix.\+Tiles\+Number\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Accesseur en lecture sur le nombre de Tuiles disponible avec la texture chargée. 
+
+\begin{DoxyReturn}{Renvoie}
+Nombre de tuiles disponibles. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_tile_matrix_aaff226a076c705b100bc8076ce3d025a}\label{class_tile_matrix_aaff226a076c705b100bc8076ce3d025a}} 
+\index{Tile\+Matrix@{Tile\+Matrix}!Tiles\+Path@{Tiles\+Path}}
+\index{Tiles\+Path@{Tiles\+Path}!Tile\+Matrix@{Tile\+Matrix}}
+\subsubsection{\texorpdfstring{Tiles\+Path}{TilesPath}}
+{\footnotesize\ttfamily string Tile\+Matrix.\+Tiles\+Path\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Accesseur en lecture sur le chemin de la texture chargée contenant les tuiles. 
+
+\begin{DoxyReturn}{Renvoie}
+Chemin en chaine de caractères. 
+\end{DoxyReturn}
+
+
+La documentation de cette classe a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+Tile\+Map/Tile\+Matrix.\+cs\end{DoxyCompactItemize}

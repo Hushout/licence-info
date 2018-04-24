@@ -1,0 +1,46 @@
+Bonjour!
+
+
+Pour compiler notre programme lancez le terminal et placez vous 
+dans le dossier contenant les fichiers du jeu. 
+Puis tapez la commande: 
+	
+	"g++ main.cpp matrice.cpp grille.cpp piece.cpp score.cpp setdepiece.cpp tenten.cpp window.cpp -o 1010  -lncurses" 
+
+Pour compiler plus rapidement, nous avons rajouter un makefile, 
+donc placez dans vous le dossier content les fichiers du jeu. 
+Puis tapez la commande:
+
+	"make"
+
+
+Pour lancer le jeu avec les paramètres basiques, après la compilation, tapez la commande: 
+	
+	"./1010"
+
+Pour plus d'information tapez la commande :
+
+	"./1010 -help"
+
+Pour lancer le jeu avec un autre ensemble de piece, 
+vous pouvez créer votre propre set de pièce dans un fichier texte, puis tapez la commande :
+
+	"./1010 -f "NomFichier.txt"
+
+Ensuite les commandes :
+
+-La touche "q" permet d'arrêter la partie.
+-La touche "Tab" permet de changer de pièce dans le set de pièces disponible.
+-La touche entrée place la pièce.
+-Les flêches directionnelles servent à déplacer la pièce.
+-La touche "a" permet de revenir une étape en arrière. (Revenir jusqu'au debut de la partie est possible.)
+
+
+On peux sauvegarder une partie en la quittant ou non et ainsi reprendre une partie en cour en lançant le pogramme et en choissiant l'options 2 "charger une partie."
+
+Le score est enregistrer uniquement si le GAME OVER est atteind.
+
+Merci de votre attention et bon jeu !! 
+  
+
+

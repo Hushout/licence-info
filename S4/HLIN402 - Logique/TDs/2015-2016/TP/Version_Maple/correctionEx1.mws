@@ -1,0 +1,49 @@
+{VERSION 6 0 "IBM INTEL LINUX" "6.0" }
+{USTYLETAB {CSTYLE "2D Output" -1 20 "Times" 0 1 0 0 255 1 0 0 2 2 2 
+2 0 0 0 1 }{CSTYLE "_cstyle1" -1 201 "Times" 0 1 0 0 0 0 0 0 0 2 2 2 
+0 0 0 1 }{CSTYLE "_cstyle2" -1 202 "Times" 1 18 0 0 0 0 0 1 0 2 2 2 0 
+0 0 1 }{CSTYLE "_cstyle3" -1 203 "Times" 1 14 0 0 0 0 0 1 0 2 2 2 0 0 
+0 1 }{CSTYLE "_cstyle4" -1 204 "Courier" 0 1 255 0 0 1 0 1 0 2 1 2 0 
+0 0 1 }{PSTYLE "_pstyle1" -1 200 1 {CSTYLE "" -1 -1 "" 0 1 0 0 0 0 0 
+0 0 2 2 2 0 0 0 1 }0 0 0 -1 -1 -1 1 0 1 0 2 2 -1 1 }{PSTYLE "_pstyle2
+" -1 201 1 {CSTYLE "" -1 -1 "" 1 18 0 0 0 0 0 1 0 2 2 2 0 0 0 1 }1 0 
+0 0 8 4 1 0 1 0 2 2 -1 1 }{PSTYLE "_pstyle3" -1 202 1 {CSTYLE "" -1 
+-1 "" 1 14 0 0 0 0 0 1 0 2 2 2 0 0 0 1 }1 0 0 0 8 2 1 0 1 0 2 2 -1 1 }
+{PSTYLE "_pstyle4" -1 203 1 {CSTYLE "" -1 -1 "Times" 0 1 0 0 255 1 0 
+0 2 2 2 2 0 0 0 1 }3 3 0 -1 -1 -1 1 0 1 0 2 2 -1 1 }}
+{SECT 0 {PARA 200 "" 0 "" {TEXT 201 12 "Logique 1 TP" }}{SECT 0 {PARA 
+201 "" 0 "" {TEXT 202 15 "Initialisations" }}{SECT 0 {PARA 202 "" 0 "
+" {TEXT 203 33 "Initialisation de l'environnement" }}{EXCHG {PARA 200 
+"> " 0 "" {MPLTEXT 1 204 50 "restart:kernelopts(assertlevel=2):with(Ty
+peTools):" }}}}{SECT 0 {PARA 202 "" 0 "" {TEXT 203 67 "Cr\351ation des
+ types : symbole, connecteur=\{non,et,ou,impl,equi\}, fbf" }}{EXCHG 
+{PARA 200 "> " 0 "" {MPLTEXT 1 204 99 "AddType(connecteur,'\{identical
+(non),identical(et),identical(ou),identical(impl),identical(equi)\}');
+" }{MPLTEXT 1 204 49 "\nAddType(symbole,'And(symbol, Not(connecteur))'
+);" }{MPLTEXT 1 204 31 "\nAddType(ensSP,'set(symbole)');" }{MPLTEXT 1 
+204 19 "\nAddType(fbf,fbf?);" }}}}}{SECT 0 {PARA 201 "" 0 "" {TEXT 
+202 41 "Des exemples de fbf (formule bien form\351e)" }}{EXCHG {PARA 
+200 "> " 0 "" {MPLTEXT 1 204 58 "F1:=et(non(impl(a,ou(a,b))),non(non(e
+t(a,ou(b,non(c))))));" }{MPLTEXT 1 204 44 "\nF2:=et(impl(a,ou(a,b)),et
+(a,ou(b,non(c))));" }}{PARA 203 "" 1 "" {XPPMATH 20 "6#>%#F1G-%#etG6$-
+%$nonG6#-%%implG6$%\"aG-%#ouG6$F.%\"bG-F)6#-F)6#-F&6$F.-F06$F2-F)6#%\"
+cG" }{TEXT 20 1 " " }}{PARA 203 "" 1 "" {XPPMATH 20 "6#>%#F2G-%#etG6$-
+%%implG6$%\"aG-%#ouG6$F+%\"bG-F&6$F+-F-6$F/-%$nonG6#%\"cG" }{TEXT 20 
+1 " " }}}}{SECT 0 {PARA 201 "" 0 "" {TEXT 202 21 "Formule bien form
+\351e ?" }}{EXCHG {PARA 200 "> " 0 "" {MPLTEXT 1 204 23 "fbf?:=proc(f)
+::boolean;" }{MPLTEXT 1 204 32 "\nif nargs <> 1 then return false" }
+{MPLTEXT 1 204 26 "\nelif type(f,symbole) then" }{MPLTEXT 1 204 15 "\n
+  return true;" }{MPLTEXT 1 204 27 "\nelif type(f,function) then" }
+{MPLTEXT 1 204 56 "\n  if (nops(f)=1 and op(0,f)=non and fbf?(op(1,f))
+) then" }{MPLTEXT 1 204 17 "\n    return true;" }{MPLTEXT 1 204 93 "\n
+  elif (nops(f)=2 and op(0,f) in \{et,ou,impl,equi\} and fbf?(op(1,f))
+ and fbf?(op(2,f))) then" }{MPLTEXT 1 204 17 "\n    return true;" }
+{MPLTEXT 1 204 7 "\n  else" }{MPLTEXT 1 204 18 "\n    return false;" }
+{MPLTEXT 1 204 10 "\n  end if;" }{MPLTEXT 1 204 5 "\nelse" }{MPLTEXT 
+1 204 16 "\n  return false;" }{MPLTEXT 1 204 8 "\nend if;" }{MPLTEXT 
+1 204 10 "\nend proc:" }{MPLTEXT 1 204 1 "\n" }}}{EXCHG {PARA 200 "> \+
+" 0 "" {MPLTEXT 1 204 13 "type(F1,fbf);" }}{PARA 203 "" 1 "" {XPPMATH 
+20 "6#%%trueG" }{TEXT 20 1 " " }}}{EXCHG {PARA 200 "> " 0 "" {MPLTEXT 
+1 204 8 "fbf?(a);" }}{PARA 203 "" 1 "" {XPPMATH 20 "6#%%trueG" }{TEXT 
+20 1 " " }}}}}{MARK "0 0" 12 }{VIEWOPTS 1 1 0 1 1 1803 1 1 1 1 }
+{PAGENUMBERS 0 1 2 33 1 1 }

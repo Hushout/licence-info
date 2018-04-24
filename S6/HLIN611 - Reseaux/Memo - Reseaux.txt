@@ -1,0 +1,125 @@
+TP NOTÉ:
+
+La Notation prend en compte la bonne execution et la lisibilité du code.
+
+Les exercices necessiteront la maitrise des communications udp, tcp, et de la fonction getaddrinfo(...).
+
+Un makefile sera demandé pour chaque exercices.
+
+
+PROTOCOLE UDP: (SOCK_DGRAM en c)
+
+Orienté non connexion, envoie de données entre A et B unidirectionnel, le destinataire n'est pas prevenu de l'arrivée des données et aucun accusé de reception n'est effectué. Le destinataire ne peut connaitre que l'adresse ip de l'emetteur.
+
+PROTOCOLE TCP: (SOCK_STREAM en c)
+
+Orienté connexion, le destinataire est prevenu de l'arrivée des données et un accusé de reception est effectué à la bonne reception des données. si des données reçu sont corrompus, le destinataire peut demandé a l'emetteur de les renvoyer.
+
+ALLOCATION DES NUMÉROS DE PORT:
+
+Serveurs sshd 		=> port 22
+Serveurs httpd 		=> port 80
+Programme personnel => port >1024 (les autres sont déjà utilisé)
+
+SOCKETS:
+
+Un canal de communication en réseaux.
+
+			PF_INET		SOCK_DGRAM		0
+int socket(int domain, int type, int protocole); //-1 en cas d'erreur
+
+l'exemple ci-dessus crée un socket dans le domaine Ipv4, de type datagramme, avec le protocole par default, UDP.
+
+		DESCRIPTEUR SOCKETS 	POINTEUR VERS L'ADRESSE 	LONGUEUR DE L'ADRESSE
+int bind(int descripteur, const struct sockaddr *adresse, socklen_t lgAdr);
+ 
+type generique d'adresse:
+
+struct sockaddr {
+	sa_family_t sa_family; 	//famille d'adresse AF_xxx
+	char sa_data[14]; 		//14 octets pour l'IP + port
+}
+
+Si PF_INET alors struct sockaddr_in : une adresse IPv4 et un port
+Si PF_INET6 alors struct sockaddr_in6 : une adresse IPv6 et un port
+
+struct sockaddr_in {
+	sa_family_t sin_family; 	//famille d'adresse AF_INET
+	in_port sin_port; 			//numéro de port au format réseau
+	struct in_addr sin_addr;	//structure d'adresse IP
+}
+
+struct in_addr {
+	uint32_t s_addr; //adresse ip au format réseau
+}
+
+L'ip et le numéro de port sont au format réseau, les entiers sont au format hôte
+une conversion est necessaire (ntohs(), htons(), ntohl(), htonl())
+
+int dSock = socket(PF_INET, SOCK_STREAM, 0);
+
+struct sockaddr_in ad;
+ad.sin_family = AF_INET;
+ad.sin_addr.s_addr = INADDR_ANY;
+ad.sin_port = htons((short)31470);
+
+int res = bind(dSock, (struct sockaddr*)&ad, sizeof(ad));
+
+Le code ci-dessus attache la socket à toutes les interfaces réseaux locales via le port 31470.
+
+fermeture:
+
+int close(int descripteur);
+int shutdown(int descripteur, int comment);
+
+comment = SHUT_WR => arret emmision;
+comment = SHUT_RDWR => arret emmision et reception;
+
+COMMUNICATION UDP:
+
+ssize_t recvfrom(int descripteur, 				//descripteur de socket
+				 const void *msg, 				//pointeur pour stocker le msg reçu
+				 size_t lg, 					//nombre max d'octets attendu
+				 int flags, 					//option de réceptions 0 par defaut
+				 const struct sockaddr *adrExp, //pointeur vers l'adresse de l'expediteur
+				 sockelen_t *lgAdr);			//longueur de l'adresse
+
+ssize_t sendto(int descripteur, 				//descripteur de socket
+			   const void *msg, 				//pointeur vers le msg à envoyer
+			   size_t lg, 						//nombre d'octets du msg
+			   int flags, 						//option d'envoi 0 par defaut
+			   const struct sockaddr *adrExp, 	//pointeur vers l'adresse du destinataire
+			   sockelen_t *lgAdr);				//longueur de l'adresse
+
+COMMUNICATION TCP:
+
+Passer la socket en mode attente de connexion (serveur):
+
+int listen(int descripteur, int nbMaxEnAttente); //nombre max de connexion en attente.
+
+Demander la connexion a un serveur:
+
+int connect(int descr, const struct sockaddr *adServ, socklen_t lgAdr);
+
+Exemple:
+
+struct sockaddr_in adServ; 
+
+adServ.sin_family = AF INET;
+adServ.sin_port = htons(34567);
+
+int res = inet_pton(AF INET, ”197.50.51.10”, &(adServ.sin_addr));
+socklen t lgA = sizeof(struct sockaddr_in);
+
+res = connect(dS, (struct sockaddr *)&adServ, lgA);
+
+Envoie une demande de connexion de la socket du clien dS au serveur, via la socket du serveur dont l'IP est 197.50.51.10 et le numéro de port 34567.
+
+Accepter une demande de connexion d'un client:
+
+int accept(int descr, struct sockaddr *adrClient, socklen_t lgAdr);
+
+Recevoir/Envoyer un message tcp:
+
+ssize_t recv(int descripteur, const void *msg, size_t lg, int flags);
+ssize_t send(int descripteur, const void *msg, size_t lg, int flags);

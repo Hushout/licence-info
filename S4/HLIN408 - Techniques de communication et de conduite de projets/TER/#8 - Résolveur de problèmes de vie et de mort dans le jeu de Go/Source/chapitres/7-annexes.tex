@@ -1,0 +1,92 @@
+\chapter{Annexes}\label{chap:annexes}
+    \section{Implémentation de la partie graphique}
+        \paragraph{}Pour implémenter une fenêtre de jeu, il fallait répondre au problèmes suivant :\\
+        Avoir un objet qui représente :
+        
+        \begin{itemize}
+            \item une intersection dans un goban.
+            \item un goban.
+            \item les informations de la partie.
+            \item la fenêtre de jeu.
+        \end{itemize}
+        
+        \subsection{Le Jeu}
+            \subsubsection{L'intersection}
+                \paragraph{}Pour répondre à ce problème nous avons implémenter une classe nommée : "Square".\\
+                Cette objet hérite de la classe SFML "drawable" afin d'être "dessinable". 
+                Un objet square représente une intersection. Nous avons donc un couple de deux entiers pour les coordonnées (constante). Une valeur (Black, white ou None) pour savoir quoi afficher. 
+                
+    	        \paragraph{}Enfin en attribut de classe, en variable static, les sf::textures\^1 d'images à afficher (pierre noir ou blanche). \\
+    	        On remarquera que les coordonnées n'apparaissent pas dans les attributs de la classe Square tout simplement car elles sont inutiles. En fait l'objet sf::sprite\^2 qui dessinera la pierre ou rien, contient déjà des coordonnées (relative à la fenêtre). \\
+    	        De plus, pour la méthode "draw", qui est définis plus haut dans la hiérarchie (dans Drawable), sera virtuelle pour pouvoir être remplacée par celle définie dans Square.
+    	        
+    	   \subsubsection{Le Goban}
+                \paragraph{}La classe Board, qui hérite aussi de drawable, représente un goban. Elle a donc comme attribut un objet Goban afin de manipuler toute les méthodes liées aux règles, à la recherche de groupes et à leurs manipulations.
+                
+    	        \paragraph{}Pour ce qui concerne l'affichage, nous aurons aussi en attribut un tableau d'objets "square" (qui sera dynamique). Une image, pour représenter graphiquement le goban. Un objet sf::view\^3 afin de pouvoir zoomer sur une partie du goban. 
+    	        
+    	        \paragraph{}Enfin, quatre variables pour les effets sonores, eux aussi présents dans la bibliothèque SFML.\\
+                Un sf::SoundBuffer\^4 et un sf::Sound\^5 pour chaque son. Un lors de la pose d'une pierre, l'autre lors de la capture d'un groupe. 
+                
+                \paragraph{}Cet objet doit pouvoir interagir avec l'utilisateur. Poser des pierres dans le respect des règles du jeu. Pour se faire nous utilisons une méthode "click" qui vérifiera que le bouton pressé est bien le gauche grâce à la variable "event" de type "sf::Mouse::Button"\^6. Ensuite, on vérifie que les coordonnées du pointeur sont bien dans la zone de jeu et valide. Enfin on pose la pierre dans le goban en relançant la méthode de recherche de groupe pour mettre à jour les groupes. On joue un son lors de la pose, un autre si un groupe est éliminé. Enfin on applique la méthode load qui va convertir le goban en tableau de square afin de dessiner le nouveau goban.
+                
+            \subsubsection{Les Informations}
+                \paragraph{}La classe infos nous permet d'afficher les informations sur la partie en cours : le joueur actuel (blanc ou noir) et le temps de jeu pris pour chaque joueur. 
+                
+    	        \paragraph{} Pour le temps nous utilisons une autre classe nommée "Timer" qui hérite des classes SFML, sf::Clock et sf::Text. Les attributs sont naturellement, un objet sf::Time, un "sf::Font" pour charger une police d'écriture et un booléen pour savoir si le temps est en "pause" ou non. Pour les mêmes raison que les objets square, lors de l'affichage du temps, on utilise un objet sf::Text qui à une position, une sf::Color\^7, une taille de caractère etc.. Il suffit donc de les définir lors de l'appel du constructeur.
+    	
+    	        
+    	        \paragraph{} Nous dessinons donc chaque temps (blanc et noir) et à chaque changement de joueurs la méthode "pause()" est appelée. La méthode "setCurPlayer" permet en passant en paramètre la Square::Value (blanc ou noir) de savoir quel joueur doit jouer.
+    	        
+    	   \subsubsection{La fenêtre de Jeu}
+                \paragraph{}La classe Game\_Window qui hérite de Screen, va avoir le rôle de chef d'orchestre lors du lancement d'une partie de Go. Elle a comme attribut une board, un infos et une value car a la valeur du joueur courant.
+                
+    	        \paragraph{}Quelques mots sur la classe "Screen". Elle hérite de "sf::Drawable". On y retrouve deux méthodes virtuelles publics : "draw", pour que tout ce qui hérite de "Screen" puisse redéfinir cette méthode (tout comme dans square). Et "Run", ce sera la méthode qui sera utiliser pour gérer les intersections et les évènements courants (un clique, un appuie sur un touche du clavier, etc..). Cette méthode retourne un "Screens". C'est une information afin de pouvoir gérer les différente fenêtre.
+    	        
+    	        \paragraph{}Dans Game\_Window nous retrouverons donc la méthode "Run", qui va s'occuper d'aiguiller les évènements à l'aide d'un "switch". Pour ce qui concerne le clique on va appeler la méthode "click". Elle fera un bref appel à la méthode "click" définie dans la classe board en transmettant les données, tel que la position et le joueur actuel qui sera modifiée lors de cette exécution. Bien évidemment, la méthode click de board étant un booléen, il sera utilisé pour le changement de tour du joueur (si le clique était autre chose que poser une pierre). Pour les évènements clavier on appel la fonction "keyPressed", qui en fonction de la touche exécutera une action, par exemple un "ctrl+Z" retire le coup qui vient d'être joué un "Escape" mets en pause le jeu et ouvre le menu de pause (nous expliquerons son fonctionnement plus tard).
+        
+        
+        \subsection{Les menus}
+            \paragraph{}Pour implémenter les menus nous avions besoin d'une image de fond et de plusieurs boutons afin de pouvoir naviguer parmi différentes fenêtres comme le jeu, les problèmes, les options...\\
+            Pour y répondre nous avons créé deux classes. Une étant le menu "Menu" lui même et une autre gérant les boutons : "Choice".
+            
+            \subsubsection{Le Menu}
+                \paragraph{}La classe "Menu" qui hérite de screen (vu précédemment) à pour attributs une sf::Texture qui sera la texture de l'arrière plan. Un sf::Sprite pour dessiner à l'aide de la méthode "draw" la texture. Enfin une variable de type Screens (énumération). On note aussi la présence de deux attributs accessibles par la classe et tout ses héritiers (protected), ce sont les objets "Choice" du menu, rassemblés dans un vecteur et un pointeur pour le Choice courant. Pour les méthodes, draw, Run, click auront les mêmes logiques que précédemment. 
+                
+    	        \paragraph{} Une méthode addItem est présente, elle prend en paramètre un objet Choice qui sera ajouté au vecteur. D'ailleurs la présence de std::reference\_wrapper" permet d'insérer les éléments par référence dans le "conteneur" ici le vecteur. 
+    	       
+    	   \subsubsection{Les Boutons}
+                \paragraph{}La classe "Choice qui hérite de sf::Drawable aura comme attributs tout ce qui est nécessaire pour afficher un bouton (deux pointeurs sf::Texture et deux sf::Sprite). Pourquoi deux pointeurs sf::Texture ? Tout simplement car nous voulions afficher une image différente lors de la sélection d'un bouton (ici ce sera un léger liseré noir qui entourera le bouton). \\
+                Pour savoir si ce dernier est sélectionné, nous avons un booléen "selected" pour renseigner cette information. 
+                
+    	        \paragraph{}Enfin, nous trouverons l'attribut sf::Text pour afficher le nom du bouton. Mais que fait ce bouton ? il y a un attribut "std::function<....". En fait c'est cette fonction (appelée lambda fonction) qui s'exécutera. Elle renvoi un entier, plus précisément un "Screens".
+    
+    	   \subsubsection{Les menus spéciaux}
+                \paragraph{}Ces deux classes héritent de la classe "Menu". Ce choix particulier de créer deux autres classes de menus réponds à une vision des choses. Nous nous sommes posés la question : Vaut-il mieux instancier chaque images pour chaque boutons ou bien créer des menus avec des boutons identiques ? Pour nous, un menu affiche une ensemble de choix (les choices). Ces choix sont graphiquement identiques : même taille pour les boutons, une image et une sélection unique pour chaque bouton. \\
+                Ayant le menu "Problème" qui devait contenir des choix graphiquement différents des autres menus nous avons donc créé une autre classe de menus. 
+                
+    	        \paragraph{}Leurs fonctionnements techniques sont identiques à ceux de leur père, menu. Cependant menu\_miniature est plus léger en termes de variables. Par exemple, il n'y a pas de "sf::Text" car chaque bouton affiche des images de problèmes à charger, l'utilité d'un texte était donc superflu. 
+    	       
+    	   \subsubsection{Les boutons spéciaux}
+                \paragraph{}Ces deux classes héritent de Choice, comme nous l'avons expliqué pour la partie précédente le choice\_miniature (qui concerne le menu "problème") contiendra une référence de "sf::Texture" pour chaque image de problèmes à dessiner. L'autre classe, choice\_simple contiendra un sf::Text et un sf::Font en plus des attributs de la classe mère (même image pour tout les boutons).
+        
+        
+        \subsection{Le Programme Principal}
+            \subsubsection{}
+                \paragraph{}Le programme principal (le main) doit gérer toutes les fenêtres de notre programme. On remarquera la présence d'une macro qui active le multi-threading. Nous nous intéresserons plus particulièrement à la fonction "renderingThread" qui va gérer les différents "screens" en fonction de ce que demande l'utilisateur. Ceci est géré grâce a un "while" qui vérifie que la fenêtre courante est différente de l'appel de fermeture. Toute les fenêtres seront présentes dans un "std::vector" d'objet "Screen" vu dans la partie I. Ajoutons que ces menus seront dessinés en effaçant la fenêtre courante à l'aide de la méthode ".clear" sur l'objet window qui est de type "sf::RenderWindow". Ensuite avec la méthode "draw" nous dessinerons la nouvelle fenêtre.
+                
+                \paragraph{}Pour plus de clarté nous avons séparé la gestion de ces menus avec leurs déclarations qui est décrite dans un objet "go\_solver". Cet objet contient donc comme attributs un "std::vector" de pointeur sur des screens, un "Screens" pour savoir quel est la fenêtre courante.\\
+                Un "std::vector" pour la musique, si nous avons plusieurs piste par exemple. Une musique courante aussi. Une fenêtre de jeu spécifique à l'objet Game\_window" que nous avons vu qui sera appelée en cas de début de jeu. Enfin un "std::thread" pour le lancement du tsumego automatique afin de pouvoir interagir dans le programme pendant que le traitement s'effectue (qui peu être assez long).\\
+                Cela permet entre autre, de fermer les programmes "proprement" à partir des boutons dédiés. \\
+                La variable "target\_tsumego" permet de renseigner les informations concernant la cible à tuer (plus de précision sur la partie tsumego).
+        
+        \subsection{Glossaire}
+            \begin{enumerate}
+                \item Une texture est un objet qui réfère à une image.
+                \item Une sprite est un objet qui est dessinable.
+                \item Une view et une vue.
+                \item SoundBuffer est un objet de la classe SFML.
+                \item Sound aussi 
+                \item Énumération dans SFML des évènement de souris.
+                \item Ce type présent dans la SFML utilise une méthode qui n'a pas la même écriture sur Linux et sur Windows, d'où la présence d'une macro définissant setFillColor en setColor si nous somme sur Windows. 
+            \end{enumerate}

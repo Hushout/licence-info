@@ -1,0 +1,59 @@
+Bienvenue dans l'aide du jeu du 1010 
+
+
+Principe du jeu:
+
+ Le jeu se déroule dans une matrice 10x10.
+ Gagnez le plus de point en formant des colonnes et lignes (10 cases)
+ avec les pieces proposées.
+ Les pieces ne peuvent pas se chevaucher.
+ Les colonnes et lignes formées disparaissent. 
+ Eliminer plusieur lignes et/ou colonnes en meme temps rapporte plus de points.
+ La partie se termine s'il n'est plus possible de placer de pièces.
+ 
+
+
+Commande:
+
+ Tab: Change de piece.
+ Entrer: Positionne la piece.
+ Fleche directionelle: deplace la piece.
+ a: Reviens une action en arrière. 
+ q: quitte la partie. 
+
+
+ 
+Plus d'options:
+
+ -nom / -name / -n : pour afficher le nom des auteurs
+ -v / -version : affiche la version du jeu. 
+ -help : affiche l'aide du jeu
+ -f NomFichier : Lance le jeu avec le set de piece définie dans le fichier
+                      NomFichier 
+
+
+
+Formalisme des fichiers pieces:
+ Les pieces sont représentées par une suite de chiffres chacun sépares par
+ Un espace et/ou un retour a la ligne. 
+ Les chiffres de 1 à 6 indiquent la couleur de la piece. 
+ Un zero indique un espace vide.
+ Les chiffres/zeros doivent former un rectangle ou un carré.
+ Les différentes pièces s'écrivent en colonne et sont séparees par un '-'. 
+ Le fichier doit ce terminer par un '-' final.
+ 
+  Exemple:
+  
+    1 1 1 => forme une barre honrizontale de 3 cases. 
+    -     => indique que l'on passe a une nouvelle piece
+    1 0
+    1 0   => forme un L.
+    1 1   
+    -     => indique la fin du fichier.
+
+
+A savoir: 
+ Les scores sont sauvegardés dans le fichier 'score.txt' uniquement si le
+ joueur atteind le GAME OVER.
+ Le set de base de piece chargés par default est dans le fichier 'piece.txt'
+
