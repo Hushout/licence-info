@@ -130,7 +130,6 @@ Recevoir/Envoyer un message tcp:
 ssize_t recv(int descripteur, const void *msg, size_t lg, int flags);
 ssize_t send(int descripteur, const void *msg, size_t lg, int flags);
 
-
 ADRESSES ET NOM D'HOTE:
 
 #include <string.h>
@@ -138,6 +137,7 @@ ADRESSES ET NOM D'HOTE:
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <netinet/in.h>
 #include <netdb.h>
 
 La structure suivante représente le liens entre une adresse et un nom d'hote.
