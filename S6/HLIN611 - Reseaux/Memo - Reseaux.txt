@@ -1,3 +1,7 @@
+LIENS UTILES:
+
+https://github.com/angrave/SystemProgramming/wiki
+
 TP NOTÉ:
 
 La Notation prend en compte la bonne execution et la lisibilité du code.
@@ -5,7 +9,6 @@ La Notation prend en compte la bonne execution et la lisibilité du code.
 Les exercices necessiteront la maitrise des communications udp, tcp, et de la fonction getaddrinfo(...).
 
 Un makefile sera demandé pour chaque exercices.
-
 
 PROTOCOLE UDP: (SOCK_DGRAM en c)
 
@@ -55,6 +58,9 @@ struct in_addr {
 
 L'ip et le numéro de port sont au format réseau, les entiers sont au format hôte
 une conversion est necessaire (ntohs(), htons(), ntohl(), htonl())
+
+la fonction ci-dessous permet de reutiliser le port directement après la fin du programme.
+setsockopt(sfd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof(optval));
 
 int dSock = socket(PF_INET, SOCK_STREAM, 0);
 
@@ -123,3 +129,45 @@ Recevoir/Envoyer un message tcp:
 
 ssize_t recv(int descripteur, const void *msg, size_t lg, int flags);
 ssize_t send(int descripteur, const void *msg, size_t lg, int flags);
+
+
+ADRESSES ET NOM D'HOTE:
+
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+
+La structure suivante représente le liens entre une adresse et un nom d'hote.
+
+struct addrinfo {
+    int              ai_flags;
+    int              ai_family;		//Famille d'adresse préféré (IPv4/IPv6)
+    int              ai_socktype;	//Type de socket préféré
+    int              ai_protocol;	//Protocol des adresse de socket renvoyé (0 = tout)
+    socklen_t        ai_addrlen;	//Longueur de l'adresse
+    struct sockaddr *ai_addr;		//Addresse correspondante
+    char            *ai_canonname;	//Nom canonique
+    struct addrinfo *ai_next;		//La structure peut former une liste chainée
+};
+
+La fonction suivante convertie un nom d'hote ou une adresse IP sous forme de chaine de charactère, en une list chainée de addrinfo.
+
+int getaddrinfo(const char *node,
+                const char *service,
+                const struct addrinfo *hints,
+                struct addrinfo **res);
+
+void freeaddrinfo(struct addrinfo *res);
+
+La fonction suivante fais l'inverse, elle convertie la representation binaire d'une addresse en un nom d'hote ou en une addresse IP textuel si aucun nom n'est trouvé.
+
+int getnameinfo(const struct sockaddr *sa, socklen_t salen,
+                char *host, size_t hostlen,
+                char *serv, size_t servlen,
+                int flags);
+
+
+
