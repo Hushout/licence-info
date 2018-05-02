@@ -42,8 +42,8 @@ int main(int argc, char const *argv[])
 	CHECK_FD(sock_fd)
 
 	//Permet de réutilliser le port directement après la fin du programme
-    int optval = 1;
-   	setsockopt(sock_fd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof(optval));
+    //int optval = 1;
+   	//setsockopt(sock_fd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof(optval));
 
    	char address[256] = "";
    	//Convertion de l'adresse IP en chaine de charactère.

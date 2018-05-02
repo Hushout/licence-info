@@ -42,8 +42,8 @@ int main(int argc, char const *argv[])
 	CHECK_ERROR(error)
 
 	//Permet de réutilliser le port directement après la fin du programme
-    int optval = 1;
-    setsockopt(sock_fd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof(optval));
+    //int optval = 1;
+    //setsockopt(sock_fd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof(optval));
 
 	error = bind(sock_fd, (struct sockaddr*)&dest_adr, sizeof(dest_adr));
 	CHECK_ERROR(error)
