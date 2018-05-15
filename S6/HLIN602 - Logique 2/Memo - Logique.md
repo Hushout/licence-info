@@ -63,11 +63,41 @@ H1 ^ ... ^ Hk ^ !C insatisfiable
 
 # EVALUATION DE FORMULES
 
-**ASSIGNATION**
+On considère un langage du premier ordre contenant: 
 
-Donnez la valeur d'unr formule selon une interpretation I
+un prédicat binaire p
+un prédicat unaire q 
+un symbole de fonction unaire f. 
 
-val(F, I) = ...
+On considère l’interprétation suivante I sur ce langage :
+
+**Domaine d'interpretation:**
+
+DI = {d1, d2, d3} (Domaine d'interpretation)
+
+**Iterpretation:**
+
+I(p) = {(d1, d2), (d1, d3), (d2, d3), (d3 , d3)} ()
+I(q) = {d2, d3}
+I(f) = {d1 |---> d2, d2 |---> d3, d3 |---> d1}
+
+(Si les valeurs entrente de p, q, f sont dans leur ensemble I(p), I(q), I(f) alors p, q, f sont vrai avec ces valeurs avec f qui renvoi en plus une autre donnée).
+
+**On va maintenant d'evaluer les formules suivantes avec cette interpretation:**
+
+F1 = ∀x ∃y (p(x, y) ∧ q(y))
+F2 = ∀x ∀y (p(x, y) → q(y))
+F3 = ∀x ∀y (¬p(x, y) → ¬q(y))
+F4 = (∀x ∀y p(x, y)) → ∀y q(y)
+F5 = ∀x (q(x) → ∃y p(x, y))
+F6 = ∀x (q(x) → p(x, f (x))).
+
+F1 : val(F1, I) = vrai
+F2 : val(F2, I) = vrai
+F3 : val(F3, I) = faux, avec (x <- d2, y <- d2), on a ¬p(d2, d2) → ¬q(d2) <=> vrai → faux, ce qui est faux
+F4 : val(F4, I) = vrai, (car val(∀x ∀y p(x, y), I) = faux)
+F5 : val(F5, I) = vrai
+F6 : val(F6, I) = faux, avec (x <- d3)
 
 # FORMALISATION EN LOGIQUE
 
@@ -143,5 +173,66 @@ Donc Vd € D, Ed' € D tel que val(p(u, v) ^ r(u, v), I, [u <- d, v <- d']) = 
 
 Donc val(B, I) = vrai. I est donc un modèle de F.
 
-## THEORIE DES MODELES
+# CONSEQUENCE LOGIQUE
 
+Les deux formules suivantes sont-elles équivalentes ?
+
+F1 = ∀x (p(x) ∨ q(x))
+F2 = ∀x p(x) ∨ ∀x q(x)
+
+On a F1 eq F2 quand F1 |= F2 et F2 |= F1, soit F1 => F2 ^ F2 => F1 valide
+
+On peut essayer de verifier ça en definissant un Interpretation sur un domaine
+
+D = {d1, d2}
+
+I(p) = {d1}
+I(q) = {d2}
+
+F1 => F2 n'est pas valide donc on n'a pas F1 |= F2, donc F1 et F2 ne sont pas equivalente
+
+# FORME PRENEXE
+
+Une fbf est sous forme prénexe lorqu'elle s'écrit quand tout les quantificateurs sont avant la fbf
+
+Exemple:
+
+Vx Vy Ez (fbf)
+
+# FORME CLAUSALE
+
+Pour mettre sous forme clausale on met d'abord sous forme prenexe et on essaie ensuite d'enlever les "∃" (Il existe).
+
+On ne pourra pas toujours mettre une fbf sous une forme clausale équivalente
+
+**SKOLEMISATION**
+
+La Skolemisation est le procédé qui permet de mettre sous forme clausale sans les "∃" une fbf fermée.
+
+1. Mettre F sous forme prénexe
+2. distribuer les ^ et les v en conjonction de clauses
+3. On remplace les "∃x" par des fonctions de Skolem
+
+Exemple:
+
+Soit la fbf suivante prénexe sous forme de conjonction de disjonctions:
+
+F = ∃u∀v∀x∀y∃z[(p(x, y) ∨ r(x, z)) ∧ (p(x, y) ∨ r(z, y)) ∧ ¬p(u, v) ∧ ¬r(u, v)]
+
+On va remplacer les ∃ par des fonctions de Skolem.
+
+Comme ∃u n'est pas precedé par des "∀" on le remplacera par la constante a
+Comme ∃z est après ∀v∀x∀y on le remplacera par la fonction f(v, x, y)
+
+la formule resultante est la suivante:
+
+∀v∀x∀y[(p(x, y) ∨ r(x, f(v, x, y)) ∧ (p(x, y) ∨ r(f(v, x, y), y)) ∧ ¬p(a, v) ∧ ¬r(a, v)]
+
+On obtient donc les clauses:
+
+C1 = p(x, y) ∨ r(x, f(v, x, y))
+C2 = p(x, y) ∨ r(f(v, x, y), y)
+C3 = ¬p(a, v)
+C4 = ¬r(a, v)
+
+**UNIFICATION**
