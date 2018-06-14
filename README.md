@@ -1,6 +1,6 @@
 # Licence Informatique
 
-Une compilation de cours magistraux, TPs et TDs des licence 2 et licence 3 d'informatique à la Faculté des Sciences de Montpellier.
+Une compilation des cours magistraux, TPs et TDs des licence 2 et 3 d'informatique de Faculté des Sciences de Montpellier.
 
 # Licence 2
 
@@ -18,7 +18,7 @@ Une compilation de cours magistraux, TPs et TDs des licence 2 et licence 3 d'inf
 - HLIN401 - Algorithme et complexite
 - HLIN402 - Logique
 - HLIN403 - Programmation applicative
-- HLIN405 - Projet TER
+- HLIN405 - TER
 - HLIN406 - Modelisation et programmation objet
 - HLIN408 - Techniques de communication et de conduite de projets
 
