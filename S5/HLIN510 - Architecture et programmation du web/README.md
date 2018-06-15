@@ -2,36 +2,43 @@
 
 ### GENERAL
 
+**Chaines de charactères:**
+
 "$var" analyse si une variable est dans la chaine, contrairement à '$var' qui est plus rapide par contre, un alternative est : '' . $var . ''
 
 **Afficher bien les tableaux :**
-for($i = 0 ; $i < 100 ; $i++)
-foreach($tableau as $element)
-foreach($map as $key => $element)
+```php
+for($i = 0 ; $i < 100 ; $i++){}
+foreach($tableau as $element){}
+foreach($map as $key => $element){}
 echo '<pre>';
 print_r($coordonnees);
 echo '</pre>';
-
+```
 **utile avec les tableaux:**
+```php
 array_key_exists('cle', $array) => verify si la clef existe
 in_array('val', $array) 		=> verify si la valeur existe
 array_search('val', $array) 	=> recupere la clé d'une valeur sinon faux
-
+```
 **Envoie de lien url:**
+```
 <a href = "index.php?nom=boby&amp;prenom=josé">Envoyer</a>
 (ne pas depasser 256 caractères sinon bug donc faire attention a get)
+```
 
 **Formulaire:**
+```
 <form method="post/get" action="cible.php"></form>
 get 	=> données envoyées par url recuperer avec $_GET (< 256 caractères)
 post 	=> données non envoyées par url recuperer avec $_POST
-
+```
 **Injection html/javascript:**
-la commande suivante empeche le navigateur d'interpreter le code html
+La commande suivante empeche le navigateur d'interpreter le code html
 ```php
 htmlspecialchars($_POST['prenom']);
 ```
-celle-ci les retire totalement
+Celle-ci les retire totalement
 ```php
 strip_tags($_POST['prenom']);
 ```
