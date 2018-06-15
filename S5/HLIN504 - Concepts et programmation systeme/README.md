@@ -26,20 +26,25 @@ gechar() => attend de lire un char sur stdin
 fopen(const char* chemin, const char* mode); => ouvre un fichire 
 ```
 Mode:
+```
 r 	=> lecture seule
 w 	=> ecriture seule
 a 	=> ajout a la fin
 rb+ => ecriture lecture dans un fichier existant en binaire)
-
+```
 **Processus:**
 
-fork() => -1 si erreur / 0 si dans process fils / pid fils si dans pere:
+fork() 	=> -1 si erreur 
+		=> 0 si dans process fils
+		=> pid fils si dans pere
+
 - alloue block controle dans table process
 - copie processe present dans fils sauf pid et ppid
 - alloue pid au fils
 - associe segment données pile au fils
 - mise du processus en execution
 
+```
 getpid() 			=> renvoie pid processus appelant
 getppid() 			=> renvoie pid parent
 exit(int status)	=> termine le programme
@@ -47,6 +52,7 @@ assert(bool) 		=> avorter le programme
 
 atexit(*function) 	=> execute fonction a la fin
 on_exit(*function) 	=> same
+```
 
 **differences thread et fork:**
 
@@ -63,6 +69,7 @@ thread pere tuer alors tous thread fils aussi, les fork non
 
 # PRINTF
 
+```
 p => adresse pointeur 
 e => scientific notation (E uppercase)
 o => unsigned octal
@@ -77,7 +84,8 @@ a => hexadecimal floating point (A uppercase)
 0 			=> rempli la zone formatter avec des zeros
 .(number) 	=> precision
 * 			=> permet de mettre un paramètre un nombre 
-
+```
+**Exemple:**
 ```c
 printf("%.*f", 3, 3.23);
 ```
@@ -113,10 +121,12 @@ int execve(const char *filename, char *const argv[], char *const envp[]);
 ```
 execve est un appel système à la base des fonctions suivantes:
 
+```
 exec + l => argument sous forme de liste
 exec + v => arg sous forme de tableau
 exec + p => fichier a executer rechercher avec variable PATH
 exec + e => nouvel environnement transmis au processus fils
+```
 
 # GESTION DES FICHIER
 
@@ -138,9 +148,10 @@ struct stat
 	time_t st_ctime; /* Heure dernier changement état*/
 };
 ```
-
+```
 trouver type fichier 	=> st_mode & S_IFMT == (S_IFREG, S_IFDIR, S_IFLNK)
 trouver droit fichier 	=> st_mode & (S_IRUSR, S_IWGRP, S_IXOTH) 
+```
 
 ```c
 struct dirent
