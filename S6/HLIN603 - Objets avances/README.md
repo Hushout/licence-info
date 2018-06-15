@@ -13,7 +13,7 @@ rlwrap ocaml => permet d'enregistrer les dernières commandes taper dans ocaml
 ### Basics:
 
 | Type | Opérations |
----------------------
+|------|------------|
 | int | +, -, *, /, mod, abs |
 | float | +., -., *., /., **, sqrt, exp, log, cos, sin, tan |
 | bool | not, &&, ```||```, =, <>, <, >, <=, >=, ==, != |
@@ -25,11 +25,11 @@ rlwrap ocaml => permet d'enregistrer les dernières commandes taper dans ocaml
 let succ = (fun x -> x + 1);;
 
 for i = 1 to 10 do
-	(*...)
+	(*...*)
 done;;
 
 while condition do
-	(*...)
+	(*...*)
 done;;
 ```
 ### Recursif:
