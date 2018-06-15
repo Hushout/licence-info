@@ -1,5 +1,6 @@
 # LES TYPES EN C
 
+```
 char:
 -128 / +127
 '0' = 48, 'A' = 65, 'a' = 97 (toupper = c - 32, tollower = c + 32)
@@ -10,11 +11,11 @@ complement à 2
 
 float:
 1 bit sur poid fort
-
+```
 # COMMANDES UTILES
 
-pwd -> print work directory
-touch "mon ficher" -> creer un nouveau fichier
+pwd 			=> print work directory
+touch "ficher" 	=> creer un nouveau fichier
 
 # FONCTION C UTILES
 
