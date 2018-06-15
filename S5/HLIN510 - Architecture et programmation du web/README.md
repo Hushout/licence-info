@@ -147,25 +147,25 @@ header('Location: minichat.php');
 
 **Body:**
 ```
-onLoad 		=> chargement de la page
-onUnLoad	=> dechargement de la page
+onLoad      => chargement de la page
+onUnLoad    => dechargement de la page
 ```
 **Input/button:**
 ```
-onClick 	=> clic souris
+onClick     => clic souris
 ```
 **Select:**
 ```
-onChange 	=> modification objet
+onChange    => modification objet
 ```
 **General:**
 ```
 onMouseOver => quand souris rentre
-onMouseOut 	=> quand souris sort
+onMouseOut  => quand souris sort
 ```
 **Form:**
 ```
-onSubmit 	=> a l'envoe
+onSubmit    => à l'envoie
 ```
 
 **Fenetre:**
@@ -193,7 +193,7 @@ setTimeout('maFonction()', 3000); //=> en ms
 ```
 text to number 	=> parsInt("text"); parsInt('text', base number)
 number to text 	=> int1 + '' + int2;
-=== 			=> regarder l'egalité avec en plus l'égalité de type ! 
+===             => regarder l'egalité avec en plus l'égalité de type ! 
 ```
 
 ## TYPES
@@ -319,15 +319,15 @@ $(function(){
 	// entrer le code JQUERY ici
 });
 
-$() 		 		//=> $(document) identiques
-$(*) 		 		//=> toutes les balises du document
-$(selecteur) 		//=> selectionne un element de la page (.class, ##id, h2)
-$(selecteur).val() 	//=> lit la valeur de la selection (text)
-$('balise[class="maclasse"]') 	//=> balise possedant un classe 'maclasse'
-$('balise:even') 				//=> selection les balises d'index pair
-$('balise:eq(i)') 				//=> selection la balise d'index i
-$('balise:gt(i)') 				//=> selection les balises apres l'index i
-$('balise:lt(i)') 				//=> selection les balises avant l'index i
+$()                 //=> $(document) identiques
+$(*)                //=> toutes les balises du document
+$(selecteur)        //=> selectionne un element de la page (.class, ##id, h2)
+$(selecteur).val()  //=> lit la valeur de la selection (text)
+$('balise[class="maclasse"]')   //=> balise possedant un classe 'maclasse'
+$('balise:even')                //=> selection les balises d'index pair
+$('balise:eq(i)')               //=> selection la balise d'index i
+$('balise:gt(i)')               //=> selection les balises apres l'index i
+$('balise:lt(i)')               //=> selection les balises avant l'index i
 $('balise').each(function(index){...}}]); //=> parcours les fils de l'element
 ```
 ## EVENEMENTS
