@@ -2,17 +2,18 @@
 
 ## Compilation:
 
-rlwrap ocaml => permet d'enregistrer les dernières commandes taper dans ocaml
-
 ocamlc fichier.ml -o sortie => compiler un fichier ml
 
 use "fichier.ml" => inclus le fichier à l'interpreteur
 
 Ctrl-D => termine l'interpreteur ocaml (exit 0;; egalement)
 
+rlwrap ocaml => permet d'enregistrer les dernières commandes taper dans ocaml
+
 ## Basics:
 
 Type | Opérations | Modules
+----------------------------
 int | +, -, *, /, mod, abs |
 float | +., -., *., /., **, sqrt, exp, log, cos, sin, tan |
 bool | not, &&, ||, =, <>, <, >, <=, >=, ==, != |
