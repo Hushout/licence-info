@@ -1,6 +1,6 @@
 # Licence Informatique
 
-Une compilation de TDs, TPs, cours magistraux, annales d'examens et mémos pour les licence 2 et 3 d'informatique qui sont proposées à la Faculté des Sciences de Montpellier.
+Une compilation de TDs, TPs, cours magistraux, annales d'examens et mémos pour les licence 2 et 3 d'informatique proposées à la Faculté des Sciences de Montpellier.
 
 # Licence 2
 
