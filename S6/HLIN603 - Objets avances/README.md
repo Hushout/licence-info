@@ -16,7 +16,7 @@ rlwrap ocaml => permet d'enregistrer les dernières commandes taper dans ocaml
 |------|------------|
 | int | +, -, *, /, mod, abs |
 | float | +., -., *., /., **, sqrt, exp, log, cos, sin, tan |
-| bool | not, &&, ||, =, <>, <, >, <=, >=, ==, != |
+| bool | not, &&, \|\|, =, <>, <, >, <=, >=, ==, != |
 | char | int_of_char, char_of_int |
 | string | ^ |
 | list | @ |
