@@ -1,6 +1,6 @@
 # OCAML:
 
-## Compilation:
+### Compilation:
 
 ocamlc fichier.ml -o sortie => compiler un fichier ml
 
@@ -10,28 +10,31 @@ Ctrl-D => termine l'interpreteur ocaml (exit 0;; egalement)
 
 rlwrap ocaml => permet d'enregistrer les dernières commandes taper dans ocaml
 
-## Basics:
+### Basics:
 
-Type | Opérations | Modules
-----------------------------
-int | +, -, *, /, mod, abs |
-float | +., -., *., /., **, sqrt, exp, log, cos, sin, tan |
-bool | not, &&, ||, =, <>, <, >, <=, >=, ==, != |
-char | int_of_char, char_of_int |
-string | ^ |
-list | @ |
+| Type | Opérations |
+---------------------
+| int | +, -, *, /, mod, abs |
+| float | +., -., *., /., **, sqrt, exp, log, cos, sin, tan |
+| bool | not, &&, ```||```, =, <>, <, >, <=, >=, ==, != |
+| char | int_of_char, char_of_int |
+| string | ^ |
+| list | @ |
 
+```ocaml
 let succ = (fun x -> x + 1);;
 
 for i = 1 to 10 do
-	...
+	(*...)
 done;;
 
 while condition do
-	...
+	(*...)
 done;;
+```
+### Recursif:
 
-## Recursif:
+```ocaml
 
 let rec size l = 
 	if l = [] then 0
@@ -42,9 +45,11 @@ Avec les pattern match:
 let rec size = function
 	| [] -> 0
 	| e :: tl -> 1 + (size tl);;
+```
 
-## Objets:
+### Objets:
 
+```ocaml
 (unit == void)
 
 class ['a] file = 
@@ -61,9 +66,11 @@ let p = new file;;
 
 p#push "coucou";;
 p#push "hello";;
+```
 
-## Heritage:
+### Heritage:
 
+```ocaml
 class virtual container name =
     object (self)
       inherit widget name
@@ -75,11 +82,13 @@ class virtual container name =
       method repaint =
         List.iter (fun w -> w#repaint) widgets
     end;;
+```
 
 # SmallTalk:
 
-## Heritage:
+### Heritage:
 
+```smalltalk
 Object subclass: #MonObjetMere
  	instanceVariableNames: 'varMere1 varMere2'
  	classVariableNames: ''
@@ -89,19 +98,23 @@ MonObjetMere subclass: #MonObjetFils
  	instanceVariableNames: 'varFils1 varFils2'
  	classVariableNames: ''
  	category: 'EXEMPLE'
+```
 
-## Genericité:
+### Genericité:
 
+```smalltalk
 push: element
 	(element isKindOf: typeElements)
 	ifTrue: [ super push: element ]
 	ifFalse: [ self error: ’Impossible d’’empiler ’ , element printString ,
 	’ dans une pile de ’ , typeElements printString]
+```
 
-## Utiles:
+### Utiles:
 
 C'est la methode qui est executer quand on utilise printIt.
 
+```smalltalk
 printOn: aStream
 	aStream nextPutAll: ’une Pile, de taille: ’.
 	capacite printOn: aStream.
@@ -110,14 +123,18 @@ printOn: aStream
 	aStream nextPutAll: ’ objets : (’.
 	contenu do: [ :each | each printOn: aStream. aStream space ].
 	aStream nextPut: $).
+```
 
 Autres fonctions utiles:
 
 Execute un fonction sur toutes les variables du tableau contenu
 
-
+```smalltalk
 contenu do: [ :each | each function ].
+```
 
 Execute 20 fois la commande do
 
+```smalltalk
 1 to: 20 do: [...]
+```
