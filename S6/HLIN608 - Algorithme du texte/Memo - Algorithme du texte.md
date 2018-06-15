@@ -1,26 +1,16 @@
-# GRAPHE DE BRUIJN:
+# GRAPHE DE BRUIJN
 
-Le graphe B ( 2 , 3 ) {\displaystyle B(2,3)} B(2,3) ci-contre est construit sur un alphabet binaire A = { 0 , 1 } {\displaystyle A=\{0,1\}} A=\{0,1\} pour des mots de longueur n = 3 {\displaystyle n=3} n=3. Les 2 3 = 8 {\displaystyle 2^{3}=8} 2^{3}=8 mots de longueur 3 sur l'alphabet binaire sont :
-
-    000 ,   001 ,   010 ,   011 ,   111 ,   110 ,   101 ,   100 {\displaystyle 000,\ 001,\ 010,\ 011,\ 111,\ 110,\ 101,\ 100} 000,\ 001,\ 010,\ 011,\ 111,\ 110,\ 101,\ 100.
-
-Il existe par exemple un arc allant du sommet 000 {\displaystyle 000} 000 au sommet 001 {\displaystyle 001} 001 car le suffixe de longueur 2 de 000 {\displaystyle 000} 000 est égal au préfixe de longueur 2 de 001 {\displaystyle 001} 001. De même, il existe un arc allant du sommet 100 {\displaystyle 100} 100 au sommet 000 {\displaystyle 000} 000 car le suffixe de longueur 2 de 100 {\displaystyle 100} 100 est égal au préfixe de longueur 2 de 000 {\displaystyle 000} 000.
-
-Le graphe B ( n , 1 ) {\displaystyle B(n,1)} B(n,1) est formé de n {\displaystyle n} n sommets, un pour chaque lettre. De chaque sommet partent n {\displaystyle n} n arcs, il y a donc n 2 {\displaystyle n^{2}} n^{2} arcs.
-
-# GRAPHE K-MERS:
+# GRAPHE K-MERS
 
 Le terme k-mers ce réfère à toutes les sous-chaines possibles de taille k qu'une chaine contient.
 
 Le nombre de k-mers possible dans une chaine de longueur L est **L − k + 1**.
 
+# CHEVAUCHEMENTS ET BORDS
 
+# ALIGNEMENTS DE SEQUENCES
 
-# CHEVAUCHEMENTS ET BORDS:
-
-# ALIGNEMENTS DE SEQUENCES:
-
-# OPERATEUR BITS A BITS:
+# OPERATEUR BITS A BITS
 
 Permet de faire des operations bits a bits sur des entiers non signés en c et c++.
 

@@ -81,7 +81,7 @@ L’usage de la récursion donne une autre preuve. Supposons que h soit calculab
 
 Soit gamma la procédure suivante :
 
-```
+```c
 int gamma(int x) {
 	if(hp(gamma, x)) 
 		while (1);
@@ -99,7 +99,7 @@ Soit Y(p) = 1 si Pour tout x, p(x) = x et 0 sinon.
 
 Si Y est calculable par une procédure delta alors on peut écrire :
 
-``` 
+```c
 int gamma(int x) {
 	if(delta(gamma)) 
 		return 0;
@@ -129,7 +129,7 @@ P non trivial donc il existe p0 et p1 tels que P(p0) = 0 et P(p1) = 1.
 
 Supposons qu’il existe procP qui calcule P alors on peut écrire
 
-```
+```c
 int gamma(int x) {
 	if(procP(gamma))
 		return p0(x);
@@ -178,8 +178,7 @@ problèmes NP-complets. En effet pour montrer que M est NP-complet il faut :
 chaque donnée D de M’ trouver une donnée D' = f(D) telle que M(D') = M’(D) et f se calcule en
 temps polynomial par rapport à la taille de D.
 
-
-# NP:
+# NP
 
 NP = non deterministic polynomial
 
@@ -187,13 +186,13 @@ Un problème est dans NP si :
 
 Il est facile (peut être résolu en temps polynomial par rapport à la taille de la donnée, avec un algorithme)
 
-# NP-COMPLET:
+# NP-COMPLET
 
 Un problème est NP-complet si et seulement si :
 
 * Il est dans NP (facile).
 * Tout problème de NP se réduit polynomialement à lui.
 
-# NP-DIFFICILE:
+# NP-DIFFICILE
 
 Un problème NP-difficile est un problème qui remplit la seconde condition, et donc peut être dans une classe de problème plus large et donc plus difficile que la classe NP.

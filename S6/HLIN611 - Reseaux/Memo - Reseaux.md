@@ -132,17 +132,17 @@ Et on obtient comme adresse de broadcast pour chaque sous-réseau :
 On realise l'adressage avec les masques de sous réseaux à taille variable:
 
 ```
-							(SR1) 200.201.202.0/27 (32-2 hôtes possibles)
-								 /
-				 200.201.202.0/26	
-				/				 \
-200.201.202.0/24  			(SR2) 200.201.202.32/27 (32-2 hôtes possibles)
+                                  (SR1) 200.201.202.0/27 (32-2 hôtes possibles)
+                                 /
+                 200.201.202.0/26	
+                /                \
+200.201.202.0/24                  (SR2) 200.201.202.32/27 (32-2 hôtes possibles)
                 \
-		   (SR3) |--200.201.202.64/26 (64-2 hôtes possibles)
-		         |							
-		   (SR4) |--200.201.202.128/26 (64-2 hôtes possibles)
-		         |	
-		   (SR5) |--200.201.202.192/26 (64-2 hôtes possibles)
+           (SR3) |--200.201.202.64/26 (64-2 hôtes possibles)
+                 |							
+           (SR4) |--200.201.202.128/26 (64-2 hôtes possibles)
+                 |	
+           (SR5) |--200.201.202.192/26 (64-2 hôtes possibles)
 ```
 
 ## ADRESSES PRIVEES
@@ -271,13 +271,13 @@ La table de routage établit la correspondance entre une machine de destination,
 
 ``` 
 traceroute(Hdest) :
-	HdestNonAtteint = vrai ;
-	TTL=0 ;
+	HdestNonAtteint = vrai
+	TTL=0
 	tant que (HdestNonAtteint) faire
-		TTL++;
-		expedier(datagramme, Hdest) ; //demande echo par exemple
-		si (reponse ICMP) alors afficher(expediteur erreur ICMP);
-		sinon si (reponse Hdest) alors HdestNonAtteint = faux;
+		TTL++
+		expedier(datagramme, Hdest) //demande echo par exemple
+		si (reponse ICMP) alors afficher(expediteur erreur ICMP)
+		sinon si (reponse Hdest) alors HdestNonAtteint = faux
 ```
 
 # TCP
@@ -300,8 +300,8 @@ UDP, est un protocole de transport non fiable, en mode non connecté.
 
 **LIENS UTILES:**
 
-https://fr.wikibooks.org/wiki/R%C3%A9seaux_TCP/IP
-https://github.com/angrave/SystemProgramming/wiki
+[https://fr.wikibooks.org/wiki/R%C3%A9seaux_TCP/IP](https://fr.wikibooks.org/wiki/R%C3%A9seaux_TCP/IP)
+[https://github.com/angrave/SystemProgramming/wiki](https://github.com/angrave/SystemProgramming/wiki)
 
 | TCP                    | UDP                  |
 |------------------------|----------------------|
@@ -310,34 +310,41 @@ https://github.com/angrave/SystemProgramming/wiki
 | duplication impossible | duplication possible |
 | mode connecté          | mode non connecté    |
 
-ALLOCATION DES NUMÉROS DE PORT:
+**ALLOCATION DES NUMÉROS DE PORT:**
 
 Serveurs sshd 		=> port 22
 Serveurs httpd 		=> port 80
 Programme personnel => port >1024 (les autres sont déjà utilisé)
 
-SOCKETS:
+**SOCKETS:**
 
 Un canal de communication en réseaux.
 
-			PF_INET		SOCK_DGRAM		0
+```c
+           //PF_INET   SOCK_DGRAM		0
 int socket(int domain, int type, int protocole); //-1 en cas d'erreur
+```
 
-l'exemple ci-dessus crée un socket dans le domaine Ipv4, de type datagramme, avec le protocole par default, UDP.
+L'exemple ci-dessus crée un socket dans le domaine Ipv4, de type datagramme, avec le protocole par default, UDP.
 
-		DESCRIPTEUR SOCKETS 	POINTEUR VERS L'ADRESSE 	LONGUEUR DE L'ADRESSE
+```c
+	  //DESCRIPTEUR SOCKETS    POINTEUR VERS L'ADRESSE   LONGUEUR DE L'ADRESSE
 int bind(int descripteur, const struct sockaddr *adresse, socklen_t lgAdr);
+```
  
-type generique d'adresse:
+**Type generique d'adresse:**
 
+```c
 struct sockaddr {
 	sa_family_t sa_family; 	//famille d'adresse AF_xxx
 	char sa_data[14]; 		//14 octets pour l'IP + port
 }
+```
 
 Si PF_INET alors struct sockaddr_in : une adresse IPv4 et un port
 Si PF_INET6 alors struct sockaddr_in6 : une adresse IPv6 et un port
 
+```c
 struct sockaddr_in {
 	sa_family_t sin_family; 	//famille d'adresse AF_INET
 	in_port sin_port; 			//numéro de port au format réseau
@@ -347,13 +354,18 @@ struct sockaddr_in {
 struct in_addr {
 	uint32_t s_addr; //adresse ip au format réseau
 }
+```
 
 L'ip et le numéro de port sont au format réseau, les entiers sont au format hôte
 une conversion est necessaire (ntohs(), htons(), ntohl(), htonl())
 
-la fonction ci-dessous permet de reutiliser le port directement après la fin du programme.
+La fonction ci-dessous permet de reutiliser le port directement après la fin du programme.
+```c
 setsockopt(sfd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof(optval));
+```
+Le code ci-dessous attache la socket à toutes les interfaces réseaux locales via le port 31470.
 
+```c
 int dSock = socket(PF_INET, SOCK_STREAM, 0);
 
 struct sockaddr_in ad;
@@ -362,19 +374,21 @@ ad.sin_addr.s_addr = INADDR_ANY;
 ad.sin_port = htons((short)31470);
 
 int res = bind(dSock, (struct sockaddr*)&ad, sizeof(ad));
+```
 
-Le code ci-dessus attache la socket à toutes les interfaces réseaux locales via le port 31470.
+**fermeture:**
 
-fermeture:
-
+```c
 int close(int descripteur);
 int shutdown(int descripteur, int comment);
+```
 
-comment = SHUT_WR => arret emmision;
+comment = SHUT_WR 	=> arret emmision;
 comment = SHUT_RDWR => arret emmision et reception;
 
-COMMUNICATION UDP:
+**COMMUNICATION UDP:**
 
+```c
 ssize_t recvfrom(int descripteur, 				//descripteur de socket
 				 const void *msg, 				//pointeur pour stocker le msg reçu
 				 size_t lg, 					//nombre max d'octets attendu
@@ -388,19 +402,26 @@ ssize_t sendto(int descripteur, 				//descripteur de socket
 			   int flags, 						//option d'envoi 0 par defaut
 			   const struct sockaddr *adrExp, 	//pointeur vers l'adresse du destinataire
 			   sockelen_t *lgAdr);				//longueur de l'adresse
+```
 
-COMMUNICATION TCP:
+**COMMUNICATION TCP:**
 
 Passer la socket en mode attente de connexion (serveur):
 
+```c
 int listen(int descripteur, int nbMaxEnAttente); //nombre max de connexion en attente.
+```
 
-Demander la connexion a un serveur:
+**Demander la connexion a un serveur:**
 
+```c
 int connect(int descr, const struct sockaddr *adServ, socklen_t lgAdr);
+```
 
-Exemple:
+**Exemple:**
 
+Envoie une demande de connexion de la socket du clien dS au serveur, via la socket du serveur dont l'IP est 197.50.51.10 et le numéro de port 34567.
+```c
 struct sockaddr_in adServ; 
 
 adServ.sin_family = AF INET;
@@ -410,20 +431,25 @@ int res = inet_pton(AF INET, ”197.50.51.10”, &(adServ.sin_addr));
 socklen t lgA = sizeof(struct sockaddr_in);
 
 res = connect(dS, (struct sockaddr *)&adServ, lgA);
+```
 
-Envoie une demande de connexion de la socket du clien dS au serveur, via la socket du serveur dont l'IP est 197.50.51.10 et le numéro de port 34567.
+**Accepter une demande de connexion d'un client:**
 
-Accepter une demande de connexion d'un client:
-
+```c
 int accept(int descr, struct sockaddr *adrClient, socklen_t lgAdr);
+```
 
-Recevoir/Envoyer un message tcp:
+**Recevoir/Envoyer un message tcp:**
 
+```c
 ssize_t recv(int descripteur, const void *msg, size_t lg, int flags);
 ssize_t send(int descripteur, const void *msg, size_t lg, int flags);
+```
 
-ADRESSES ET NOM D'HOTE:
+**ADRESSES ET NOM D'HOTE:**
 
+La structure suivante représente le liens entre une adresse et un nom d'hote.
+```c
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -432,7 +458,6 @@ ADRESSES ET NOM D'HOTE:
 #include <netinet/in.h>
 #include <netdb.h>
 
-La structure suivante représente le liens entre une adresse et un nom d'hote.
 
 struct addrinfo {
     int              ai_flags;
@@ -444,22 +469,23 @@ struct addrinfo {
     char            *ai_canonname;	//Nom canonique
     struct addrinfo *ai_next;		//La structure peut former une liste chainée
 };
-
+```
 La fonction suivante convertie un nom d'hote ou une adresse IP sous forme de chaine de charactère, en une list chainée de addrinfo.
 
+```c
 int getaddrinfo(const char *node,
                 const char *service,
                 const struct addrinfo *hints,
                 struct addrinfo **res);
 
 void freeaddrinfo(struct addrinfo *res);
+```
 
 La fonction suivante fais l'inverse, elle convertie la representation binaire d'une addresse en un nom d'hote ou en une addresse IP textuel si aucun nom n'est trouvé.
 
+```c
 int getnameinfo(const struct sockaddr *sa, socklen_t salen,
                 char *host, size_t hostlen,
                 char *serv, size_t servlen,
                 int flags);
-
-
-
+```
