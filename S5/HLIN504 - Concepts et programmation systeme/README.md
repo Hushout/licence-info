@@ -14,12 +14,12 @@ float:
 ```
 # COMMANDES UTILES
 
+```
 pwd 			=> print work directory
 touch "ficher" 	=> creer un nouveau fichier
+```
 
 # FONCTION C UTILES
-
-gechar() => attend de lire un char sur stdin
 
 **Fichier:**
 ```c
@@ -30,13 +30,15 @@ Mode:
 r 	=> lecture seule
 w 	=> ecriture seule
 a 	=> ajout a la fin
-rb+ => ecriture lecture dans un fichier existant en binaire)
+rb+	=> ecriture lecture dans un fichier existant en binaire)
 ```
 **Processus:**
 
+```
 fork() 	=> -1 si erreur 
 		=> 0 si dans process fils
 		=> pid fils si dans pere
+```
 
 - alloue block controle dans table process
 - copie processe present dans fils sauf pid et ppid
@@ -56,8 +58,8 @@ on_exit(*function) 	=> same
 
 **differences thread et fork:**
 
-thread partage memoire virtuel, les fork non
-thread pere tuer alors tous thread fils aussi, les fork non
+Les threads partage une memoire virtuel, les fork non.
+Si le threads parant est tué alors tous les threads fils aussi, les fork non.
 
 # COMPILATION
 
