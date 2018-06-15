@@ -49,14 +49,13 @@ fork() => -1 si erreur
 ```
 getpid()            => renvoie pid processus appelant
 getppid()           => renvoie pid parent
-exit(int status)	=> termine le programme
-assert(bool) 		=> avorter le programme
-
-atexit(*function) 	=> execute fonction a la fin
-on_exit(*function) 	=> same
+exit(int status)    => termine le programme
+assert(bool)        => avorter le programme
+atexit(*function)   => execute fonction a la fin
+on_exit(*function)  => same
 ```
 
-**differences thread et fork:**
+**Differences thread et fork:**
 
 - Les threads partagent une memoire virtuel, les fork non.
 - Si le thread parant est tué alors tous les threads fils aussi, les fork non.
@@ -104,7 +103,7 @@ printf("%.*f", 3, 3.23);
 | w    | write | 2     |
 | x    | exec  | 1     |
 
-4 + 2 + 1 => 7 = tous les droits
+4 + 2 + 1 => 7 (tous les droits)
 
 # ENTREES SORTIES
 
