@@ -389,19 +389,19 @@ comment = SHUT_RDWR => arret emmision et reception;
 **COMMUNICATION UDP:**
 
 ```c
-ssize_t recvfrom(int descripteur,				//descripteur de socket
-				 const void *msg,				//pointeur pour stocker le msg reçu
-				 size_t lg,						//nombre max d'octets attendu
-				 int flags,						//option de réceptions 0 par defaut
-				 const struct sockaddr *adrExp,	//pointeur vers l'adresse de l'expediteur
-				 sockelen_t *lgAdr);			//longueur de l'adresse
+ssize_t recvfrom(	int descripteur,				//descripteur de socket
+					const void *msg,				//pointeur pour stocker le msg reçu
+				 	size_t lg,						//nombre max d'octets attendu
+				 	int flags,						//option de réceptions 0 par defaut
+				 	const struct sockaddr *adrExp,	//pointeur vers l'adresse de l'expediteur
+				 	sockelen_t *lgAdr);				//longueur de l'adresse
 
-ssize_t sendto(int descripteur,					//descripteur de socket
-			   const void *msg,					//pointeur vers le msg à envoyer
-			   size_t lg,						//nombre d'octets du msg
-			   int flags,						//option d'envoi 0 par defaut
-			   const struct sockaddr *adrExp,	//pointeur vers l'adresse du destinataire
-			   sockelen_t *lgAdr);	//longueur de l'adresse
+ssize_t sendto(	int descripteur,				//descripteur de socket  
+				const void *msg,				//pointeur vers le msg à envoyer
+			   	size_t lg,						//nombre d'octets du msg
+			   	int flags,						//option d'envoi 0 par defaut
+			   	const struct sockaddr *adrExp,	//pointeur vers l'adresse du destinataire
+			   	sockelen_t *lgAdr);				//longueur de l'adresse
 ```
 
 **COMMUNICATION TCP:**
