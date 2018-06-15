@@ -151,8 +151,8 @@ struct stat
 };
 ```
 ```
-Trouver le type du fichier 			=> st_mode & S_IFMT == (S_IFREG, S_IFDIR, S_IFLNK)
-Trouver les droits sur le fichier 	=> st_mode & (S_IRUSR, S_IWGRP, S_IXOTH) 
+Trouver le type du fichier          => st_mode & S_IFMT == (S_IFREG, S_IFDIR, S_IFLNK)
+Trouver les droits sur le fichier   => st_mode & (S_IRUSR, S_IWGRP, S_IXOTH) 
 ```
 
 ```c
