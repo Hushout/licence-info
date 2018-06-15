@@ -25,7 +25,7 @@ gechar() => attend de lire un char sur stdin
 ```c
 fopen(const char* chemin, const char* mode); => ouvre un fichire 
 ```
-Pour les modes
+Mode:
 r 	=> lecture seule
 w 	=> ecriture seule
 a 	=> ajout a la fin
@@ -34,11 +34,11 @@ rb+ => ecriture lecture dans un fichier existant en binaire)
 **Processus:**
 
 fork() => -1 si erreur / 0 si dans process fils / pid fils si dans pere:
--alloue block controle dans table process
--copie processe present dans fils sauf pid et ppid
--alloue pid au fils
--associe segment données pile au fils
--mis process en execution
+- alloue block controle dans table process
+- copie processe present dans fils sauf pid et ppid
+- alloue pid au fils
+- associe segment données pile au fils
+- mise du processus en execution
 
 getpid() 			=> renvoie pid processus appelant
 getppid() 			=> renvoie pid parent
@@ -61,7 +61,7 @@ thread pere tuer alors tous thread fils aussi, les fork non
 4. Géneration du code
 5. Edition des liens
 
-# PRINTF:
+# PRINTF
 
 p => adresse pointeur 
 e => scientific notation (E uppercase)
