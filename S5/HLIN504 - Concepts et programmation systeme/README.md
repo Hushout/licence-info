@@ -25,7 +25,7 @@ gechar() => attend de lire un char sur stdin
 ```c
 fopen(const char* chemin, const char* mode); => ouvre un fichire 
 ```
-Pour les modes:
+Pour les modes
 r 	=> lecture seule
 w 	=> ecriture seule
 a 	=> ajout a la fin
