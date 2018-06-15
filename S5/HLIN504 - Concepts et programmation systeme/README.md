@@ -58,8 +58,8 @@ on_exit(*function) 	=> same
 
 **differences thread et fork:**
 
-Les threads partage une memoire virtuel, les fork non.
-Si le threads parant est tué alors tous les threads fils aussi, les fork non.
+- Les threads partagent une memoire virtuel, les fork non.
+- Si le thread parant est tué alors tous les threads fils aussi, les fork non.
 
 # COMPILATION
 
@@ -114,7 +114,7 @@ extern FILE* stdout; 	//(1)
 extern FILE* stderr; 	//(3)
 ```
 
-Descritpteur de ficher => entier representant un fichier (0 = stdin)
+Les descritpteur de ficher sont des entiers representant des fichier (0 = stdin)
 
 # EXECUTION
 
@@ -151,8 +151,8 @@ struct stat
 };
 ```
 ```
-trouver type fichier 	=> st_mode & S_IFMT == (S_IFREG, S_IFDIR, S_IFLNK)
-trouver droit fichier 	=> st_mode & (S_IRUSR, S_IWGRP, S_IXOTH) 
+Trouver le type du fichier 			=> st_mode & S_IFMT == (S_IFREG, S_IFDIR, S_IFLNK)
+Trouver les droits sur le fichier 	=> st_mode & (S_IRUSR, S_IWGRP, S_IXOTH) 
 ```
 
 ```c
