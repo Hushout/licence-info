@@ -300,8 +300,8 @@ UDP, est un protocole de transport non fiable, en mode non connecté.
 
 **LIENS UTILES:**
 
-[https://fr.wikibooks.org/wiki/R%C3%A9seaux_TCP/IP](https://fr.wikibooks.org/wiki/R%C3%A9seaux_TCP/IP)
-[https://github.com/angrave/SystemProgramming/wiki](https://github.com/angrave/SystemProgramming/wiki)
+- [https://fr.wikibooks.org/wiki/R%C3%A9seaux_TCP/IP](https://fr.wikibooks.org/wiki/R%C3%A9seaux_TCP/IP)
+- [https://github.com/angrave/SystemProgramming/wiki](https://github.com/angrave/SystemProgramming/wiki)
 
 | TCP                    | UDP                  |
 |------------------------|----------------------|
@@ -321,14 +321,14 @@ Programme personnel => port >1024 (les autres sont déjà utilisé)
 Un canal de communication en réseaux.
 
 ```c
-           //PF_INET   SOCK_DGRAM		0
+           //PF_INET  SOCK_DGRAM       0
 int socket(int domain, int type, int protocole); //-1 en cas d'erreur
 ```
 
 L'exemple ci-dessus crée un socket dans le domaine Ipv4, de type datagramme, avec le protocole par default, UDP.
 
 ```c
-	  //DESCRIPTEUR SOCKETS    POINTEUR VERS L'ADRESSE   LONGUEUR DE L'ADRESSE
+     //DESCRIPTEUR SOCKETS   POINTEUR VERS L'ADRESSE   LONGUEUR DE L'ADRESSE
 int bind(int descripteur, const struct sockaddr *adresse, socklen_t lgAdr);
 ```
  
@@ -336,8 +336,8 @@ int bind(int descripteur, const struct sockaddr *adresse, socklen_t lgAdr);
 
 ```c
 struct sockaddr {
-	sa_family_t sa_family; 	//famille d'adresse AF_xxx
-	char sa_data[14]; 		//14 octets pour l'IP + port
+	sa_family_t sa_family;  //famille d'adresse AF_xxx
+	char sa_data[14];       //14 octets pour l'IP + port
 }
 ```
 
@@ -346,13 +346,13 @@ Si PF_INET6 alors struct sockaddr_in6 : une adresse IPv6 et un port
 
 ```c
 struct sockaddr_in {
-	sa_family_t sin_family; 	//famille d'adresse AF_INET
-	in_port sin_port; 			//numéro de port au format réseau
-	struct in_addr sin_addr;	//structure d'adresse IP
+	sa_family_t sin_family;     //famille d'adresse AF_INET
+	in_port sin_port;           //numéro de port au format réseau
+	struct in_addr sin_addr;    //structure d'adresse IP
 }
 
 struct in_addr {
-	uint32_t s_addr; //adresse ip au format réseau
+	uint32_t s_addr;            //adresse ip au format réseau
 }
 ```
 
@@ -389,19 +389,19 @@ comment = SHUT_RDWR => arret emmision et reception;
 **COMMUNICATION UDP:**
 
 ```c
-ssize_t recvfrom(int descripteur, 				//descripteur de socket
-				 const void *msg, 				//pointeur pour stocker le msg reçu
-				 size_t lg, 					//nombre max d'octets attendu
-				 int flags, 					//option de réceptions 0 par defaut
-				 const struct sockaddr *adrExp, //pointeur vers l'adresse de l'expediteur
+ssize_t recvfrom(int descripteur,				//descripteur de socket
+				 const void *msg,				//pointeur pour stocker le msg reçu
+				 size_t lg,						//nombre max d'octets attendu
+				 int flags,						//option de réceptions 0 par defaut
+				 const struct sockaddr *adrExp,	//pointeur vers l'adresse de l'expediteur
 				 sockelen_t *lgAdr);			//longueur de l'adresse
 
-ssize_t sendto(int descripteur, 				//descripteur de socket
-			   const void *msg, 				//pointeur vers le msg à envoyer
-			   size_t lg, 						//nombre d'octets du msg
-			   int flags, 						//option d'envoi 0 par defaut
-			   const struct sockaddr *adrExp, 	//pointeur vers l'adresse du destinataire
-			   sockelen_t *lgAdr);				//longueur de l'adresse
+ssize_t sendto(int descripteur,					//descripteur de socket
+			   const void *msg,					//pointeur vers le msg à envoyer
+			   size_t lg,						//nombre d'octets du msg
+			   int flags,						//option d'envoi 0 par defaut
+			   const struct sockaddr *adrExp,	//pointeur vers l'adresse du destinataire
+			   sockelen_t *lgAdr);	//longueur de l'adresse
 ```
 
 **COMMUNICATION TCP:**
