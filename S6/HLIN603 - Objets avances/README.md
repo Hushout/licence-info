@@ -112,7 +112,7 @@ push: element
 
 ### Utiles:
 
-C'est la methode qui est executer quand on utilise printIt.
+C'est la methode qui est executée quand on utilise printIt.
 
 ```smalltalk
 printOn: aStream
