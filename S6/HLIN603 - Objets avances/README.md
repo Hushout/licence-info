@@ -106,8 +106,8 @@ MonObjetMere subclass: #MonObjetFils
 push: element
 	(element isKindOf: typeElements)
 	ifTrue: [ super push: element ]
-	ifFalse: [ self error: ’Impossible d’’empiler ’ , element printString ,
-	’ dans une pile de ’ , typeElements printString]
+	ifFalse: [ self error: 'Impossible d\'empiler ' , element printString ,
+	' dans une pile de ' , typeElements printString]
 ```
 
 ### Utiles:
@@ -116,11 +116,11 @@ C'est la methode qui est executer quand on utilise printIt.
 
 ```smalltalk
 printOn: aStream
-	aStream nextPutAll: ’une Pile, de taille: ’.
+	aStream nextPutAll: 'une Pile, de taille: '.
 	capacite printOn: aStream.
-	aStream nextPutAll: ’ contenant: ’.
+	aStream nextPutAll: ' contenant: '.
 	index printOn: aStream.
-	aStream nextPutAll: ’ objets : (’.
+	aStream nextPutAll: ' objets : ('.
 	contenu do: [ :each | each printOn: aStream. aStream space ].
 	aStream nextPut: $).
 ```
