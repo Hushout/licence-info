@@ -188,7 +188,7 @@ setTimeout('maFonction()', 3000); //=> en ms
 setTimeout('maFonction()', 3000); //=> en ms
 ```
 
-## CONVERSIONS
+### CONVERSIONS
 
 ```
 text to number 	=> parsInt("text"); parsInt('text', base number)
@@ -196,7 +196,7 @@ number to text 	=> int1 + '' + int2;
 ===             => regarder l'egalité avec en plus l'égalité de type ! 
 ```
 
-## TYPES
+### TYPES
 
 **typeof:**
 ```
@@ -208,7 +208,7 @@ number to text 	=> int1 + '' + int2;
 'function'
 'object'
 ```
-## OBJETS
+### OBJETS
 
 ```javascript
 var myObject = {
@@ -228,7 +228,7 @@ for(let p of object){
 }
 ```
 
-## DOM
+### DOM
 
 **Objet window implicite:**
 ```javascript
@@ -312,7 +312,7 @@ replaceChild
 removeChild     => renvoie l'element supprimer
 insertBefore() 	=> insert avant un element
 ```
-## JQUERY
+### JQUERY
 
 ```javascript
 $(function(){
@@ -330,7 +330,7 @@ $('balise:gt(i)')               //=> selection les balises apres l'index i
 $('balise:lt(i)')               //=> selection les balises avant l'index i
 $('balise').each(function(index){...}}]); //=> parcours les fils de l'element
 ```
-## EVENEMENTS
+### EVENEMENTS
 
 ```javascript
 $(selecteur).click(function())
@@ -340,7 +340,7 @@ $(selecteur).mousedown(function())
 $(selecteur).keypress(function())
 ```
 
-## BIBLIOTHEQUE D3
+### BIBLIOTHEQUE D3
 
 ```javascript
 var canvas = d3.select('body').append('svg').attr('width', 100).attr('height', 100);
