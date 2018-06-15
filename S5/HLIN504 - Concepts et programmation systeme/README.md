@@ -15,8 +15,8 @@ float:
 # COMMANDES UTILES
 
 ```
-pwd 			=> print work directory
-touch "ficher" 	=> creer un nouveau fichier
+pwd             => print work directory
+touch "ficher"  => creer un nouveau fichier
 ```
 
 # FONCTION C UTILES
@@ -35,9 +35,9 @@ rb+	=> ecriture lecture dans un fichier existant en binaire)
 **Processus:**
 
 ```
-fork() 	=> -1 si erreur 
-		=> 0 si dans process fils
-		=> pid fils si dans pere
+fork() => -1 si erreur 
+       => 0 si dans process fils
+       => pid fils si dans pere
 ```
 
 - alloue block controle dans table process
@@ -47,8 +47,8 @@ fork() 	=> -1 si erreur
 - mise du processus en execution
 
 ```
-getpid() 			=> renvoie pid processus appelant
-getppid() 			=> renvoie pid parent
+getpid()            => renvoie pid processus appelant
+getppid()           => renvoie pid parent
 exit(int status)	=> termine le programme
 assert(bool) 		=> avorter le programme
 
@@ -78,14 +78,14 @@ o => unsigned octal
 x => unsigned hexadecimal integer (X uppercase)
 a => hexadecimal floating point (A uppercase)
 
-(number) 	=> formatte la zone d'ecrite minimal
-(space)		=> si pas de signe alors un espace
-- 			=> align le l'ecriture à gauche de la zone formaté
-+ 			=> affiche signe meme si positif
-# 			=> affiche le 0x selon le format d'ecriture
-0 			=> rempli la zone formatter avec des zeros
-.(number) 	=> precision
-* 			=> permet de mettre un paramètre un nombre 
+(number)    => formatte la zone d'ecrite minimal
+(space)     => si pas de signe alors un espace
+-           => align le l'ecriture à gauche de la zone formaté
++           => affiche signe meme si positif
+#           => affiche le 0x selon le format d'ecriture
+0           => rempli la zone formatter avec des zeros
+.(number)   => precision
+*           => permet de mettre un paramètre un nombre 
 ```
 **Exemple:**
 ```c
