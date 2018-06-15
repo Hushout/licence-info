@@ -1,5 +1,6 @@
 # PHP
-#### GENERAL
+
+### GENERAL
 
 "$var" analyse si une variable est dans la chaine, contrairement à '$var' qui est plus rapide par contre, un alternative est : '' . $var . ''
 
@@ -33,7 +34,8 @@ htmlspecialchars($_POST['prenom']);
 celle-ci les retire totalement
 ```php
 strip_tags($_POST['prenom']);
-```#### VARIABLE GLOBALES
+```
+### VARIABLE GLOBALES
 
 ```
 $_SERVER['REMOTE_ADDR'] => adresse ip de l'utilisateur
@@ -41,7 +43,8 @@ $_SESSION 				=> les varibles stocker temporairement sur le serveur
 $_COOKIE 				=> les variables enregistrer sur l'ordi du visiteur
 $_FILES 				=> listes des fichier envoyé par formulaire
 ```
-#### SESSIONS ET COOKIES
+
+### SESSIONS ET COOKIES
 
 PHPSESSID 			=> identifiant session
 session_start() 	=> demarre la session (utiliser avant le code html)
@@ -52,7 +55,8 @@ session_destroy() 	=> ferme la session
 setcookie('pseudo', 'M@teo21', time() + 365*24*3600, null, null, false, true);
 ``` 
 (utilliser avant le code html, le dernier true = securité pour faille xss)
-#### FICHIER
+
+### FICHIER
 
 changer les droit du fichier a 777 au prealable;
 
@@ -70,7 +74,8 @@ r 	=> lecture seule
 r+ 	=> lecture ecriture
 a 	=> ecriture seule + creer  fichier si non existant
 a+ 	=> lecture ecriture + creer fichier si non existant
-#### BASE DE DONNEES
+
+### BASE DE DONNEES
 
 **Avec query, immediat mais moins securisé:**
 ```php
@@ -115,18 +120,21 @@ $req->execute(array(
 
 $nb_modifs = $bdd->exec('UPDATE jeux_video SET possesseur = \'Florent\' WHERE possesseur = \'Michel\'');
 ```
-#### DATES FRANCAISES
+
+### DATES FRANCAISES
 ```php
 $comments = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE post_id = ? ORDER BY comment_date DESC');
 $comments->execute(array($postId));
 ```
-#### REDIRECTION
+
+### REDIRECTION
 ```php
 header('Location: minichat.php');
 ```
 
 # JAVASCRIPT
-#### EVENEMENTS
+
+### EVENEMENTS
 
 **Body:**
 onLoad 		=> chargement de la page
@@ -152,7 +160,8 @@ var boolean = confirm("message ?");
 var reponse = prompt("message ?");
 open('page.html', 'reponse', 'width=500,height=500');
 ```
-#### FONCTIONS
+
+### FONCTIONS
 
 <script>
 	function mafonction(arg){}
