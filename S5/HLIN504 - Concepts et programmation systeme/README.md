@@ -19,58 +19,64 @@ touch "ficher" 	=> creer un nouveau fichier
 
 # FONCTION C UTILES
 
-gechar(); -> attend de lire un char sur stdin
+gechar() => attend de lire un char sur stdin
 
 **Fichier:**
-
-fopen(const char* chemin, const char* mode); -> ouvre un fichire 
-(mode: r = lecture seule, w = ecriture seule, a = ajout a la fin
-+ & b -> rb+ = ecriture lecture dans un fichier existant en binaire)
+```c
+fopen(const char* chemin, const char* mode); => ouvre un fichire 
+```
+Pour les modes:
+r 	=> lecture seule
+w 	=> ecriture seule
+a 	=> ajout a la fin
+rb+ => ecriture lecture dans un fichier existant en binaire)
 
 **Processus:**
 
-fork() -> -1 si erreur / 0 si dans process fils / pid fils si dans pere:
+fork() => -1 si erreur / 0 si dans process fils / pid fils si dans pere:
 -alloue block controle dans table process
 -copie processe present dans fils sauf pid et ppid
 -alloue pid au fils
 -associe segment données pile au fils
 -mis process en execution
 
-getpid() -> renvoie pid processus appelant
-getppid() -> renvoie pid parent
-exit(int status) -> termine le programme
-assert(bool) -> avorter le programme
+getpid() 			=> renvoie pid processus appelant
+getppid() 			=> renvoie pid parent
+exit(int status)	=> termine le programme
+assert(bool) 		=> avorter le programme
 
-atexit(*function) -> execute fonction a la fin
-on_exit(*function) -> same
+atexit(*function) 	=> execute fonction a la fin
+on_exit(*function) 	=> same
 
-differences thread et fork:
+**differences thread et fork:**
+
 thread partage memoire virtuel, les fork non
 thread pere tuer alors tous thread fils aussi, les fork non
 
-# COMPTILATION
+# COMPILATION
 
-1) Prétraitement (preprocessing)
-2) Analyse syntaxique (parsing)
-3) Analyse sémantique
-4) Géneration du code
-5) Edition des liens
+1. Prétraitement (preprocessing)
+2. Analyse syntaxique (parsing)
+3. Analyse sémantique
+4. Géneration du code
+5. Edition des liens
 
 # PRINTF:
-p -> adresse pointeur 
-e -> scientific notation (E uppercase)
-o -> unsigned octal
-x -> unsigned hexadecimal integer (X uppercase)
-a -> hexadecimal floating point (A uppercase)
 
-(number) 	-> formatte la zone d'ecrite minimal
-(space)		-> si pas de signe alors un espace
-- 			-> align le l'ecriture à gauche de la zone formaté
-+ 			-> affiche signe meme si positif
-# 			-> affiche le 0x selon le format d'ecriture
-0 			-> rempli la zone formatter avec des zeros
-.(number) 	-> precision
-* 			-> permet de mettre un paramètre un nombre 
+p => adresse pointeur 
+e => scientific notation (E uppercase)
+o => unsigned octal
+x => unsigned hexadecimal integer (X uppercase)
+a => hexadecimal floating point (A uppercase)
+
+(number) 	=> formatte la zone d'ecrite minimal
+(space)		=> si pas de signe alors un espace
+- 			=> align le l'ecriture à gauche de la zone formaté
++ 			=> affiche signe meme si positif
+# 			=> affiche le 0x selon le format d'ecriture
+0 			=> rempli la zone formatter avec des zeros
+.(number) 	=> precision
+* 			=> permet de mettre un paramètre un nombre 
 
 ```c
 printf("%.*f", 3, 3.23);
@@ -88,7 +94,7 @@ printf("%.*f", 3, 3.23);
 | w    | write | 2     |
 | x    | exec  | 1     |
 
-addition 4 + 2 + 1 -> 7 = tous les droits
+4 + 2 + 1 => 7 = tous les droits
 
 # ENTREES SORTIES
 
@@ -98,19 +104,19 @@ extern FILE* stdout; 	//(1)
 extern FILE* stderr; 	//(3)
 ```
 
-descritpteur de ficher -> entier representant un fichier (0 = stdin)
+Descritpteur de ficher => entier representant un fichier (0 = stdin)
 
 # EXECUTION
 
 ```c
 int execve(const char *filename, char *const argv[], char *const envp[]); 
 ```
--> appel système a la base des autres fonctions
+execve est un appel système à la base des fonctions suivantes:
 
-exec + l -> argument sous forme de liste
-exec + v -> arg sous forme de tableau
-exec + p -> fichier a executer rechercher avec variable PATH
-exec + e -> nouvel environnement transmis au processus fils
+exec + l => argument sous forme de liste
+exec + v => arg sous forme de tableau
+exec + p => fichier a executer rechercher avec variable PATH
+exec + e => nouvel environnement transmis au processus fils
 
 # GESTION DES FICHIER
 
@@ -133,8 +139,8 @@ struct stat
 };
 ```
 
-trouver type fichier -> st_mode & S_IFMT == (S_IFREG, S_IFDIR, S_IFLNK)
-trouver droit fichier -> st_mode & (S_IRUSR, S_IWGRP, S_IXOTH) 
+trouver type fichier 	=> st_mode & S_IFMT == (S_IFREG, S_IFDIR, S_IFLNK)
+trouver droit fichier 	=> st_mode & (S_IRUSR, S_IWGRP, S_IXOTH) 
 
 ```c
 struct dirent
