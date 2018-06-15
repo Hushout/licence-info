@@ -312,9 +312,11 @@ UDP, est un protocole de transport non fiable, en mode non connecté.
 
 **ALLOCATION DES NUMÉROS DE PORT:**
 
+```
 Serveurs sshd 		=> port 22
 Serveurs httpd 		=> port 80
 Programme personnel => port >1024 (les autres sont déjà utilisé)
+```
 
 **SOCKETS:**
 
@@ -341,8 +343,10 @@ struct sockaddr {
 }
 ```
 
-Si PF_INET alors struct sockaddr_in : une adresse IPv4 et un port
-Si PF_INET6 alors struct sockaddr_in6 : une adresse IPv6 et un port
+
+- Si PF_INET alors struct sockaddr_in : une adresse IPv4 et un port
+- Si PF_INET6 alors struct sockaddr_in6 : une adresse IPv6 et un port
+
 
 ```c
 struct sockaddr_in {
@@ -383,8 +387,8 @@ int close(int descripteur);
 int shutdown(int descripteur, int comment);
 ```
 
-comment = SHUT_WR 	=> arret emmision;
-comment = SHUT_RDWR => arret emmision et reception;
+- Si comment == SHUT_WR   => arret emmision;
+- Si comment == SHUT_RDWR => arret emmision et reception;
 
 **COMMUNICATION UDP:**
 
