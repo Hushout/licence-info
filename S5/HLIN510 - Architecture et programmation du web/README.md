@@ -4,7 +4,7 @@
 
 **Chaines de charactères:**
 
-"$var" analyse si une variable est dans la chaine, contrairement à '$var' qui est plus rapide par contre, un alternative est : '' . $var . ''
+"$var" analyse si une variable est dans la chaine, contrairement à '$var' qui est plus rapide par contre, un alternative est : ' ' . $var . ' '
 
 **Afficher bien les tableaux :**
 ```php
@@ -22,13 +22,13 @@ in_array('val', $array) 		=> verify si la valeur existe
 array_search('val', $array) 	=> recupere la clé d'une valeur sinon faux
 ```
 **Envoie de lien url:**
-```
+```html
 <a href = "index.php?nom=boby&amp;prenom=josé">Envoyer</a>
 (ne pas depasser 256 caractères sinon bug donc faire attention a get)
 ```
 
 **Formulaire:**
-```
+```html
 <form method="post/get" action="cible.php"></form>
 get 	=> données envoyées par url recuperer avec $_GET (< 256 caractères)
 post 	=> données non envoyées par url recuperer avec $_POST
@@ -46,19 +46,21 @@ strip_tags($_POST['prenom']);
 
 ```
 $_SERVER['REMOTE_ADDR'] => adresse ip de l'utilisateur
-$_SESSION 				=> les varibles stocker temporairement sur le serveur
-$_COOKIE 				=> les variables enregistrer sur l'ordi du visiteur
-$_FILES 				=> listes des fichier envoyé par formulaire
+$_SESSION               => les varibles stocker temporairement sur le serveur
+$_COOKIE                => les variables enregistrer sur l'ordi du visiteur
+$_FILES                 => listes des fichier envoyé par formulaire
 ```
 
 ### SESSIONS ET COOKIES
 
-PHPSESSID 			=> identifiant session
-session_start() 	=> demarre la session (utiliser avant le code html)
-session_destroy() 	=> ferme la session
+```
+PHPSESSID           => identifiant session
+session_start()     => demarre la session (utiliser avant le code html)
+session_destroy()   => ferme la session
+```
 
 ```php
-		  //nom		valeur		date d'expiration
+           //nom      valeur    date d'expiration
 setcookie('pseudo', 'M@teo21', time() + 365*24*3600, null, null, false, true);
 ``` 
 (utilliser avant le code html, le dernier true = securité pour faille xss)
@@ -76,12 +78,12 @@ fseek($fichier, position);
 fputs($fichier, 'ma phrase');
 $fclose($fichier);
 ```
-
+```
 r 	=> lecture seule
 r+ 	=> lecture ecriture
 a 	=> ecriture seule + creer  fichier si non existant
 a+ 	=> lecture ecriture + creer fichier si non existant
-
+```
 ### BASE DE DONNEES
 
 **Avec query, immediat mais moins securisé:**
@@ -144,21 +146,27 @@ header('Location: minichat.php');
 ### EVENEMENTS
 
 **Body:**
+```
 onLoad 		=> chargement de la page
 onUnLoad	=> dechargement de la page
-
+```
 **Input/button:**
+```
 onClick 	=> clic souris
-
+```
 **Select:**
+```
 onChange 	=> modification objet
-
+```
 **General:**
+```
 onMouseOver => quand souris rentre
 onMouseOut 	=> quand souris sort
-
+```
 **Form:**
+```
 onSubmit 	=> a l'envoe
+```
 
 **Fenetre:**
 ```javascript
@@ -170,23 +178,28 @@ open('page.html', 'reponse', 'width=500,height=500');
 
 ### FONCTIONS
 
+```javascript
 <script>
 	function mafonction(arg){}
 </script>
 
-document.write("<h1>Titre</h1>"); => ecrit la page web dynamiquement
-setTimeout('maFonction()', 3000); => en ms
-setTimeout('maFonction()', 3000); => en ms
+document.write("<h1>Titre</h1>"); //=> ecrit la page web dynamiquement
+setTimeout('maFonction()', 3000); //=> en ms
+setTimeout('maFonction()', 3000); //=> en ms
+```
 
 ## CONVERSIONS
 
+```
 text to number 	=> parsInt("text"); parsInt('text', base number)
 number to text 	=> int1 + '' + int2;
 === 			=> regarder l'egalité avec en plus l'égalité de type ! 
+```
 
 ## TYPES
 
 **typeof:**
+```
 'undefined'
 'boolean'
 'number'
@@ -194,7 +207,7 @@ number to text 	=> int1 + '' + int2;
 'symbol'
 'function'
 'object'
-
+```
 ## OBJETS
 
 ```javascript
@@ -218,16 +231,18 @@ for(let p of object){
 ## DOM
 
 **Objet window implicite:**
+```javascript
 window.alert() == alert()
-
+```
 **Document, un element de window:**
+```javascript
 document.getElementById()
 document.getElementsByTagName()
 document.getElementsByName()
 
-var query 		= document.querySelector('#id .class balise');
-var queryAll 	= document.querySelectorAll('##menu .item span');
-
+var query = document.querySelector('#id .class balise');
+var queryAll = document.querySelectorAll('##menu .item span');
+```
 **Set/get:**
 ```html
 <a id="myLink" href="http://www.un_lien_quelconque.com">Un lien modifié dynamiquement</a>
@@ -246,14 +261,18 @@ link.href = 'http://www.siteduzero.com';
 ```
 
 **Assign:**
+```javascript
 document.getElementById('myId').className = 'blue';
+```
 
 **Recuperer html/text:**
+```javascript
 var div 	= document.getElementById('myDiv');
 var html 	= div.innerHTML;
 var text 	= div.innerText; == textContent;
-
+```
 **Se deplacer dans le dom:**
+```
 var parent = div.parentNode;
 nodeType
 nodeName
@@ -262,31 +281,37 @@ lastChild
 
 nextSibling 	=> noeud suivant
 previousSibling => noeud precedant
-
+```
 (pour html uniquement rajouter 'Element')
 
 **Exemble:**
+```
 firstElementChild
 nextElementSibling
-
+```
 **Creation d'elements:**
+```javascript
 var newLink 	= document.createElement('a');
 newLink.id    	= 'sdz_link';
 newLink.href  	= 'http://www.siteduzero.com';
 newLink.title 	= 'Découvrez le Site du Zéro !';
 newLink.setAttribute('tabindex', '10');
-
+```
 **Ajout d'elements:**
-eleement.appendChild(newLink);
-
+```javascript
+element.appendChild(newLink);
+```
 **creation d'elements texts:**
+```javascript
 var newLinkText = document.createTextNode("Le Site du Zéro");
 newLink.appendChild(newLinkText);
+```
 
+```
 replaceChild
-removeChild 	=> return l'element supprimer
+removeChild     => renvoie l'element supprimer
 insertBefore() 	=> insert avant un element
-
+```
 ## JQUERY
 
 ```javascript
