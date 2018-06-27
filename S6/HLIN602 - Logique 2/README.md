@@ -1,20 +1,22 @@
 # RAPPEL LOGIQUE
 
-Une fbf est **satisfiable** s’il existe au moins une interprétation dans laquelle elle est vraie
-Une fbf est **contingente** s’il existe au moins une interprétation dans laquelle elle est vraie et une dans laquelle elle est fausse
-Une fbf est **valide** si dans toute interprétation elle est vraie
-Une fbf est **insatisfiable** si elle est fausse dans toute interprétation
+Une fbf est :
+- **satisfiable** s’il existe au moins une interprétation dans laquelle elle est vraie
+-  **contingente** s’il existe au moins une interprétation dans laquelle elle est vraie et une dans laquelle elle est fausse
+-  **valide** si dans toute interprétations elle est vraie
+-  **insatisfiable** si elle est fausse dans toute interprétations
 
-Une interpretation I qui donne la valeur vrai a une fbf est appelée **modèle**
-Une interpretation I qui donne la valeur faux a une fbf est appelée **contre-modèle**
+Une interpretation I est: 
+- Un **modèle** d'une fbf f si elle donne la valeur vrai à f
+- Un **contre-modèle** d'une fbf f si elle donne la valeur faux à f 
 
 Deux fbf P et Q sont logiquement équivalentes ssi elles ont la même valeur pour toute
 interprétation i.e. pour toute interprétation I v(P, I) = v(Q, I).
 
 P eq (equivalente à) Q ssi P <=> Q est valide
 
-T eq Toujours vrai
-B eq Toujours faux
+T eq (Toujours vrai)
+B eq (Toujours faux)
 
 **Idempotence de ^ et v**
 
