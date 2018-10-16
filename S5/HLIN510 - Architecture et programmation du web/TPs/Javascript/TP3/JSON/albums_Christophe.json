@@ -1,0 +1,12 @@
+[
+  {
+    "nom": "Les mots bleus",
+    "image": "les_mots_bleus.jpg",
+    "lien": "Album_les_mots_bleus"
+  },
+  {
+    "nom":   "Clichés d'amour",
+    "image": "cliches_d_amour.jpg",
+    "lien": "Album_cliches_d_amour"
+  }
+]
